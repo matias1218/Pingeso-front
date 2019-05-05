@@ -24,7 +24,7 @@
                           label="Ingrese password"
                           v-model="password"
                           min="8"
-                          :append-icon="e1 ? 'visibility' : 'visibility_off'"
+                          :append-icon="e1 ? 'visibility_off' : 'visibility'"
                           :append-icon-cb="() => (e1 = !e1)"
                           :type="e1 ? 'password' : 'text'"
                           :rules="passwordRules"
@@ -32,7 +32,7 @@
                           required
                         ></v-text-field>
                         <v-layout justify-space-between>
-                            <v-btn color="primary" @click="submit" :class="{ 'blue darken-4 white--text' : valid, disabled: !valid }">Login</v-btn>
+                            <v-btn color="primary" :class="{ 'blue darken-4 white--text' : valid, disabled: !valid }">Login</v-btn>
                             <a href="">Olvidé mi contraseña</a>
                         </v-layout>
                       </v-form>
@@ -62,7 +62,7 @@ export default {
   data () {
       return {
             valid: false,
-            e1: false,
+            e1: true,
             password: '',
             passwordRules: [
               (v) => !!v || 'Password es requerido',
