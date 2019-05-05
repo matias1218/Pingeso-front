@@ -13,7 +13,10 @@ import '@fortawesome/fontawesome-free/css/all.css' // Ensure you are using css-l
 import Vuetify from 'vuetify'
 
 Vue.use(Vuetify, {
- iconfont: 'fa'
+ iconfont: 'fa',
+ theme:{
+  warning:'#EA7600'
+ }
 })
 
 new Vue({

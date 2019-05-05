@@ -1,8 +1,8 @@
 <template>
   <div id="home">
-   <v-app>
+   
      <main>
-       <v-container fluid fill-height class="loginOverlay">
+       <v-container fluid fill-height class="loginOverlay" style="margin-top: -64px;">
           <v-layout flex align-center justify-center>
             <v-flex xs12 sm4 elevation-6>
               <v-toolbar class="blue darken-4">
@@ -43,7 +43,7 @@
           </v-layout>
        </v-container>
      </main>
-   </v-app>
+   
  </div>
 </template>
 

@@ -1,16 +1,23 @@
 <template>
   <div id="app" >
+    <v-app>
     <sidebar-menu 
      :menu="menu" 
      :theme="selectedTheme"
+     :collapsed="true"
      :show-one-child="true"/>
+   
+    <v-toolbar color="warning" dark extended height="90px" flat>
+      <v-spacer></v-spacer>
+      <v-btn flat icon>
+        <v-icon>logout</v-icon>
+      </v-btn>
+    </v-toolbar>
 
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-      
-    </div>
-    <router-view/>
+    <v-content>
+      <router-view/>
+    </v-content>
+    </v-app>
   </div>
 </template>
 <script>
@@ -75,7 +82,8 @@ import { SidebarMenu } from 'vue-sidebar-menu'
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background:  linear-gradient(180deg, #EA7600 14%, #002F6C  14%);
+  /* background:  linear-gradient(180deg, #EA7600 14%,   14%); */
+  background: #002F6C;
   background-repeat:no-repeat;
   background-attachment:scroll;
   background-position:center top; 
