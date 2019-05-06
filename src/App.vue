@@ -35,7 +35,7 @@ import { SidebarMenu } from 'vue-sidebar-menu'
         menu: [
           {
             header: true,
-            title: 'Main Navigation',
+            title: 'Contenidos',
             // component: componentName
             // visibleOnCollapse: true
             // class:''
@@ -43,8 +43,8 @@ import { SidebarMenu } from 'vue-sidebar-menu'
             },
             {
              href: '/',
-             title: 'Dashboard',
-             icon: 'fa fa-download',
+             title: 'Inicio',
+             icon: 'fa fa-home',
              // disabled: true
              // class:''
              // attributes: {}
@@ -56,18 +56,23 @@ import { SidebarMenu } from 'vue-sidebar-menu'
               }
               */
               },
-                {
-                 title: 'Charts',
-                 icon: 'Person',
-                 child: [
-                   {
-                    href: '/charts/sublink',
-                    title: 'Sub Link',
-                     }
-                   ]
-                    }
-                ],
-                selectedTheme: 'white-theme'
+              {
+                href:'/topicsByTeacher',
+                title: 'Topicos',
+                icon: 'fa fa-th-large'
+              },
+              {
+                title: 'Estadisticas',
+                icon: 'fas fa-chart-bar'
+                // child: [
+                //   {
+                //   href: '/charts/sublink',
+                //   title: 'Sub Link',
+                //     }
+                // ]
+              }
+              ],
+              // selectedTheme: 'white-theme'
 
             }
         }
@@ -87,8 +92,11 @@ import { SidebarMenu } from 'vue-sidebar-menu'
   background-repeat:no-repeat;
   background-attachment:scroll;
   background-position:center top; 
-  height:800px;
   
+  
+}
+body{
+  height:100vh;
 }
 
 #nav {
