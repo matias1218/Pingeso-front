@@ -1,23 +1,12 @@
 <template>
   <div id="app" >
-    <v-app>
     <sidebar-menu 
      :menu="menu" 
      :theme="selectedTheme"
-     :collapsed="true"
      :show-one-child="true"/>
-   
-    <v-toolbar color="warning" dark extended height="90px" flat>
-      <v-spacer></v-spacer>
-      <v-btn flat icon>
-        <v-icon>logout</v-icon>
-      </v-btn>
-    </v-toolbar>
 
-    <v-content>
-      <router-view/>
-    </v-content>
-    </v-app>
+   
+    <router-view/>
   </div>
 </template>
 <script>
@@ -35,7 +24,7 @@ import { SidebarMenu } from 'vue-sidebar-menu'
         menu: [
           {
             header: true,
-            title: 'Contenidos',
+            title: 'DIINF',
             // component: componentName
             // visibleOnCollapse: true
             // class:''
@@ -44,35 +33,31 @@ import { SidebarMenu } from 'vue-sidebar-menu'
             {
              href: '/',
              title: 'Inicio',
-             icon: 'fa fa-home',
-             // disabled: true
-             // class:''
-             // attributes: {}
-              /*
-            badge: {
-              text: 'new',
-              // class:''
-              // attributes: {}
-              }
-              */
+             icon: 'fa fa-download'       
               },
+            {
+              href: '/gestionprofesores',
+              title: 'Gestionar Profesores',
+              icon: 'fas fa-chalkboard-teacher', 
+            },
+            {
+              href: '/',
+              title: 'Asignación de correcciones',
+              icon: 'fas fa-id-card-alt', 
+            },
+            {
+              href: '/',
+              title: 'Ver estadísticas',
+              icon: 'fas fa-chart-line', 
+            },
               {
                 href:'/topicsByTeacher',
                 title: 'Topicos',
                 icon: 'fa fa-th-large'
               },
-              {
-                title: 'Estadisticas',
-                icon: 'fas fa-chart-bar'
-                // child: [
-                //   {
-                //   href: '/charts/sublink',
-                //   title: 'Sub Link',
-                //     }
-                // ]
-              }
-              ],
-              // selectedTheme: 'white-theme'
+
+            ],
+            selectedTheme: 'white-theme'
 
             }
         }
@@ -87,16 +72,12 @@ import { SidebarMenu } from 'vue-sidebar-menu'
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* background:  linear-gradient(180deg, #EA7600 14%,   14%); */
-  background: #002F6C;
+  background:  linear-gradient(180deg, #EA7600 14%, #002F6C  14%);
   background-repeat:no-repeat;
   background-attachment:scroll;
   background-position:center top; 
+  height:800px;
   
-  
-}
-body{
-  height:100vh;
 }
 
 #nav {
@@ -111,4 +92,6 @@ body{
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
 </style>
+

@@ -1,8 +1,7 @@
 <template>
   <div id="home">
-   
      <main>
-       <v-container fluid fill-height class="loginOverlay" style="margin-top: -64px;">
+       <v-container fluid fill-height class="loginOverlay" >
           <v-layout flex align-center justify-center>
             <v-flex xs11 sm4 elevation-6>
               <v-toolbar class="blue darken-4">
@@ -88,3 +87,11 @@ export default {
 }
   
 </script>
+<style>
+.main{
+ 
+margin:1em auto;
+
+
+}
+</style>
