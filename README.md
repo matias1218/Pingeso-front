@@ -8,6 +8,7 @@
 
 ## Rutas
 * topicos por profesores: "/topicsByTeacher"
+* gestion profesores: "/gestionprofesores"
 
 ### Modulos anexados
 * mdbvue (https://mdbootstrap.com/docs/vue/) 
