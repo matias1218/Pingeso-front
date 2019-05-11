@@ -1,11 +1,11 @@
 <template>
-    <v-container grid-list-md style="margin-top: -64px;">
+    <v-container grid-list-md>
         <v-layout row wrap >
 
             <!-- aqui debe ir un iterador que tome una lista
             de topicos con los profesores a cargo -->
             
-                <teacher-card
+                <teacher-card 
                 :topicName="topic"
                 :teacherName="teacher"
                 :description="description"/>

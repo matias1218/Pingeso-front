@@ -1,5 +1,5 @@
 <template>  
-    <v-flex xs12 sm6 >
+    <v-flex xs12 sm6 id="card">
        <v-card hover >
         <v-img src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
             aspect-ratio="2.75">    
@@ -15,6 +15,8 @@
         </v-card-text>
         <v-card-actions>
             <v-btn flat color="orange">Ver asignaciones</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn flat color="orange">Administrar</v-btn>
         </v-card-actions>
        </v-card> 
     </v-flex>
@@ -25,14 +27,15 @@
 export default {
     props:['teacherName','description','topicName'],
     data:{
-        
-    
-        
-    }
 
+    }
 }
 </script>
 
 <style>
+#card{
+    padding: 30px;
+    
+}
 
 </style>

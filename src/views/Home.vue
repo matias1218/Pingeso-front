@@ -3,7 +3,7 @@
      <main>
        <v-container fluid fill-height class="loginOverlay" >
           <v-layout flex align-center justify-center>
-            <v-flex xs11 sm4 elevation-6>
+            <v-flex xs11 sm6 elevation-6 >
               <v-toolbar class="blue darken-4">
                 <v-toolbar-title class="white--text"><h4>Bienvenido/a</h4></v-toolbar-title>
               </v-toolbar>
@@ -89,9 +89,8 @@ export default {
 </script>
 <style>
 .main{
- 
-margin:1em auto;
-
-
+  margin:1em auto;
 }
+
+
 </style>

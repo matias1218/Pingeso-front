@@ -1,18 +1,28 @@
+    
 <template>
   <div id="app" >
+    <v-app>
     <sidebar-menu 
      :menu="menu" 
      :theme="selectedTheme"
+     :collapsed="true"
      :show-one-child="true"/>
-
    
-    <router-view/>
+    <v-toolbar color="warning" dark extended height="80px" flat >
+      <v-spacer></v-spacer>
+      <v-btn flat icon>
+        <v-icon>logout</v-icon>
+      </v-btn>
+    </v-toolbar>
+
+    <v-container  style="margin-top: -114px;">
+      <router-view/>
+    </v-container>
+    </v-app>
   </div>
 </template>
 <script>
 import { SidebarMenu } from 'vue-sidebar-menu'
-
-
 
  export default {
    
@@ -34,27 +44,27 @@ import { SidebarMenu } from 'vue-sidebar-menu'
              href: '/',
              title: 'Inicio',
              icon: 'fa fa-download'       
-              },
+            },
             {
               href: '/gestionprofesores',
               title: 'Gestionar Profesores',
               icon: 'fas fa-chalkboard-teacher', 
             },
             {
-              href: '/',
+              //href: '/',
               title: 'Asignación de correcciones',
               icon: 'fas fa-id-card-alt', 
             },
             {
-              href: '/',
+              //href: '/',
               title: 'Ver estadísticas',
               icon: 'fas fa-chart-line', 
             },
-              {
-                href:'/topicsByTeacher',
-                title: 'Topicos',
-                icon: 'fa fa-th-large'
-              },
+            {
+              href:'/topicsByTeacher',
+              title: 'Topicos',
+              icon: 'fa fa-th-large'
+            }
 
             ],
             selectedTheme: 'white-theme'
@@ -72,26 +82,26 @@ import { SidebarMenu } from 'vue-sidebar-menu'
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background:  linear-gradient(180deg, #EA7600 14%, #002F6C  14%);
+  /* background:  linear-gradient(180deg, #EA7600 14%,   14%); */
+  background: #002F6C;
   background-repeat:no-repeat;
   background-attachment:scroll;
   background-position:center top; 
-  height:800px;
+  
   
 }
-
+body{
+  height:100vh;
+}
 #nav {
   padding: 30px;
 }
-
 #nav a {
   font-weight: bold;
   color: #2c3e50;
 }
-
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-
 </style>
 
