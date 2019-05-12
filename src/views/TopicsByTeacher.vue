@@ -8,7 +8,8 @@
                 <teacher-card 
                 :topicName="topic"
                 :teacherName="teacher"
-                :description="description"/>
+                :description="description"
+                :src="imagen"/>    <!--  deje un bind a src para poner un link de imagen -->
 
                 <teacher-card 
                 :topicName="topic"
@@ -47,7 +48,8 @@ export default {
         // esto es temporal
         topic:'Ingeniería de software',
         teacher:'Hector Antillanca',
-        description: 'Esto es una descripcion del tópico'
+        description: 'Esto es una descripcion del tópico',
+        imagen:'https://goodbytes.io/files/2017/08/Dise%C3%B1o-y-desarrollo-web-03.jpg'
       }
     }
 }

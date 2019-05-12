@@ -1,25 +1,27 @@
     
 <template>
-  <div id="app" >
+  
     <v-app>
-    <sidebar-menu 
-     :menu="menu" 
-     :theme="selectedTheme"
-     :collapsed="true"
-     :show-one-child="true"/>
-   
-    <v-toolbar color="warning" dark extended height="80px" flat >
-      <v-spacer></v-spacer>
-      <v-btn flat icon>
-        <v-icon>logout</v-icon>
-      </v-btn>
-    </v-toolbar>
+    
+      <sidebar-menu @collapse="onCollapse" @itemClick="onItemClick" 
+      :menu="menu" 
+      width="310px"
+      :theme="selectedTheme"
+      :collapsed="state"
+      :show-one-child="true"/>
+    
+      <v-toolbar color="warning" id="toolbar" dark extended height="80px" flat >
+        <v-spacer></v-spacer>
+        <v-btn flat icon>
+          <v-icon>logout</v-icon>
+        </v-btn>
+      </v-toolbar>
 
-    <v-container  style="margin-top: -114px;">
-      <router-view/>
-    </v-container>
+      <v-container id="container">
+        <router-view/>
+      </v-container>
     </v-app>
-  </div>
+  
 </template>
 <script>
 import { SidebarMenu } from 'vue-sidebar-menu'
@@ -31,6 +33,7 @@ import { SidebarMenu } from 'vue-sidebar-menu'
   },
     data() {
       return {
+        state: true,
         menu: [
           {
             header: true,
@@ -41,9 +44,9 @@ import { SidebarMenu } from 'vue-sidebar-menu'
             // attributes: {}
             },
             {
-             href: '/',
-             title: 'Inicio',
-             icon: 'fa fa-download'       
+              href: '/',
+              title: 'Inicio',
+              icon: 'fa fa-download'       
             },
             {
               href: '/gestionprofesores',
@@ -69,9 +72,24 @@ import { SidebarMenu } from 'vue-sidebar-menu'
             ],
             selectedTheme: 'white-theme'
 
-            }
+      }
+    },
+    methods: {
+        onCollapse(collapsed) {
+          if(this.state == false){
+            document.getElementById("container").style.marginLeft = "11%";
+            this.state = true;
+          }
+          else{
+            document.getElementById("container").style.marginLeft = "21%";
+            this.state = false;
+          }  
+        },
+        onItemClick(event, item) {
+          
         }
     }
+  }
 
 
 </script>
@@ -83,10 +101,14 @@ import { SidebarMenu } from 'vue-sidebar-menu'
   text-align: center;
   color: #2c3e50;
   /* background:  linear-gradient(180deg, #EA7600 14%,   14%); */
-  background: #002F6C;
+  /* si se quiere sacar el gradiente se deben comentar las 2 ultimas linea*/
+  /* background: #002F6C;
   background-repeat:no-repeat;
   background-attachment:scroll;
-  background-position:center top; 
+  background-position:center top; */
+  background: -webkit-linear-gradient(to left, #004e92, #000428);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #004e92, #000428); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+ 
   
   
 }
@@ -103,5 +125,10 @@ body{
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+#container{
+  margin-top: -114px;
+  
+}
+#toolbar{}
 </style>
 

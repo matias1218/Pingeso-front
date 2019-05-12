@@ -1,7 +1,8 @@
 <template>  
     <v-flex xs12 sm6 id="card">
        <v-card hover >
-        <v-img src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+         
+        <v-img :src="src"
             aspect-ratio="2.75">    
         </v-img>
         <v-card-title primary-title>
@@ -25,9 +26,12 @@
 
 <script>
 export default {
-    props:['teacherName','description','topicName'],
-    data:{
-
+    props:['teacherName','description','topicName','src'],
+    data(){
+        return{
+            
+        }
+        
     }
 }
 </script>
