@@ -34,7 +34,16 @@
                     <!-- se debe generar una lista por profesor -->
                     <v-list two-line>
                     <v-subheader>
-                        PROFESOR 1
+                         <v-flex xs12 sm6 d-flex>
+                            <v-select
+                             :items="profesores"
+                             name="profesor"
+                             label="Seleccione un profesor..."
+                             v-model="profesor"
+                             v-validate="'required'"
+                             item-text="name"
+                             ></v-select>
+                            </v-flex>
                     </v-subheader>
                     <v-divider></v-divider>
                         <draggable v-model="profesor1" :options="{group:'people'}" style="min-height: 10px">
@@ -52,25 +61,6 @@
                         </draggable>
                     </v-list>
                     <!-- ------------------------------------- -->
-                    <v-list two-line>
-                    <v-subheader>
-                        PROFESOR 2
-                    </v-subheader>
-                    <v-divider></v-divider>
-                        <draggable v-model="profesor2" :options="{group:'people'}" style="min-height: 10px">
-                            <template v-for="item in profesor2">
-                                <v-list-tile :key="item.id" avatar>
-                                    <v-list-tile-avatar>
-                                        <img :src="item.avatar">
-                                    </v-list-tile-avatar>
-                                    <v-list-tile-content>
-                                        <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                                        <v-list-tile-sub-title v-html="item.subtitle"></v-list-tile-sub-title>
-                                    </v-list-tile-content>
-                                </v-list-tile>
-                            </template>
-                        </draggable>
-                    </v-list>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -160,6 +150,7 @@ export default {
                     subtitle: "Desripcion de memoria 3"
                 }
             ],
+            
             profesor1: [
                 {
                     id: 4,
@@ -174,18 +165,22 @@ export default {
                     subtitle: "Desripcion de memoria 5"
                 }
             ],
-            profesor2: [
+            profesores:[
                 {
-                    id: 6,
-                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/4.jpg",
-                    title: "Memoria 4",
-                    subtitle: "Desripcion de memoria 4"
+                    id: 1,
+                    name: "Alcides Quispe",
                 },
                 {
                     id: 7,
-                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/5.jpg",
-                    title: 'Memoria 5',
-                    subtitle: "Desripcion de memoria 5"
+                    name: 'Victor Parada',
+                },
+                 {
+                    id: 3,
+                    name: "Fernanda Kri",
+                },
+                {
+                    id: 4,
+                    name: 'Edmundo Leiva',
                 }
             ]
         };

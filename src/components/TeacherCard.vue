@@ -17,7 +17,7 @@
             
         </v-card-text>
         <v-card-actions>
-            <v-btn flat color="orange">Ver asignaciones</v-btn>
+            <v-btn flat color="orange" href="/verAsignaciones" >Ver asignaciones</v-btn>
             <v-spacer></v-spacer>
             <v-btn flat color="orange">Administrar</v-btn>
         </v-card-actions>
