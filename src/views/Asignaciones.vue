@@ -12,11 +12,11 @@
                 <v-flex md7 class="elevation-2 pa-1 mt-3">
                     <v-list two-line>
                         <v-subheader>
-                            CORRECCIONES SIN ASIGNAR
+                            MEMORIAS SIN ASIGNAR
                         </v-subheader>
                         <v-divider></v-divider>
-                        <draggable v-model="items" :options="{group:'people'}" style="min-height: 10px">
-                            <template v-for="item in items">
+                        <draggable v-model="memorias" :options="{group:'people'}" style="min-height: 10px">
+                            <template v-for="item in memorias">
                                 <v-list-tile :key="item.id" avatar>
                                     <v-list-tile-avatar>
                                         <img :src="item.avatar">
@@ -86,7 +86,7 @@ export default {
     },
     data() {
         return {
-            items: [
+            memorias: [
                 {
                     id: 1,
                     avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/1.jpg",
