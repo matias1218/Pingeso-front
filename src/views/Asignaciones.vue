@@ -1,18 +1,20 @@
 <template>
     <v-content>
-        <v-container fluid>
-            <v-layout align-start justify-center wrap>
+        <v-container >
+            <v-layout align-start justify-space-between wrap row>
                 <v-flex md12>
                     <h1 class="display-2 font-weight-thin mb-3 white--text">Asignaciones de memorias</h1>
                     <h4 class="subheading white--text">Listado de correcciones sin asignar. Arrastre las memorias del listado 
                         izquierdo hacia las tarjetas de cada profesor para asignar las memorias
                     </h4>
+                    
                 </v-flex>
-                <v-flex xs4 class="elevation-2 pa-3 ma-2">
+                <v-flex md7 class="elevation-2 pa-1 mt-3">
                     <v-list two-line>
                         <v-subheader>
                             CORRECCIONES SIN ASIGNAR
                         </v-subheader>
+                        <v-divider></v-divider>
                         <draggable v-model="items" :options="{group:'people'}" style="min-height: 10px">
                             <template v-for="item in items">
                                 <v-list-tile :key="item.id" avatar>
@@ -28,13 +30,35 @@
                         </draggable>
                     </v-list>
                 </v-flex>
-                <v-flex xs4 class="elevation-1 pa-3 ma-2">
+                <v-flex md5 class="elevation-1 pa-1 mt-3">
+                    <!-- se debe generar una lista por profesor -->
                     <v-list two-line>
                     <v-subheader>
                         PROFESOR 1
                     </v-subheader>
-                        <draggable v-model="items2" :options="{group:'people'}" style="min-height: 10px">
-                            <template v-for="item in items2">
+                    <v-divider></v-divider>
+                        <draggable v-model="profesor1" :options="{group:'people'}" style="min-height: 10px">
+                            <template v-for="item in profesor1">
+                                <v-list-tile :key="item.id" avatar>
+                                    <v-list-tile-avatar>
+                                        <img :src="item.avatar">
+                                    </v-list-tile-avatar>
+                                    <v-list-tile-content>
+                                        <v-list-tile-title v-html="item.title"></v-list-tile-title>
+                                        <v-list-tile-sub-title v-html="item.subtitle"></v-list-tile-sub-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                            </template>
+                        </draggable>
+                    </v-list>
+                    <!-- ------------------------------------- -->
+                    <v-list two-line>
+                    <v-subheader>
+                        PROFESOR 2
+                    </v-subheader>
+                    <v-divider></v-divider>
+                        <draggable v-model="profesor2" :options="{group:'people'}" style="min-height: 10px">
+                            <template v-for="item in profesor2">
                                 <v-list-tile :key="item.id" avatar>
                                     <v-list-tile-avatar>
                                         <img :src="item.avatar">
@@ -80,9 +104,63 @@ export default {
                     avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/3.jpg",
                     title: "Memoria 3",
                     subtitle: "Desripcion de memoria 3"
+                },
+                {
+                    id: 1,
+                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/1.jpg",
+                    title: "Memoria 1",
+                    subtitle: "Desripcion de memoria 1"
+                },
+                {
+                    id: 2,
+                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/2.jpg",
+                    title: "Memoria 2",
+                    subtitle: "Desripcion de memoria 3"
+                },
+                {
+                    id: 3,
+                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/3.jpg",
+                    title: "Memoria 3",
+                    subtitle: "Desripcion de memoria 3"
+                },
+                {
+                    id: 1,
+                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/1.jpg",
+                    title: "Memoria 1",
+                    subtitle: "Desripcion de memoria 1"
+                },
+                {
+                    id: 2,
+                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/2.jpg",
+                    title: "Memoria 2",
+                    subtitle: "Desripcion de memoria 3"
+                },
+                {
+                    id: 3,
+                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/3.jpg",
+                    title: "Memoria 3",
+                    subtitle: "Desripcion de memoria 3"
+                },
+                {
+                    id: 1,
+                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/1.jpg",
+                    title: "Memoria 1",
+                    subtitle: "Desripcion de memoria 1"
+                },
+                {
+                    id: 2,
+                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/2.jpg",
+                    title: "Memoria 2",
+                    subtitle: "Desripcion de memoria 3"
+                },
+                {
+                    id: 3,
+                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/3.jpg",
+                    title: "Memoria 3",
+                    subtitle: "Desripcion de memoria 3"
                 }
             ],
-            items2: [
+            profesor1: [
                 {
                     id: 4,
                     avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/4.jpg",
@@ -91,6 +169,20 @@ export default {
                 },
                 {
                     id: 5,
+                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/5.jpg",
+                    title: 'Memoria 5',
+                    subtitle: "Desripcion de memoria 5"
+                }
+            ],
+            profesor2: [
+                {
+                    id: 6,
+                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/4.jpg",
+                    title: "Memoria 4",
+                    subtitle: "Desripcion de memoria 4"
+                },
+                {
+                    id: 7,
                     avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/5.jpg",
                     title: 'Memoria 5',
                     subtitle: "Desripcion de memoria 5"
