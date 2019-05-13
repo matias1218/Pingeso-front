@@ -10,7 +10,7 @@
       :collapsed="state"
       :show-one-child="true"/>
     
-      <v-toolbar color="warning" id="toolbar" dark extended height="80px" flat >
+      <v-toolbar color="warning" id="toolbar" dark flat >
         <v-spacer></v-spacer>
         <v-btn flat icon>
           <v-icon>logout</v-icon>
@@ -126,7 +126,7 @@ body{
   color: #42b983;
 }
 #container{
-  margin-top: -114px;
+  /* margin-top: -114px; */
   
 }
 #toolbar{}

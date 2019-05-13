@@ -1,7 +1,13 @@
 <template>
     <v-content>
         <v-container fluid>
-            <v-layout align-start justify-center>
+            <v-layout align-start justify-center wrap>
+                <v-flex md12>
+                    <h1 class="display-2 font-weight-thin mb-3 white--text">Asignaciones de memorias</h1>
+                    <h4 class="subheading white--text">Listado de correcciones sin asignar. Arrastre las memorias del listado 
+                        izquierdo hacia las tarjetas de cada profesor para asignar las memorias
+                    </h4>
+                </v-flex>
                 <v-flex xs4 class="elevation-2 pa-3 ma-2">
                     <v-list two-line>
                         <v-subheader>

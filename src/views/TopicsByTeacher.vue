@@ -2,9 +2,12 @@
     <v-container grid-list-md>
         <v-layout row wrap >
 
-            <!-- aqui debe ir un iterador que tome una lista
-            de topicos con los profesores a cargo -->
-            
+                <!-- aqui debe ir un iterador que tome una lista
+                de topicos con los profesores a cargo -->
+                <v-flex md12>
+                    <h1 class="display-2 font-weight-thin mb-3 white--text">Profesores por tópicos</h1>
+                    <h4 class="subheading white--text">Listado de profesores segun especialidad</h4>
+                </v-flex>
                 <teacher-card 
                 :topicName="topic"
                 :teacherName="teacher"
@@ -12,19 +15,22 @@
                 :src="imagen"/>    <!--  deje un bind a src para poner un link de imagen -->
 
                 <teacher-card 
-                :topicName="topic"
-                :teacherName="teacher"
-                :description="description"/>
+                topicName="Biotecnología"
+                teacherName="Mario Inostroza, ..."
+                description="description"
+                src="http://resources.chrysalis.cl/2016/07/shutterstock_142053856-1728x800_c.jpg"/>
 
                 <teacher-card 
-                :topicName="topic"
-                :teacherName="teacher"
-                :description="description"/>
+                topicName="Optimización"
+                teacherName="Victor Parada, Cristian Sepulveda, ...."
+                description="description"
+                src="https://ocw.ua.es/es/imagenes/fotos/ingenieria-arquitectura/simulacionyoptimizacion.jpg"/>
 
                 <teacher-card 
-                :topicName="topic"
-                :teacherName="teacher"
-                :description="description"/>
+                topicName="Sistemas"
+                teacherName="Bruno Jerardino, Edmundo Leiva, ......"
+                description="description"
+                src="https://conceptodefinicion.de/wp-content/uploads/2017/04/Teor%C3%ADa_de_Sistemas.jpg"/>
                 
                 
             
@@ -47,7 +53,7 @@ export default {
       return{
         // esto es temporal
         topic:'Ingeniería de software',
-        teacher:'Hector Antillanca',
+        teacher:'Hector Antillanca, ...',
         description: 'Esto es una descripcion del tópico',
         imagen:'https://goodbytes.io/files/2017/08/Dise%C3%B1o-y-desarrollo-web-03.jpg'
       }
