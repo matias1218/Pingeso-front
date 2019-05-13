@@ -9,6 +9,7 @@
 ## Rutas
 * topicos por profesores: "/topicsByTeacher"
 * gestion profesores: "/gestionprofesores"
+* asignacion de memorias: "/asignaciones"
 
 ### Modulos anexados
 * mdbvue (https://mdbootstrap.com/docs/vue/) 
