@@ -1,6 +1,8 @@
 <template>  
     <v-flex xs12 sm6 id="card">
-       <v-card hover >
+      <v-hover>
+       <v-card hover slot-scope="{ hover }"
+        :class="`elevation-${hover ? 21 : 2}`" >
          
         <v-img :src="src"
             aspect-ratio="2.75">    
@@ -20,6 +22,7 @@
             <v-btn flat color="orange">Administrar</v-btn>
         </v-card-actions>
        </v-card> 
+      </v-hover>
     </v-flex>
     
 </template>

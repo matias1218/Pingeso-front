@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import TopicsTeacher from './views/TopicsByTeacher.vue'
 import GestionarProfesores from './views/GestionarProfesores.vue'
+import Asignaciones from './views/Asignaciones.vue'
 
 Vue.use(Router)
 
@@ -32,6 +33,11 @@ export default new Router({
       path: '/gestionprofesores',
       name: 'gestionarProfesores',
       component: GestionarProfesores
+    },
+    {
+      path: '/asignaciones',
+      name: 'asignacionProfesores',
+      component: Asignaciones
     }
   ]
 })

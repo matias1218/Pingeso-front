@@ -1,6 +1,6 @@
     
 <template>
-  
+  <div id='app'>
     <v-app>
     
       <sidebar-menu @collapse="onCollapse" @itemClick="onItemClick" 
@@ -21,13 +21,13 @@
         <router-view/>
       </v-container>
     </v-app>
-  
+  </div>
 </template>
 <script>
 import { SidebarMenu } from 'vue-sidebar-menu'
 
  export default {
-   
+   name: 'app',
    components: {
     SidebarMenu
   },
@@ -54,7 +54,7 @@ import { SidebarMenu } from 'vue-sidebar-menu'
               icon: 'fas fa-chalkboard-teacher', 
             },
             {
-              //href: '/',
+              href: '/asignaciones',
               title: 'Asignación de correcciones',
               icon: 'fas fa-id-card-alt', 
             },
