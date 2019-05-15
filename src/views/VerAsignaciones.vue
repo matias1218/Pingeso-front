@@ -1,15 +1,21 @@
 <template>
     <div id="app">
         <v-card>
+         <v-card-title>
+            <h3>Tema(s) por profesor/a</h3>
+          </v-card-title>
+          
+         <div id="tree-table"> 
          <vue-ads-table-tree
             :columns="columns"
             :rows="rows"
-            :filter="filterValue"
             :page="page"
             @filter-change="filterChanged"
             @page-change="pageChanged"
         >
+        
     </vue-ads-table-tree>   
+    </div>
         </v-card>
   </div>
 </template>
@@ -85,6 +91,110 @@ export default {
                 ],
             },
             {
+                name: 'Pablo Román Asenjo'  + '('+ 4 + ')',
+                _children: [
+                    {
+                        tema: 'tema1',
+                        revition: '02/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema2',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema3',
+                        revition: '12/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema4',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    }
+
+                ]
+            },
+            {
+                name: 'J. L. Jara'  + '('+ 4 + ')',
+                _children: [
+                    {
+                        tema: 'tema1',
+                        revition: '02/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema2',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema3',
+                        revition: '12/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema4',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    }
+
+                ]
+            },
+            {
+                name: 'Mario Inostroza-Ponta'  + '('+ 4 + ')',
+                _children: [
+                    {
+                        tema: 'tema1',
+                        revition: '02/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema2',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema3',
+                        revition: '12/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema4',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    }
+
+                ]
+            },
+            {
+                name: 'Roberto González-Ibáñez'  + '('+ 4 + ')',
+                _children: [
+                    {
+                        tema: 'tema1',
+                        revition: '02/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema2',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema3',
+                        revition: '12/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema4',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    }
+
+                ]
+            },
+            {
                 name: 'Fernanda Kri'  + '('+ 4 + ')',
                 _children: [
                     {
@@ -109,6 +219,68 @@ export default {
                     }
 
                 ]
+            },
+            {
+                name: 'Carolina Bonacic Castro'  + '('+ 4 + ')',
+                _children: [
+                    {
+                        tema: 'tema1',
+                        revition: '02/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema2',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema3',
+                        revition: '12/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema4',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    }
+
+                ]
+            },
+            {
+                name: 'Alcides Quispe Sanca'  + '('+ 4 + ')',
+                _children: [
+                    {
+                        tema: 'tema1',
+                        revition: '02/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema2',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema3',
+                        revition: '12/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema4',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    }
+
+                ]
+            },
+            {
+                name: 'Edmundo Leiva'  + '('+ 1 + ')',
+                _children: [
+                    {
+                        tema: 'tema1',
+                        revition: '02/03/2019',
+                        time:'10:00'
+                    }
+                ]
             }
         ],
         };
@@ -124,3 +296,16 @@ export default {
     }
 };
 </script>
+<style>
+#tree-table{
+     margin:1em auto;
+     width: 98%;
+}
+
+.v-card{
+ margin:1em auto;
+
+}
+
+</style>
+
