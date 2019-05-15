@@ -26,6 +26,7 @@
 <script>
 import { SidebarMenu } from 'vue-sidebar-menu'
 
+
  export default {
    name: 'app',
    components: {

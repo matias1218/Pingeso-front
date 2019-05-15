@@ -1,263 +1,126 @@
 <template>
-  <div id="view" data-app="true">
-    <v-card>
-      <v-card-title >
-            <span class="headline"  >Temas asignados por profesor</span>
-          </v-card-title>
-
-      <v-tree-data-table :headers="headers" :items="items" :pagination="pagination" 
-      :loading="loading" :total-items="totalItems" @load="load" 
-       >
-        <template slot="row" slot-scope="props">
-          <td class="text-xs-left">{{props.item.name}}</td>
-          <td class="text-xs-left">{{props.item.revition}}</td>
-          <td class="text-xs-left">{{props.item.time}}</td>
-        </template>
-      </v-tree-data-table>
-
-    </v-card>
-
-    </div>
-
+    <div id="app">
+        <v-card>
+         <vue-ads-table-tree
+            :columns="columns"
+            :rows="rows"
+            :filter="filterValue"
+            :page="page"
+            @filter-change="filterChanged"
+            @page-change="pageChanged"
+        >
+    </vue-ads-table-tree>   
+        </v-card>
+  </div>
 </template>
 
 <script>
-// @ is an alias to /src
-// import Styles
-import "vuetify/dist/vuetify.min.css";
 
-// import Vue
-import Vue from 'vue'
-
-import TreeDataTable from 'v-tree-data-table';
-Vue.component('v-tree-data-table', TreeDataTable);
-// import Vuetify
-import Vuetify from "vuetify";
-Vue.use(Vuetify, {
-  theme: {
-    primary: "#0D4163",
-    secondary: "#e5e5e5",
-    accent: "#ff0000",
-    error: "#f44336",
-    warning: "#ffeb3b",
-    info: "#2196f3",
-    success: "#4caf50"
-  }
-});
+import '../../node_modules/@fortawesome/fontawesome-free/css/all.css';
+import '../../node_modules/vue-ads-table-tree/dist/vue-ads-table-tree.css';
+import VueAdsTableTree from 'vue-ads-table-tree';
 
 export default {
-  name: 'view',
-  components: {
-    "v-tree-data-table": TreeDataTable
-  },
-  data () {
-      return {
-        loading: false,
-        pagination: {
-                ascending: true,
-                rowsPerPage: 5,
-                page: 1
+    name: 'app',
+
+    components: {
+        VueAdsTableTree,
+    },
+
+    data () {
+        return {
+        page: 0,
+        filter: '',
+        columns: [
+            {
+                property: 'name',
+                title: 'Nombre profesor(cantidad Temas)',
+                direction: null,
+                filterable: true,
+                collapseIcon: true
+            },
+            {
+                property: 'tema',
+                title: 'Título Tema/s',
+                filterable: true,
+            },
+            {
+                property: 'revition',
+                title: 'Fecha Revisión',
+                filterable: true,
+            }
+            ,
+            {
+                property: 'time',
+                title: 'Hora',
+                filterable: true,
+            }
+        ],
+        rows: [
+            {
+                name: 'Fernando Rannou'+ '('+ 0 + ')',
+            },
+            {
+                name: 'Luciano Hidalgo'+ '('+ 0 + ')',
+            },
+            {
+                name: 'Victor Parada' + '('+ 3 + ')',
+                _children: [
+                    {
+                        tema: 'tema1',
+                        revition: '02/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema2',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema3',
+                        revition: '12/03/2019',
+                        time:'10:00'
+                    },
+
+                ],
+            },
+            {
+                name: 'Fernanda Kri'  + '('+ 4 + ')',
+                _children: [
+                    {
+                        tema: 'tema1',
+                        revition: '02/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema2',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema3',
+                        revition: '12/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        tema: 'tema4',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    }
+
+                ]
+            }
+        ],
+        };
+    },
+    methods: {
+        filterChanged (filter) {
+            this.filter = filter;
         },
-        totalItems: 3,
-        align: 'left',
-        sortable: false,
-        headers: [
-      {
-        text: "Nombre profesor/temas",
-        value: "name"
-      },
-      {
-        text: "Fecha revisión",
-        value: "revition"
-      },
-      {
-        text: "Fecha defensa tema",
-        value: "defense"
-      }
-    ],
-    items: []
-      }
-  },
-  methods: {
-      /**
-     * Load the records
-     * @param {Object} pagination Pagination data from the DataTable
-     */
-    load(pagination) {
-      this.pagination = pagination;
-      this.$nextTick(() => {
-        this.items = [
-          {
-            id: 1,
-            name: "Victor Parada",
-            align: 'left',
-            sortable: false,
-            depth: 1,
-            children: [
-              {
-                id: 1.1,
-                name: "tema1",
-                revition: "Child of Root",
-                time:"1",
-                depth: 2,
-                leaf: true,
-              },{
-                id: 1.2,
-                name: "tema1",
-                revition: "Child of Root",
-                time:"1",
-                depth: 2,
-                leaf: true,
-              }
-            ]
-          },{
-            id: 2,
-            name: "Fernanda Kri",
-            depth: 1,
-            revition:"hola",
-            align: 'left',
-            sortable: false,
-            children: [
-              {
-                id: 2.1,
-                name: "tema1",
-                revition: "Child of Root",
-                time:"1",
-                depth: 2,
-                leaf: true,
-              },{
-                id: 2.2,
-                name: "tema1",
-                revition: "Child of Root",
-                time:"1",
-                depth: 2,
-                leaf: true,
-              }
-            ]
-          }
-          ,{
-            id: 3,
-            name: "Fernanda Kri",
-            depth: 1,
-            revition:"hola",
-            align: 'left',
-            sortable: false,
-            children: [
-              {
-                id: 3.1,
-                name: "tema1",
-                revition: "Child of Root",
-                time:"1",
-                depth: 2,
-                leaf: true,
-              },{
-                id: 3.2,
-                name: "tema1",
-                revition: "Child of Root",
-                time:"1",
-                depth: 2,
-                leaf: true,
-              }
-            ]
-          }
-          ,{
-            id: 4,
-            name: "Fernanda Kri",
-            depth: 1,
-            revition:"hola",
-            align: 'left',
-            sortable: false,
-            children: [
-              {
-                id: 4.1,
-                name: "tema1",
-                revition: "Child of Root",
-                time:"1",
-                depth: 2,
-                leaf: true,
-              },{
-                id: 4.2,
-                name: "tema1",
-                revition: "Child of Root",
-                time:"1",
-                depth: 2,
-                leaf: true,
-              }
-            ]
-          },
-          {
-            id: 5,
-            name: "Fernanda Kri",
-            depth: 1,
-            revition:"hola",
-            align: 'left',
-            sortable: false,
-            children: [
-              {
-                id: 5.1,
-                name: "tema1",
-                revition: "Child of Root",
-                time:"1",
-                depth: 2,
-                leaf: true,
-              },{
-                id: 5.2,
-                name: "tema1",
-                revition: "Child of Root",
-                time:"1",
-                depth: 2,
-                leaf: true,
-              }
-            ]
-          }
-          ,{
-            id: 6,
-            name: "Fernanda Kri",
-            depth: 1,
-            revition:"hola",
-            align: 'left',
-            sortable: false,
-            children: [
-              {
-                id: 6.1,
-                name: "tema1",
-                revition: "Child of Root",
-                time:"1",
-                depth: 2,
-                leaf: true,
-              },{
-                id: 6.2,
-                name: "tema1",
-                revition: "Child of Root",
-                time:"1",
-                depth: 2,
-                leaf: true,
-              }
-            ]
-          }
-          
-        ];
-        this.totalItems = 6;
         
-      });
+        pageChanged (page) {
+            this.page = page;
+        },
     }
-  
-  },
-  
-}
-  
+};
 </script>
-<style>
-
-.v-tree-data-table{
-  margin:1em auto;
-  width: 90%;
-}
-.v-card{
- margin:1em auto;
-width: 96%;
-}
-
-
-
-</style>

@@ -13,6 +13,7 @@
     "postcss-import": "^12.0.1",
     "v-tree-data-table": "^1.0.17",
     "vue": "^2.6.10",
+    "vue-ads-table-tree": "^2.3.2",
     "vue-router": "^3.0.3",
     "vue-sidebar-menu": "^3.7.0",
     "vuedraggable": "^2.20.0",
