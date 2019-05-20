@@ -31,9 +31,9 @@
                 teacherName="Bruno Jerardino, Edmundo Leiva, ......"
                 description="description"
                 src="https://conceptodefinicion.de/wp-content/uploads/2017/04/Teor%C3%ADa_de_Sistemas.jpg"/>
+                <v-btn @click="obtenerTopicos" small color="primary">DARLE ATOMOS</v-btn>
+                {{topicos}}
                 
-                
-            
         </v-layout>
     </v-container>
 </template>
@@ -43,9 +43,14 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import TeacherCard from '@/components/TeacherCard.vue'
+import {mapState, mapMutations, mapActions} from 'vuex'
 Vue.use(Vuetify)
 export default {
     name:'topicsTeacher',
+
+    computed:{
+        ...mapState(['topicos','cosita'])
+    },
     components:{
         TeacherCard
     },
@@ -57,6 +62,9 @@ export default {
         description: 'Esto es una descripcion del tópico',
         imagen:'https://goodbytes.io/files/2017/08/Dise%C3%B1o-y-desarrollo-web-03.jpg'
       }
+    },
+    methods:{
+        ...mapActions(['obtenerTopicos'])
     }
 }
 </script>

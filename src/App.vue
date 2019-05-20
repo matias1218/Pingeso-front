@@ -25,7 +25,7 @@
 </template>
 <script>
 import { SidebarMenu } from 'vue-sidebar-menu'
-
+import {mapActions} from 'vuex'
 
  export default {
    name: 'app',
@@ -76,6 +76,7 @@ import { SidebarMenu } from 'vue-sidebar-menu'
       }
     },
     methods: {
+        ...mapActions(['obtenerTopicos']),
         onCollapse(collapsed) {
           if(this.state == false){
             document.getElementById("container").style.marginLeft = "11%";
@@ -87,8 +88,10 @@ import { SidebarMenu } from 'vue-sidebar-menu'
           }  
         },
         onItemClick(event, item) {
-          
-        }
+            if(item.href == '/topicsByTeacher'){
+              this.obtenerTopicos()
+            }
+        } 
     }
   }
 
