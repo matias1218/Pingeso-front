@@ -12,9 +12,19 @@
     
       <v-toolbar color="warning" id="toolbar" dark flat >
         <v-spacer></v-spacer>
-        <v-btn flat icon>
-          <v-icon>logout</v-icon>
+
+         <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <span v-on="on">
+           <v-btn flat icon href="/login">
+          <v-icon>account_circle</v-icon>
         </v-btn>
+        </span>
+      </template>
+      <span>Iniciar sesión</span>
+    </v-tooltip>
+
+       
       </v-toolbar>
 
       <v-container id="container">
