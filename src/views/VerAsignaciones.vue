@@ -4,7 +4,14 @@
          <v-card-title>
             <h3>Tema(s) por profesor/a</h3>
           </v-card-title>
-          
+          <v-progress-circular
+            v-if="rows.length === 0 "
+            :size="70"
+            :width="7"
+            color="primary"
+            indeterminate
+          ></v-progress-circular>  
+
          <div id="tree-table"> 
          <vue-ads-table-tree
             v-if="rows.length != 0 "
