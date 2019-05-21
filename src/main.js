@@ -11,6 +11,8 @@ Vue.config.productionTip = false
 // main.js
 import '@fortawesome/fontawesome-free/css/all.css' // Ensure you are using css-loader
 import Vuetify from 'vuetify'
+import VueResource from 'vue-resource';
+Vue.use(VueResource);
 
 Vue.use(Vuetify, {
  customProperties: true,

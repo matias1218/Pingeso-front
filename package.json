@@ -14,6 +14,7 @@
     "v-tree-data-table": "^1.0.17",
     "vue": "^2.6.10",
     "vue-ads-table-tree": "^2.3.2",
+    "vue-resource": "^1.5.1",
     "vue-router": "^3.0.3",
     "vue-sidebar-menu": "^3.7.0",
     "vuedraggable": "^2.20.0",

@@ -7,6 +7,7 @@
           
          <div id="tree-table"> 
          <vue-ads-table-tree
+            v-if="rows.length != 0 "
             :columns="columns"
             :rows="rows"
             :page="page"
@@ -32,22 +33,39 @@ export default {
     components: {
         VueAdsTableTree,
     },
+    mounted(){
+          {
+              this.$http.get('http://23.20.84.8:9090/professors/all').then((response) => {
+                  this.assign = response.body;
+                  this.assign.map((prof) => {
+                        
+                        this.rows.push({
 
+                            nameprof: prof.name + ' ' + prof.lastname1 + ' ' + prof.lastname2,
+                            _children: prof.topics
+
+                            }); 
+                        
+                        })
+                   });
+          }
+    },     
     data () {
         return {
         page: 0,
         filter: '',
+        assign:[],
         columns: [
             {
-                property: 'name',
+                property: 'nameprof',
                 title: 'Nombre profesor(cantidad Temas)',
                 direction: null,
                 filterable: true,
                 collapseIcon: true
             },
             {
-                property: 'tema',
-                title: 'Título Tema/s',
+                property: 'name',
+                title: 'Título Tesis',
                 filterable: true,
             },
             {
@@ -62,227 +80,7 @@ export default {
                 filterable: true,
             }
         ],
-        rows: [
-            {
-                name: 'Fernando Rannou'+ '('+ 0 + ')',
-            },
-            {
-                name: 'Luciano Hidalgo'+ '('+ 0 + ')',
-            },
-            {
-                name: 'Victor Parada' + '('+ 3 + ')',
-                _children: [
-                    {
-                        tema: 'tema1',
-                        revition: '02/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema2',
-                        revition: '22/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema3',
-                        revition: '12/03/2019',
-                        time:'10:00'
-                    },
-
-                ],
-            },
-            {
-                name: 'Pablo Román Asenjo'  + '('+ 4 + ')',
-                _children: [
-                    {
-                        tema: 'tema1',
-                        revition: '02/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema2',
-                        revition: '22/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema3',
-                        revition: '12/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema4',
-                        revition: '22/03/2019',
-                        time:'10:00'
-                    }
-
-                ]
-            },
-            {
-                name: 'J. L. Jara'  + '('+ 4 + ')',
-                _children: [
-                    {
-                        tema: 'tema1',
-                        revition: '02/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema2',
-                        revition: '22/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema3',
-                        revition: '12/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema4',
-                        revition: '22/03/2019',
-                        time:'10:00'
-                    }
-
-                ]
-            },
-            {
-                name: 'Mario Inostroza-Ponta'  + '('+ 4 + ')',
-                _children: [
-                    {
-                        tema: 'tema1',
-                        revition: '02/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema2',
-                        revition: '22/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema3',
-                        revition: '12/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema4',
-                        revition: '22/03/2019',
-                        time:'10:00'
-                    }
-
-                ]
-            },
-            {
-                name: 'Roberto González-Ibáñez'  + '('+ 4 + ')',
-                _children: [
-                    {
-                        tema: 'tema1',
-                        revition: '02/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema2',
-                        revition: '22/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema3',
-                        revition: '12/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema4',
-                        revition: '22/03/2019',
-                        time:'10:00'
-                    }
-
-                ]
-            },
-            {
-                name: 'Fernanda Kri'  + '('+ 4 + ')',
-                _children: [
-                    {
-                        tema: 'tema1',
-                        revition: '02/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema2',
-                        revition: '22/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema3',
-                        revition: '12/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema4',
-                        revition: '22/03/2019',
-                        time:'10:00'
-                    }
-
-                ]
-            },
-            {
-                name: 'Carolina Bonacic Castro'  + '('+ 4 + ')',
-                _children: [
-                    {
-                        tema: 'tema1',
-                        revition: '02/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema2',
-                        revition: '22/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema3',
-                        revition: '12/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema4',
-                        revition: '22/03/2019',
-                        time:'10:00'
-                    }
-
-                ]
-            },
-            {
-                name: 'Alcides Quispe Sanca'  + '('+ 4 + ')',
-                _children: [
-                    {
-                        tema: 'tema1',
-                        revition: '02/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema2',
-                        revition: '22/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema3',
-                        revition: '12/03/2019',
-                        time:'10:00'
-                    },
-                    {
-                        tema: 'tema4',
-                        revition: '22/03/2019',
-                        time:'10:00'
-                    }
-
-                ]
-            },
-            {
-                name: 'Edmundo Leiva'  + '('+ 1 + ')',
-                _children: [
-                    {
-                        tema: 'tema1',
-                        revition: '02/03/2019',
-                        time:'10:00'
-                    }
-                ]
-            }
-        ],
+        rows: [],
         };
     },
     methods: {
@@ -292,7 +90,7 @@ export default {
         
         pageChanged (page) {
             this.page = page;
-        },
+        }
     }
 };
 </script>
