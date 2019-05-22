@@ -7,7 +7,9 @@ export default new Vuex.Store({
   state: {
     topicos: [],
     cosita: 'wea',
-    dialog: false
+    dialog: false,
+    tesis: [],
+    professors: []
   },
   mutations: {
     cambiarEstadoDialog(state,estado){
@@ -15,6 +17,12 @@ export default new Vuex.Store({
     },
     actualizarTopico(state,topico){
       state.topicos = topico;
+    },
+    actualizarTesis(state,tesis){
+      state.tesis = tesis;
+    },
+    getProfessorsId(state,profesores){
+      state.professors = profesores;
     }
   },
   actions: {
@@ -37,6 +45,14 @@ export default new Vuex.Store({
       const data = await fetch('https://memoriausach.azurewebsites.net/topics');
       const topico = await data.json();
       commit('actualizarTopico',topico);
+      commit('cambiarEstadoDialog',false);
+    },
+
+    obtenerTesis: async function({commit,state}){
+      commit('cambiarEstadoDialog',true);
+      const data = await fetch('https://memoriausach.azurewebsites.net/theses');
+      const tesis = await data.json();
+      commit('actualizarTesis',tesis);
       commit('cambiarEstadoDialog',false);
     }
   }

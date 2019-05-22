@@ -19,7 +19,7 @@
         <v-card-actions>
             <v-btn flat color="orange" href="/verAsignaciones" >Ver asignaciones</v-btn>
             <v-spacer></v-spacer>
-            <v-btn flat color="orange">Administrar</v-btn>
+            <v-btn flat color="orange" @click='onClick(profesor)'>Administrar</v-btn>
         </v-card-actions>
        </v-card> 
       </v-hover>
@@ -28,13 +28,27 @@
 </template>
 
 <script>
+import {mapState,mapMutations} from 'vuex'
 export default {
-    props:['teacherName','description','topicName','src'],
+    props:['teacherName','description','topicName','src','professor'],
+    computed:{
+        profesor:{
+            get(){
+                return this.professor
+            }
+        }
+    },
     data(){
         return{
+            idProfesores: this.professor
+        }  
+    },
+    methods:{
+        ...mapMutations(['getProfessorsId']),
+        onClick: function(profe){
+            this.$store.commit('getProfessorsId',this.professor);
             
         }
-        
     }
 }
 </script>

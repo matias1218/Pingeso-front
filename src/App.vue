@@ -86,7 +86,7 @@ import {mapActions} from 'vuex'
       }
     },
     methods: {
-        ...mapActions(['obtenerTopicos']),
+        ...mapActions(['obtenerTopicos','obtenerTesis']),
         onCollapse(collapsed) {
           if(this.state == false){
             document.getElementById("container").style.marginLeft = "11%";
@@ -100,6 +100,9 @@ import {mapActions} from 'vuex'
         onItemClick(event, item) {
             if(item.href == '/topicsByTeacher'){
               this.obtenerTopicos()
+            }
+            if(item.href == '/asignaciones'){
+              this.obtenerTesis()
             }
         } 
     }

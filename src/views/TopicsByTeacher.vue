@@ -6,12 +6,13 @@
                 de topicos con los profesores a cargo -->
                 <v-flex md12>
                     <h1 class="display-2 font-weight-thin mb-3 white--text">Profesores por tópicos</h1>
-                    <h4 class="subheading white--text">Listado de profesores segun especialidad</h4>
+                    <h4 class="subheading white--text">Listado de profesores según especialidad</h4>
                 </v-flex>
 
                 <!-- Iteración de los topicos  -->
                 <template v-for="topic in topicos">
                     <teacher-card :key="topic.id"
+                    :professor="topic.professors"
                     :topicName="topic.name"
                     :teacherName="addProfesores(topic.professors)"
                     :src="imagen"/>
@@ -22,21 +23,7 @@
                 topicName="Biotecnología"
                 teacherName="Mario Inostroza, ..."
                 description="description"
-                src="http://resources.chrysalis.cl/2016/07/shutterstock_142053856-1728x800_c.jpg"/>
-
-                <teacher-card 
-                topicName="Optimización"
-                teacherName="Victor Parada, Cristian Sepulveda, ...."
-                description="description"
-                src="https://ocw.ua.es/es/imagenes/fotos/ingenieria-arquitectura/simulacionyoptimizacion.jpg"/>
-
-                <teacher-card 
-                topicName="Sistemas"
-                teacherName="Bruno Jerardino, Edmundo Leiva, ......"
-                description="description"
-                src="https://conceptodefinicion.de/wp-content/uploads/2017/04/Teor%C3%ADa_de_Sistemas.jpg"/>
-                <v-btn @click="obtenerTopicos" small color="primary">DARLE ATOMOS</v-btn>
-                {{topicos}} -->
+                src="http://resources.chrysalis.cl/2016/07/shutterstock_142053856-1728x800_c.jpg"/> -->
                 
         </v-layout>
     </v-container>
@@ -72,6 +59,7 @@ export default {
     methods:{
         ...mapActions(['obtenerTopicos']),
         addProfesores: function(profesores){
+            //console.log(profesores);
             var nombres = '';
             profesores.forEach(function(element){
                 if(element.name != undefined){

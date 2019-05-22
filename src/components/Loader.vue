@@ -30,7 +30,7 @@ export default {
         ...mapState(['dialog']),
         dialogo: {
             get () {
-                return this.$store.state.dialog
+                return this.dialog
             }
         }
     },

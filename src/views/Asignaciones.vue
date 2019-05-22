@@ -14,15 +14,15 @@
                             MEMORIAS SIN ASIGNAR
                         </v-subheader>
                         <v-divider></v-divider>
-                        <draggable v-model="memorias" :options="{group:'people'}" style="min-height: 10px">
-                            <template v-for="item in memorias">
+                        <draggable v-model="tesis" :options="{group:'people'}" style="min-height: 10px">
+                            <template v-for="item in tesis">
                                 <v-list-tile :key="item.id" avatar>
-                                    <v-list-tile-avatar>
+                                    <!-- <v-list-tile-avatar>
                                         <img :src="item.avatar">
-                                    </v-list-tile-avatar>
+                                    </v-list-tile-avatar> -->
                                     <v-list-tile-content>
                                         <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                                        <v-list-tile-sub-title v-html="item.subtitle"></v-list-tile-sub-title>
+                                        <v-list-tile-sub-title v-html="item.description"></v-list-tile-sub-title>
                                     </v-list-tile-content>
                                 </v-list-tile>
                             </template>
@@ -35,7 +35,7 @@
                     <v-subheader>
                          <v-flex xs12 sm6 d-flex>
                             <v-select
-                             :items="profesores"
+                             :items="professors"
                              name="profesor"
                              label="Seleccione un profesor..."
                              
@@ -58,6 +58,7 @@
                                 </v-list-tile>
                             </template>
                         </draggable>
+                       
                     </v-list>
                     <!-- ------------------------------------- -->
                 </v-flex>
@@ -68,87 +69,24 @@
 
 <script>
 import draggable from "vuedraggable";
-
+import {mapState, mapActions} from 'vuex'
+import LoaderState from '@/components/Loader.vue'
 export default {
     components:{
-        draggable
+        draggable,
+        LoaderState
+    },
+    computed:{
+        ...mapState(['tesis','professors']),
+        // memorias:{
+        //   get () {
+        //       return this.tesis
+        //   }
+        // }
+      
     },
     data() {
         return {
-            memorias: [
-                {
-                    id: 1,
-                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/1.jpg",
-                    title: "Memoria 1",
-                    subtitle: "Desripcion de memoria 1"
-                },
-                {
-                    id: 2,
-                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/2.jpg",
-                    title: "Memoria 2",
-                    subtitle: "Desripcion de memoria 3"
-                },
-                {
-                    id: 3,
-                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/3.jpg",
-                    title: "Memoria 3",
-                    subtitle: "Desripcion de memoria 3"
-                },
-                {
-                    id: 4,
-                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/1.jpg",
-                    title: "Memoria 1",
-                    subtitle: "Desripcion de memoria 1"
-                },
-                {
-                    id: 5,
-                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/2.jpg",
-                    title: "Memoria 2",
-                    subtitle: "Desripcion de memoria 3"
-                },
-                {
-                    id: 6,
-                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/3.jpg",
-                    title: "Memoria 3",
-                    subtitle: "Desripcion de memoria 3"
-                },
-                {
-                    id: 7,
-                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/1.jpg",
-                    title: "Memoria 1",
-                    subtitle: "Desripcion de memoria 1"
-                },
-                {
-                    id: 8,
-                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/2.jpg",
-                    title: "Memoria 2",
-                    subtitle: "Desripcion de memoria 3"
-                },
-                {
-                    id: 9,
-                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/3.jpg",
-                    title: "Memoria 3",
-                    subtitle: "Desripcion de memoria 3"
-                },
-                {
-                    id: 10,
-                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/1.jpg",
-                    title: "Memoria 1",
-                    subtitle: "Desripcion de memoria 1"
-                },
-                {
-                    id: 11,
-                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/2.jpg",
-                    title: "Memoria 2",
-                    subtitle: "Desripcion de memoria 3"
-                },
-                {
-                    id: 12,
-                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/3.jpg",
-                    title: "Memoria 3",
-                    subtitle: "Desripcion de memoria 3"
-                }
-            ],
             
             profesor1: [
                 {
@@ -185,6 +123,9 @@ export default {
                 }
             ]
         };
+    },
+    methods:{
+
     }
 }
 </script>
