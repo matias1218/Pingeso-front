@@ -49,11 +49,11 @@ export default new Vuex.Store({
     },
 
     obtenerTesis: async function({commit,state}){
-      commit('cambiarEstadoDialog',true);
+      
       const data = await fetch('http://23.20.84.8:9090/theses/all');
       const tesis = await data.json();
       commit('actualizarTesis',tesis);
-      commit('cambiarEstadoDialog',false);
+      
     }
   }
 })

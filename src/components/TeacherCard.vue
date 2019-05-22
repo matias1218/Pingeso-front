@@ -46,10 +46,11 @@ export default {
     methods:{
         ...mapMutations(['getProfessorsId']),
         ...mapActions(['obtenerTesis']),
-        onClick: function(profe){
+        onClick: async function(profe){
+            await this.obtenerTesis();
             this.$store.commit('getProfessorsId',this.professor);
             this.$router.push('/asignaciones');
-            this.obtenerTesis();
+            
             
         }
     }

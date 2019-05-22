@@ -14,8 +14,8 @@
                             MEMORIAS SIN ASIGNAR
                         </v-subheader>
                         <v-divider></v-divider>
-                        <draggable v-model="tesis" :options="{group:'people'}" style="min-height: 10px">
-                            <template v-for="item in tesis">
+                        <draggable v-model="copiaTesis" :options="{group:'people'}" style="min-height: 10px">
+                            <template v-for="item in copiaTesis">
                                 <v-list-tile :key="item.id" avatar>
                                     <!-- <v-list-tile-avatar>
                                         <img :src="item.avatar">
@@ -38,7 +38,7 @@
                              :items="professors"
                              name="profesor"
                              label="Seleccione un profesor..."
-                             
+                             v-model="profesorActual"
                              v-validate="'required'"
                              item-text="name"
                              ></v-select>
@@ -58,7 +58,6 @@
                                 </v-list-tile>
                             </template>
                         </draggable>
-                       
                     </v-list>
                     <!-- ------------------------------------- -->
                 </v-flex>
@@ -77,55 +76,26 @@ export default {
         LoaderState
     },
     computed:{
-        ...mapState(['tesis','professors']),
-        // memorias:{
-        //   get () {
-        //       return this.tesis
-        //   }
+        ...mapState(['tesis','professors'])
+        // tesisParaAsignar:{
+        //    get(){
+        //      var nuevaVariable = this.tesis;
+        //      return nuevaVariable;
+        //    }
         // }
-      
     },
     data() {
         return {
-            
-            profesor1: [
-                {
-                    id: 4,
-                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/4.jpg",
-                    title: "Memoria 4",
-                    subtitle: "Desripcion de memoria 4",
-                    rut:2121212
-                },
-                {
-                    id: 5,
-                    avatar: "https://s3.amazonaws.com/vuetify-docs/images/lists/5.jpg",
-                    title: 'Memoria 5',
-                    subtitle: "Desripcion de memoria 5",
-                    rut:121312
-                }
-            ],
-            profesores:[
-                {
-                    id: 1,
-                    name: "Alcides Quispe",
-                },
-                {
-                    id: 7,
-                    name: 'Victor Parada',
-                },
-                 {
-                    id: 3,
-                    name: "Fernanda Kri",
-                },
-                {
-                    id: 4,
-                    name: 'Edmundo Leiva',
-                }
-            ]
+            profesorActual: null,
+            profesor1:[],
+            copiaTesis: null
         };
     },
     methods:{
-
+      
+    },
+    mounted: function(){
+      this.copiaTesis = this.tesis;
     }
 }
 </script>
