@@ -6,15 +6,20 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     topicos: [],
-    cosita:'wea'
+    cosita: 'wea',
+    dialog: false
   },
   mutations: {
+    cambiarEstadoDialog(state,estado){
+      state.dialog = estado;
+    },
     actualizarTopico(state,topico){
       state.topicos = topico;
     }
   },
   actions: {
-    obtenerTopicos: async function({commit}){
+    obtenerTopicos: async function({commit,state}){
+      
       // var data;
       // //const data = await fetch('http://23.20.84.8:9090/professors/topic/1');
       // this.$http.get('http://23.20.84.8:9090/professors/topic/1').then(response=>{
@@ -28,10 +33,11 @@ export default new Vuex.Store({
       // });
       // var topico = await data.json();
       // commit('actualizarTopico',topico);
-
-      const data = await fetch('http://23.20.84.8:9090/professors/topic/1');
+      commit('cambiarEstadoDialog',true);
+      const data = await fetch('https://memoriausach.azurewebsites.net/topics');
       const topico = await data.json();
       commit('actualizarTopico',topico);
+      commit('cambiarEstadoDialog',false);
     }
   }
 })

@@ -1,20 +1,24 @@
 <template>
     <v-container grid-list-md>
         <v-layout row wrap >
-
+                <loader-state></loader-state>
                 <!-- aqui debe ir un iterador que tome una lista
                 de topicos con los profesores a cargo -->
                 <v-flex md12>
                     <h1 class="display-2 font-weight-thin mb-3 white--text">Profesores por tópicos</h1>
                     <h4 class="subheading white--text">Listado de profesores segun especialidad</h4>
                 </v-flex>
-                <teacher-card 
-                :topicName="topic"
-                :teacherName="teacher"
-                :description="description"
-                :src="imagen"/>    <!--  deje un bind a src para poner un link de imagen -->
 
-                <teacher-card 
+                <!-- Iteración de los topicos  -->
+                <template v-for="topic in topicos">
+                    <teacher-card :key="topic.id"
+                    :topicName="topic.name"
+                    :teacherName="addProfesores(topic.professors)"
+                    :src="imagen"/>
+                </template>
+                <!--  -->
+
+                <!-- <teacher-card 
                 topicName="Biotecnología"
                 teacherName="Mario Inostroza, ..."
                 description="description"
@@ -32,7 +36,7 @@
                 description="description"
                 src="https://conceptodefinicion.de/wp-content/uploads/2017/04/Teor%C3%ADa_de_Sistemas.jpg"/>
                 <v-btn @click="obtenerTopicos" small color="primary">DARLE ATOMOS</v-btn>
-                {{topicos}}
+                {{topicos}} -->
                 
         </v-layout>
     </v-container>
@@ -43,16 +47,18 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import TeacherCard from '@/components/TeacherCard.vue'
+import LoaderState from '@/components/Loader.vue'
 import {mapState, mapMutations, mapActions} from 'vuex'
 Vue.use(Vuetify)
 export default {
     name:'topicsTeacher',
 
     computed:{
-        ...mapState(['topicos','cosita'])
+        ...mapState(['topicos'])
     },
     components:{
-        TeacherCard
+        TeacherCard,
+        LoaderState
     },
     data() {
       return{
@@ -64,7 +70,16 @@ export default {
       }
     },
     methods:{
-        ...mapActions(['obtenerTopicos'])
+        ...mapActions(['obtenerTopicos']),
+        addProfesores: function(profesores){
+            var nombres = '';
+            profesores.forEach(function(element){
+                if(element.name != undefined){
+                    nombres = nombres + element.name + ' ' + element.lastname1 + '\n';
+                }
+            });
+            return nombres;
+        }
     }
 }
 </script>
