@@ -42,7 +42,7 @@ export default new Vuex.Store({
       // var topico = await data.json();
       // commit('actualizarTopico',topico);
       commit('cambiarEstadoDialog',true);
-      const data = await fetch('https://memoriausach.azurewebsites.net/topics');
+      const data = await fetch('http://23.20.84.8:9090/topics/all');
       const topico = await data.json();
       commit('actualizarTopico',topico);
       commit('cambiarEstadoDialog',false);
@@ -50,7 +50,7 @@ export default new Vuex.Store({
 
     obtenerTesis: async function({commit,state}){
       commit('cambiarEstadoDialog',true);
-      const data = await fetch('https://memoriausach.azurewebsites.net/theses');
+      const data = await fetch('http://23.20.84.8:9090/theses/all');
       const tesis = await data.json();
       commit('actualizarTesis',tesis);
       commit('cambiarEstadoDialog',false);

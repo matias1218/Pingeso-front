@@ -63,7 +63,7 @@ export default {
             var nombres = '';
             profesores.forEach(function(element){
                 if(element.name != undefined){
-                    nombres = nombres + element.name + ' ' + element.lastname1 + '\n';
+                    nombres = nombres + element.name + ', ';
                 }
             });
             return nombres;

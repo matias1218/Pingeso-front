@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import {mapState,mapMutations} from 'vuex'
+import {mapState,mapMutations, mapActions} from 'vuex'
 export default {
     props:['teacherName','description','topicName','src','professor'],
     computed:{
@@ -45,8 +45,11 @@ export default {
     },
     methods:{
         ...mapMutations(['getProfessorsId']),
+        ...mapActions(['obtenerTesis']),
         onClick: function(profe){
             this.$store.commit('getProfessorsId',this.professor);
+            this.$router.push('/asignaciones');
+            this.obtenerTesis();
             
         }
     }
