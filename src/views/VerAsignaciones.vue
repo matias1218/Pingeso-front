@@ -42,19 +42,22 @@ export default {
     },
     mounted(){
           {
-              this.$http.get('http://23.20.84.8:9090/professors/all').then((response) => {
+              this.$http.get('https://memoriausach.azurewebsites.net/professors/3/topics').then((response) => {
                   this.assign = response.body;
-                  this.assign.map((prof) => {
-                        
+                  this.assign[0].professors.map((prof) => {
                         this.rows.push({
 
                             nameprof: prof.name + ' ' + prof.lastname1 + ' ' + prof.lastname2,
-                            _children: prof.topics
+                            _children: prof.theses
 
                             }); 
                         
                         })
                    });
+            console.log(this.prueba);
+            console.log(this.rows);
+
+
           }
     },     
     data () {
@@ -62,22 +65,23 @@ export default {
         page: 0,
         filter: '',
         assign:[],
+        prueba:[],
         columns: [
             {
                 property: 'nameprof',
-                title: 'Nombre profesor(cantidad Temas)',
+                title: 'Nombre profesor(cantidad Tesis)',
                 direction: null,
                 filterable: true,
                 collapseIcon: true
             },
             {
-                property: 'name',
+                property: 'title',
                 title: 'Título Tesis',
                 filterable: true,
             },
             {
                 property: 'revition',
-                title: 'Fecha Revisión',
+                title: 'Fecha Examen',
                 filterable: true,
             }
             ,
@@ -87,7 +91,219 @@ export default {
                 filterable: true,
             }
         ],
-        rows: [],
+        rows: [
+            {
+                nameprof: 'Fernando Rannou'+ '('+ 0 + ')',
+            },
+            {
+                nameprof: 'Luciano Hidalgo'+ '('+ 0 + ')',
+            },
+            {
+                 nameprof: 'Victor Parada' + '('+ 3 + ')',
+                _children: [
+                    {
+                        title: 'tema1',
+                        revition: '02/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema2',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema3',
+                        revition: '12/03/2019',
+                        time:'10:00'
+                    },
+                ],
+            },
+            {
+                 nameprof: 'Pablo Román Asenjo'  + '('+ 4 + ')',
+                _children: [
+                    {
+                        title: 'tema1',
+                        revition: '02/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema2',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema3',
+                        revition: '12/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema4',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    }
+                ]
+            },
+            {
+                 nameprof: 'J. L. Jara'  + '('+ 4 + ')',
+                _children: [
+                    {
+                        title: 'tema1',
+                        revition: '02/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema2',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema3',
+                        revition: '12/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema4',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    }
+                ]
+            },
+            {
+                 nameprof: 'Mario Inostroza-Ponta'  + '('+ 4 + ')',
+                _children: [
+                    {
+                        title: 'tema1',
+                        revition: '02/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema2',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema3',
+                        revition: '12/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema4',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    }
+                ]
+            },
+            {
+                 nameprof: 'Roberto González-Ibáñez'  + '('+ 4 + ')',
+                _children: [
+                    {
+                        title: 'tema1',
+                        revition: '02/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema2',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema3',
+                        revition: '12/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema4',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    }
+                ]
+            },
+            {
+                 nameprof: 'Fernanda Kri'  + '('+ 4 + ')',
+                _children: [
+                    {
+                        title: 'tema1',
+                        revition: '02/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema2',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema3',
+                        revition: '12/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema4',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    }
+                ]
+            },
+            {
+                 nameprof: 'Carolina Bonacic Castro'  + '('+ 4 + ')',
+                _children: [
+                    {
+                        title: 'tema1',
+                        revition: '02/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema2',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema3',
+                        revition: '12/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema4',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    }
+                ]
+            },
+            {
+                 nameprof: 'Alcides Quispe Sanca'  + '('+ 4 + ')',
+                _children: [
+                    {
+                        title: 'tema1',
+                        revition: '02/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema2',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema3',
+                        revition: '12/03/2019',
+                        time:'10:00'
+                    },
+                    {
+                        title: 'tema4',
+                        revition: '22/03/2019',
+                        time:'10:00'
+                    }
+                ]
+            },
+            {
+                 nameprof: 'Edmundo Leiva'  + '('+ 1 + ')',
+                _children: [
+                    {
+                        title: 'tema1',
+                        revition: '02/03/2019',
+                        time:'10:00'
+                    }
+                ]
+            }
+        ],
         };
     },
     methods: {
