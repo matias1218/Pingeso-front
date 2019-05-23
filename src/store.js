@@ -10,7 +10,8 @@ export default new Vuex.Store({
     dialog: false,
     tesis: [],
     professors: [],
-    TotalProfessors:[]
+    TotalProfessors:[],
+    topicoss:1
   },
   mutations: {
     cambiarEstadoDialog(state,estado){
@@ -27,6 +28,9 @@ export default new Vuex.Store({
     },
     actualizarProfesores(state,profesores){
       state.TotalProfessors = profesores;
+    },
+    getTopicosId(state,topicoss){
+      state.topicoss = topicoss;
     }
   },
   actions: {
