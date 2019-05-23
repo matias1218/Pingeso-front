@@ -45,7 +45,7 @@
                              >
                               <template slot="selection" slot-scope="data">
                                 <v-flex>
-                                  <v-avatar size="35px">
+                                  <v-avatar size="34px">
                                     <img :src="data.item.imageUrl"/>
                                   </v-avatar>
                                 </v-flex>
@@ -67,10 +67,7 @@
                     <v-divider></v-divider>
                         <draggable v-model="tesisAsignadas" :options="{group:'people'}" style="min-height: 10px">
                             <template v-for="item in tesisAsignadas">
-                                <v-list-tile :key="item.id" avatar>
-                                    <v-list-tile-avatar>
-                                        <img :src="item.avatar">
-                                    </v-list-tile-avatar>
+                                <v-list-tile :key="item.id">
                                     <v-list-tile-content>
                                         <v-list-tile-title v-html="item.title"></v-list-tile-title>
                                         <v-list-tile-sub-title v-html="item.description"></v-list-tile-sub-title>
