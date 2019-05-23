@@ -33,18 +33,17 @@
                     <!-- se debe generar una lista por profesor -->
                     <v-list two-line>
                     <v-subheader>
-                         <v-flex xs12 sm6 d-flex>
+                        <v-flex id="selector" xs12  d-flex>
                             <v-select
                              v-model="profesorActual"
                              :items="professors"
                              name="profesor"
                              label="Seleccione un profesor..."
-                             return-object
-                             single-line
                              item-text="name"
                              item-value="id"
+                             return-object
                              ></v-select>
-                            </v-flex>
+                        </v-flex>
                     </v-subheader>
                     <v-divider></v-divider>
                         <draggable v-model="tesisAsignadas" :options="{group:'people'}" style="min-height: 10px">
@@ -114,6 +113,9 @@ export default {
 </script>
 
 <style>
+#selector{
+  margin-top: 20px;
+}
 .sdt-footer p {
   bottom: 0;
   left: 0;
