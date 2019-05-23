@@ -45,9 +45,10 @@ export default {
     },
     methods:{
         ...mapMutations(['getProfessorsId']),
-        ...mapActions(['obtenerTesis']),
+        ...mapActions(['obtenerTesis','obtenerProfesores']),
         onClick: async function(profe){
             await this.obtenerTesis();
+            await this.obtenerProfesores();
             this.$store.commit('getProfessorsId',this.professor);
             this.$router.push('/asignaciones');
             

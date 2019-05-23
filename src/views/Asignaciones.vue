@@ -14,8 +14,8 @@
                             MEMORIAS SIN ASIGNAR
                         </v-subheader>
                         <v-divider></v-divider>
-                        <draggable v-model="copiaTesis" :options="{group:'people'}" style="min-height: 10px">
-                            <template v-for="item in copiaTesis">
+                        <draggable v-model="tesis" :options="{group:'people'}" style="min-height: 10px">
+                            <template v-for="item in tesis">
                                 <v-list-tile :key="item.id" avatar>
                                     <!-- <v-list-tile-avatar>
                                         <img :src="item.avatar">
@@ -35,25 +35,27 @@
                     <v-subheader>
                          <v-flex xs12 sm6 d-flex>
                             <v-select
+                             v-model="profesorActual"
                              :items="professors"
                              name="profesor"
                              label="Seleccione un profesor..."
-                             v-model="profesorActual"
-                             v-validate="'required'"
+                             return-object
+                             single-line
                              item-text="name"
+                             item-value="id"
                              ></v-select>
                             </v-flex>
                     </v-subheader>
                     <v-divider></v-divider>
-                        <draggable v-model="profesor1" :options="{group:'people'}" style="min-height: 10px">
-                            <template v-for="item in profesor1">
-                                <v-list-tile :key="item.rut" avatar>
+                        <draggable v-model="tesisAsignadas" :options="{group:'people'}" style="min-height: 10px">
+                            <template v-for="item in tesisAsignadas">
+                                <v-list-tile :key="item.id" avatar>
                                     <v-list-tile-avatar>
                                         <img :src="item.avatar">
                                     </v-list-tile-avatar>
                                     <v-list-tile-content>
                                         <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                                        <v-list-tile-sub-title v-html="item.subtitle"></v-list-tile-sub-title>
+                                        <v-list-tile-sub-title v-html="item.description"></v-list-tile-sub-title>
                                     </v-list-tile-content>
                                 </v-list-tile>
                             </template>
@@ -76,7 +78,7 @@ export default {
         LoaderState
     },
     computed:{
-        ...mapState(['tesis','professors'])
+        ...mapState(['tesis','professors','TotalProfessors'])
         // tesisParaAsignar:{
         //    get(){
         //      var nuevaVariable = this.tesis;
@@ -86,16 +88,27 @@ export default {
     },
     data() {
         return {
-            profesorActual: null,
+            profesorActual: [],
             profesor1:[],
-            copiaTesis: null
+            tesisAsignadas:[]
         };
     },
     methods:{
-      
+      obtenerAsignaciones: async function(profesor){
+        const data = await fetch('http://23.20.84.8:9090/theses/commission/'+profesor.id);
+        const tesisAsignadas = await data.json();
+        return tesisAsignadas;
+      }
+    },
+    watch:{
+      profesorActual: async function(){
+        this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
+      }
     },
     mounted: function(){
-      this.copiaTesis = this.tesis;
+      // no puede haber una copia porque las tesis deben ser asignadas a mas de un profesor
+      //this.copiaTesis = this.tesis;
+      // obtener los profesores totales
     }
 }
 </script>
