@@ -12,6 +12,7 @@
                 <!-- Iteración de los topicos  -->
                 <template v-for="topic in topicos">
                     <teacher-card :key="topic.id"
+                    :idTopic="topic.id"
                     :professor="topic.professors"
                     :topicName="topic.name"
                     :teacherName="addProfesores(topic.professors)"

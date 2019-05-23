@@ -17,7 +17,7 @@
             
         </v-card-text>
         <v-card-actions>
-            <v-btn flat color="orange" href="/verAsignaciones" >Ver asignaciones</v-btn>
+            <v-btn flat color="orange"  @click='onClick1(topicId)' >Ver asignaciones</v-btn>
             <v-spacer></v-spacer>
             <v-btn flat color="orange" @click='onClick(profesor)'>Administrar</v-btn>
         </v-card-actions>
@@ -30,11 +30,16 @@
 <script>
 import {mapState,mapMutations, mapActions} from 'vuex'
 export default {
-    props:['teacherName','description','topicName','src','professor'],
+    props:['teacherName','description','topicName','src','professor', 'idTopic'],
     computed:{
         profesor:{
             get(){
                 return this.professor
+            }
+        },
+        topicId:{
+            get(){
+                return this.idTopic
             }
         }
     },
@@ -53,6 +58,10 @@ export default {
             this.$router.push('/asignaciones');
             
             
+        },
+        onClick1: async function(idtopic){
+            this.$store.commit('getTopicosId',this.idTopic);
+            this.$router.push('/verAsignaciones');      
         }
     }
 }
