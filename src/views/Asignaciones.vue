@@ -1,7 +1,9 @@
 <template>
     <v-content>
         <v-container >
+          
             <v-layout align-start justify-space-between wrap row>
+                <snackbar  :snackbar="state" :text="text" :color="color"></snackbar>
                 <v-flex md12>
                     <h1 class="display-2 font-weight-thin mb-3 white--text">Asignaciones de memorias</h1>
                     <h4 class="subheading white--text">Listado de correcciones sin asignar. Arrastre las memorias del listado 
@@ -65,8 +67,23 @@
                         </v-flex>
                     </v-subheader>
                     <v-divider></v-divider>
-                        <draggable v-model="tesisAsignadas" :options="{group:'people'}" style="min-height: 10px">
-                            <template v-for="item in tesisAsignadas">
+                    <!-- Parte donde se ven las memorias ya asignadas -->
+                        
+                    <h4 class="subheading">Memorias asignadas</h4>
+                      <template v-for="item in tesisAsignadas">
+                          <v-list-tile :key="item.id">
+                              <v-list-tile-content>
+                                  <v-list-tile-title v-html="item.title"></v-list-tile-title>
+                                  <v-list-tile-sub-title v-html="item.description"></v-list-tile-sub-title>
+                              </v-list-tile-content>
+                          </v-list-tile>
+                      </template>
+                    <v-divider></v-divider>
+                        
+                    <!-- Parte donde se van a asignar las nuevas memorias -->
+                    <h4 class="subheading">Arrastre aqui para asignar</h4>
+                        <draggable v-model="nuevaAsignacion" :options="{group:'people'}" style="min-height: 10px">
+                            <template v-for="item in nuevaAsignacion">
                                 <v-list-tile :key="item.id">
                                     <v-list-tile-content>
                                         <v-list-tile-title v-html="item.title"></v-list-tile-title>
@@ -75,7 +92,14 @@
                                 </v-list-tile>
                             </template>
                         </draggable>
+                        <div class="text-xs-center">
+                          <v-btn outline color="indigo" @click="asignarCorreccion(nuevaAsignacion)">Asignar</v-btn>
+                        </div>
                     </v-list>
+                    <v-card>
+                    </v-card>
+      
+                   
                     <!-- ------------------------------------- -->
                 </v-flex>
             </v-layout>
@@ -87,24 +111,23 @@
 import draggable from "vuedraggable";
 import {mapState, mapActions} from 'vuex'
 import LoaderState from '@/components/Loader.vue'
+import Snackbar from '@/components/Snackbar.vue'
 export default {
     components:{
         draggable,
-        LoaderState
+        LoaderState,
+        Snackbar
     },
     computed:{
         ...mapState(['tesis','professors','TotalProfessors'])
-        // tesisParaAsignar:{
-        //    get(){
-        //      var nuevaVariable = this.tesis;
-        //      return nuevaVariable;
-        //    }
-        // }
     },
     data() {
         return {
+            state:false,
+            text:'',
+            color:'',
             profesorActual: [],
-            profesor1:[],
+            nuevaAsignacion:[],
             tesisAsignadas:[]
         };
     },
@@ -113,11 +136,34 @@ export default {
         const data = await fetch('http://23.20.84.8:9090/theses/commission/'+profesor.id);
         const tesisAsignadas = await data.json();
         return tesisAsignadas;
+      },
+      asignarCorreccion: async function(tesisParaAsignar){ // aqui debe entrar nuevaAsignacion
+        var retorno = true;
+        await tesisParaAsignar.forEach(element => {
+          
+          retorno = fetch('http://23.20.84.8:9090/students/'+tesisParaAsignar[0].student.id+'/assign/'+this.profesorActual.id);
+          if(retorno == true){  
+            this.text="Memoria asignada exitosamente";
+            this.state=true;
+            this.color="success"
+            console.log("good");
+          }
+          else{
+            this.text="La asignación no es posible";
+            this.state=true;
+            this.color="error"
+            console.log("error");
+          }
+        });
       }
     },
     watch:{
       profesorActual: async function(){
         this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
+        this.state = false;
+      },
+      nuevaAsignacion: function(){
+        return this.state = false;
       }
     },
     mounted: function(){
