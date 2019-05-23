@@ -1,17 +1,16 @@
 <template>
-  <div class="text-xs-center">
+  <div  class="text-xs-center">
     <v-dialog
       v-model="dialogo"
-      hide-overlay
       persistent
       width="300"
     >
-      <v-card
+      <v-card id="mycard"
         color="primary"
         dark
       >
-        <v-card-text>
-          Please stand by
+        <v-card-text >
+          Por favor espere
           <v-progress-linear
             indeterminate
             color="white"
@@ -43,5 +42,8 @@ export default {
 </script>
 
 <style>
-
+#mycard{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
 </style>
