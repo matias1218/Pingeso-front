@@ -70,11 +70,11 @@
                     <!-- Parte donde se ven las memorias ya asignadas -->
                         
                     <h4 class="subheading">Memorias asignadas</h4>
-                      <template v-for="item in tesisAsignadas">
-                          <v-list-tile :key="item.id">
+                      <template v-for="memoria in tesisAsignadas">
+                          <v-list-tile :key="memoria.id">
                               <v-list-tile-content>
-                                  <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                                  <v-list-tile-sub-title v-html="item.description"></v-list-tile-sub-title>
+                                  <v-list-tile-title v-html="memoria.title"></v-list-tile-title>
+                                  <v-list-tile-sub-title v-html="memoria.description"></v-list-tile-sub-title>
                               </v-list-tile-content>
                           </v-list-tile>
                       </template>
@@ -96,8 +96,7 @@
                           <v-btn outline color="indigo" @click="asignarCorreccion(nuevaAsignacion)">Asignar</v-btn>
                         </div>
                     </v-list>
-                    <v-card>
-                    </v-card>
+                    
       
                    
                     <!-- ------------------------------------- -->
@@ -128,7 +127,8 @@ export default {
             color:'',
             profesorActual: [],
             nuevaAsignacion:[],
-            tesisAsignadas:[]
+            tesisAsignadas:[],
+            timer:''
         };
     },
     methods:{
@@ -141,30 +141,44 @@ export default {
         var retorno = true;
         await tesisParaAsignar.forEach(element => {
           
-          retorno = fetch('http://23.20.84.8:9090/students/'+tesisParaAsignar[0].student.id+'/assign/'+this.profesorActual.id);
-          if(retorno == true){  
-            this.text="Memoria asignada exitosamente";
-            this.state=true;
-            this.color="success"
-            console.log("good");
-          }
-          else{
-            this.text="La asignación no es posible";
-            this.state=true;
-            this.color="error"
-            console.log("error");
-          }
+          this.$http.get('http://23.20.84.8:9090/students/'+tesisParaAsignar[0].student.id+'/assign/'+this.profesorActual.id).then(response=>{
+              // get body data
+              retorno = response.body;
+              if(retorno == true){  
+                this.text="Memoria asignada exitosamente";
+                this.state=true;
+                this.color="success"
+                console.log("good");
+              }
+              else{
+                this.text="La asignación no es posible";
+                this.state=true;
+                this.color="error"
+                console.log("error");
+              }
+              console.log(retorno);
+              console.log("good");
+          }, response=>{
+                this.text="GET_ERROR";
+                this.state=true;
+                this.color="error"
+                console.log("error");
+          });     
         });
+        this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
       }
     },
     watch:{
       profesorActual: async function(){
-        this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
         this.state = false;
+        this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
+        
       },
       nuevaAsignacion: function(){
-        return this.state = false;
+        this.state = false;
+        
       }
+      
     },
     mounted: function(){
       // no puede haber una copia porque las tesis deben ser asignadas a mas de un profesor

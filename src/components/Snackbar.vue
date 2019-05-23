@@ -24,11 +24,11 @@ export default {
     props:['snackbar','text','color'],
     data () {
       return {
-       
+       snackbar:false,
         y: 'top',
         x: 'left',
         mode: '',
-        
+        color:'color',
         timeout: 6000,
       }
     }
