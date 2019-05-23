@@ -5,7 +5,7 @@
                 <v-flex md12>
                     <h1 class="display-2 font-weight-thin mb-3 white--text">Asignaciones de memorias</h1>
                     <h4 class="subheading white--text">Listado de correcciones sin asignar. Arrastre las memorias del listado 
-                        izquierdo hacia las tarjetas de cada profesor para asignar las memorias
+                        izquierdo hacia la tarjeta de cada profesor seleccionado
                     </h4>
                 </v-flex>
                 <v-flex md7 class="elevation-2 pa-1 mt-3">
@@ -39,10 +39,29 @@
                              :items="professors"
                              name="profesor"
                              label="Seleccione un profesor..."
-                             item-text="name"
-                             item-value="id"
+                             height="45"
+                             single-line
                              return-object
-                             ></v-select>
+                             >
+                              <template slot="selection" slot-scope="data">
+                                <v-flex>
+                                  <v-avatar size="35px">
+                                    <img :src="data.item.imageUrl"/>
+                                  </v-avatar>
+                                </v-flex>
+                                <v-flex >
+                                  {{ data.item.name }}
+                                </v-flex>
+                              </template>
+                              <template slot="item" slot-scope="data">
+                                <v-list-tile-avatar>
+                                  <img :src="data.item.imageUrl" />
+                                </v-list-tile-avatar>
+                                <v-list-tile-content>
+                                  <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
+                                </v-list-tile-content>
+                              </template>
+                             </v-select>
                         </v-flex>
                     </v-subheader>
                     <v-divider></v-divider>
@@ -114,7 +133,7 @@ export default {
 
 <style>
 #selector{
-  margin-top: 20px;
+  margin-top: 17px;
 }
 .sdt-footer p {
   bottom: 0;
