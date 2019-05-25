@@ -15,6 +15,7 @@
                     :idTopic="topic.id"
                     :professor="topic.professors"
                     :topicName="topic.name"
+                    :description="topic.description"
                     :teacherName="addProfesores(topic.professors)"
                     :src="imagen"/>
                 </template>
