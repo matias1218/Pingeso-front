@@ -22,6 +22,7 @@
             <v-btn flat color="orange" @click='onClick(profesor)'>Administrar</v-btn>
         </v-card-actions>
        </v-card> 
+       <loader-state></loader-state>
       </v-hover>
     </v-flex>
     
@@ -51,10 +52,12 @@ export default {
     methods:{
         ...mapActions(['obtenerTesis','obtenerProfesores']),
         onClick: async function(profe){
+            this.$store.commit('cambiarEstadoDialog',true);
             await this.obtenerTesis();
             await this.obtenerProfesores();
             this.$store.commit('getProfessorsId',this.professor);
             this.$router.push('/asignaciones');
+            this.$store.commit('cambiarEstadoDialog',false);
             
             
         },

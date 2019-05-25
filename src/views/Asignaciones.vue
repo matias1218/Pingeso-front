@@ -91,9 +91,10 @@
                             </template>
                         </draggable>
                         <div class="text-xs-center">
-                          <v-btn outline color="indigo" @click="asignarCorreccion(nuevaAsignacion)">Asignar</v-btn>
+                          <v-btn outline color="indigo" @click="asignar(nuevaAsignacion)">Asignar</v-btn>
                         </div>
                     </v-list>
+                    <loader-state></loader-state>
                     <!-- ------------------------------------- -->
                 </v-flex>
             </v-layout>
@@ -112,7 +113,7 @@ export default {
         LoaderState
     },
     computed:{
-        ...mapState(['tesis','professors','TotalProfessors','notificationSystem'])
+        ...mapState(['tesis','professors','TotalProfessors','notificationSystem','estadoAsignacion'])
     },
     data() {
         return {
@@ -124,40 +125,30 @@ export default {
         };
     },
     methods:{
+      ...mapActions(['asignarCorreccion','obtenerTesis']),
       obtenerAsignaciones: async function(profesor){
         const data = await fetch('http://23.20.84.8:9090/theses/commission/'+profesor.id);
         const tesisAsignadas = await data.json();
         return tesisAsignadas;
       },
-      asignarCorreccion: async function(tesisParaAsignar){ // aqui debe entrar nuevaAsignacion
-        var retorno = true;
-        await tesisParaAsignar.forEach(element => {
-          
-          this.$http.get('http://23.20.84.8:9090/students/'+tesisParaAsignar[0].student.id+'/assign/'+this.profesorActual.id).then(response=>{
-              // get body data
-              retorno = response.body;
-              if(retorno == true){  
-                this.$toast.success('Memoria asignada correctamente!', 'OK', this.notificationSystem.options.success);
-                console.log("good");
-              }
-              else{
-                this.$toast.warning('No es posible asignar la memoria', 'Alto', this.notificationSystem.options.warning);
-                console.log("error");
-              }
-              console.log(retorno);
-              console.log("good");
-          }, response=>{
-                console.log("error");
-          });     
-        });
+      asignar: async function(tesisParaAsignar){ // aqui debe entrar nuevaAsignacion
+        this.$store.commit('cambiarEstadoDialog',true);
+        await this.asignarCorreccion({data1: tesisParaAsignar[0].student.id, data2: this.profesorActual.id});
+        if(this.estadoAsignacion == true){
+          this.$toast.success('Memoria asignada correctamente!', 'OK', this.notificationSystem.options.success);
+        }
+        else{
+          this.$toast.warning('No es posible asignar la memoria', 'Alto', this.notificationSystem.options.warning);
+        }
         this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
+        await this.obtenerTesis();
+        this.$store.commit('cambiarEstadoDialog',false);
       },
     },
     watch:{
       profesorActual: async function(){
         this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual); 
       }
-      
     },
     mounted: function(){
       // no puede haber una copia porque las tesis deben ser asignadas a mas de un profesor
