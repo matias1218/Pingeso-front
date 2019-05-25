@@ -1,9 +1,7 @@
 <template>
     <v-content>
         <v-container >
-          
             <v-layout align-start justify-space-between wrap row>
-                <snackbar  :snackbar="state" :text="text" :color="color"></snackbar>
                 <v-flex md12>
                     <h1 class="display-2 font-weight-thin mb-3 white--text">Asignaciones de memorias</h1>
                     <h4 class="subheading white--text">Listado de correcciones sin asignar. Arrastre las memorias del listado 
@@ -96,9 +94,6 @@
                           <v-btn outline color="indigo" @click="asignarCorreccion(nuevaAsignacion)">Asignar</v-btn>
                         </div>
                     </v-list>
-                    
-      
-                   
                     <!-- ------------------------------------- -->
                 </v-flex>
             </v-layout>
@@ -108,27 +103,24 @@
 
 <script>
 import draggable from "vuedraggable";
-import {mapState, mapActions} from 'vuex'
+import {mapState, mapMutations, mapActions} from 'vuex'
 import LoaderState from '@/components/Loader.vue'
-import Snackbar from '@/components/Snackbar.vue'
+import iziToast from 'izitoast';
 export default {
     components:{
         draggable,
-        LoaderState,
-        Snackbar
+        LoaderState
     },
     computed:{
-        ...mapState(['tesis','professors','TotalProfessors'])
+        ...mapState(['tesis','professors','TotalProfessors','notificationSystem'])
     },
     data() {
         return {
-            state:false,
             text:'',
             color:'',
             profesorActual: [],
             nuevaAsignacion:[],
             tesisAsignadas:[],
-            timer:''
         };
     },
     methods:{
@@ -145,38 +137,25 @@ export default {
               // get body data
               retorno = response.body;
               if(retorno == true){  
-                this.text="Memoria asignada exitosamente";
-                this.state=true;
-                this.color="success"
+                this.$toast.success('Memoria asignada correctamente!', 'OK', this.notificationSystem.options.success);
                 console.log("good");
               }
               else{
-                this.text="La asignación no es posible";
-                this.state=true;
-                this.color="error"
+                this.$toast.warning('No es posible asignar la memoria', 'Alto', this.notificationSystem.options.warning);
                 console.log("error");
               }
               console.log(retorno);
               console.log("good");
           }, response=>{
-                this.text="GET_ERROR";
-                this.state=true;
-                this.color="error"
                 console.log("error");
           });     
         });
         this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
-      }
+      },
     },
     watch:{
       profesorActual: async function(){
-        this.state = false;
-        this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
-        
-      },
-      nuevaAsignacion: function(){
-        this.state = false;
-        
+        this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual); 
       }
       
     },

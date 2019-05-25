@@ -3,24 +3,29 @@
 ## Notas de instalacion:
 * Proyecto bajo vue-cli 3.-
 * Se dejó configurado Vuex en store.js
-* Agregué el modulo de Material Design for Boostrap porq lo encontre igual piola :D. Esta llegar y copiar codigo de la documentación (dejé link abajo)
+* Actualmente se esta usando Vuetify
 * si me acuerdo de otra cosa lo escribiré aqui :D
 
 ## Rutas
 * topicos por profesores: "/topicsByTeacher"
 * gestion profesores: "/gestionprofesores"
 * asignacion de memorias: "/asignaciones"
+* login: "/login"
+* Administrar profesores: "/gestionprofesores"
+* Ver las memorias asignadas a profesores: "/verAsignaciones"
 
-### Modulos anexados
-* mdbvue (https://mdbootstrap.com/docs/vue/) 
+### Modulos anexados 
 * Bootstrap CSS only
 * postcss-import
+* vue-izitoast
+* vuetify
+
 
 ### Instalacion modulos (en caso necesario)
 ```
-npm i mdbvue
 npm i bootstrap-css-only
 npm i postcss-import
+npm install vue-izitoast --save
 ```
 
 ## Project setup

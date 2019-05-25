@@ -49,7 +49,6 @@ export default {
         }  
     },
     methods:{
-        ...mapMutations(['getProfessorsId']),
         ...mapActions(['obtenerTesis','obtenerProfesores']),
         onClick: async function(profe){
             await this.obtenerTesis();
