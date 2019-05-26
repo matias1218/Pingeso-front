@@ -142,32 +142,9 @@ export default new Vuex.Store({
       commit('actualizarProfesores',profesores);
     },
     asignarCorreccion: async function({commit},data){ // aqui debe entrar nuevaAsignacion
-      console.log(data.data1);
-      console.log(data.data2);
       const data3 = await fetch('http://23.20.84.8:9090/students/'+data.data1+'/assign/'+data.data2);
       const estado = await data3.json();
-      console.log(estado);
-      commit('actualizarAsignacion',estado);
-      // tesisParaAsignar.forEach(element => {
-        
-      //   this.$http.get('http://23.20.84.8:9090/students/'+tesisParaAsignar[0].student.id+'/assign/'+this.profesorActual.id).then(response=>{
-      //       // get body data
-      //       retorno = response.body;
-      //       if(retorno == true){  
-      //         this.$toast.success('Memoria asignada correctamente!', 'OK', this.notificationSystem.options.success);
-      //         console.log("good");
-      //       }
-      //       else{
-      //         this.$toast.warning('No es posible asignar la memoria', 'Alto', this.notificationSystem.options.warning);
-      //         console.log("error");
-      //       }
-      //       console.log(retorno);
-      //       console.log("good");
-      //   }, response=>{
-      //         console.log("error");
-      //   });     
-      // });
-      
+      commit('actualizarAsignacion',estado);   
     },
   }
 })

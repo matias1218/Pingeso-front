@@ -1,6 +1,6 @@
 <template>
-    <v-container grid-list-md>
-        <v-layout row wrap >
+    <v-container fluid grid-list-md>
+        <v-layout align-space-around justify-center row fill-height wrap>
                 <loader-state></loader-state>
                 <!-- aqui debe ir un iterador que tome una lista
                 de topicos con los profesores a cargo -->

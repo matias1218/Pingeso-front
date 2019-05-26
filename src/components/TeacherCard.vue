@@ -1,7 +1,7 @@
 <template>  
-    <v-flex xs12 sm6 id="card">
+    <v-flex d-flex xs12 sm6 id="card">
       <v-hover>
-       <v-card hover slot-scope="{ hover }"
+       <v-card class="flexcard" hover slot-scope="{ hover }"
         :class="`elevation-${hover ? 21 : 2}`" >
          
         <v-img :src="src"
@@ -16,7 +16,7 @@
             <p>{{description}}</p>
             
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions id="action">            
             <v-btn flat color="orange"  @click='onClick1(topicId)' >Ver asignaciones</v-btn>
             <v-spacer></v-spacer>
             <v-btn flat color="orange" @click='onClick(profesor)'>Administrar</v-btn>
@@ -71,8 +71,10 @@ export default {
 
 <style>
 #card{
-    padding: 30px;
-    
+    padding: 30px;   
 }
-
+.flexcard {
+  display: flex;
+  flex-direction: column;
+}
 </style>
