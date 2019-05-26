@@ -3,7 +3,8 @@
         <v-container >
             <v-layout align-start justify-space-between wrap row>
                 <v-flex md12>
-                    <h1 class="display-2 font-weight-thin mb-3 white--text">Asignaciones de memorias</h1>
+                    <h1 class="display-2 font-weight-thin mb-3 white--text">Asignaciones de memorias.</h1>
+                    <h3 class="display-1 font-weight-thin mb-2 white--text"> Area: {{area}}</h3>
                     <h4 class="subheading white--text">Listado de correcciones sin asignar. Arrastre las memorias del listado 
                         izquierdo hacia la tarjeta de cada profesor seleccionado
                     </h4>
@@ -162,7 +163,7 @@ export default {
         LoaderState
     },
     computed:{
-        ...mapState(['tesis','professors','TotalProfessors','notificationSystem','estadoAsignacion'])
+        ...mapState(['tesis','professors','TotalProfessors','notificationSystem','estadoAsignacion','area'])
     },
     data() {
         return {

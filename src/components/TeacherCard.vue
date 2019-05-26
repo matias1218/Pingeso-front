@@ -56,6 +56,7 @@ export default {
             await this.obtenerTesis();
             await this.obtenerProfesores();
             this.$store.commit('getProfessorsId',this.professor);
+            this.$store.commit('actualizarArea',this.topicName);
             this.$router.push('/asignaciones');
             this.$store.commit('cambiarEstadoDialog',false);
             
@@ -63,6 +64,7 @@ export default {
         },
         onClick1: async function(idtopic){
             this.$store.commit('getTopicosId',this.idTopic);
+            this.$store.commit('actualizarArea',this.topicName);
             this.$router.push('/verAsignaciones');      
         }
     }

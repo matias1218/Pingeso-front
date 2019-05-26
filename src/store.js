@@ -98,7 +98,8 @@ export default new Vuex.Store({
         }
       }
     },
-    estadoAsignacion:null
+    estadoAsignacion:null,
+    area:''
   },
   mutations: {
     cambiarEstadoDialog(state,estado){
@@ -121,6 +122,9 @@ export default new Vuex.Store({
     },
     actualizarAsignacion(state,estadoAsignacion){
       state.estadoAsignacion = estadoAsignacion;
+    },
+    actualizarArea(state,area){
+      state.area = area;
     }
   },
   actions: {
