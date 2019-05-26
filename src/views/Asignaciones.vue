@@ -8,29 +8,47 @@
                         izquierdo hacia la tarjeta de cada profesor seleccionado
                     </h4>
                 </v-flex>
-                <v-flex md7 class="elevation-2 pa-1 mt-3">
-                    <v-list two-line>
-                        <v-subheader>
-                            MEMORIAS SIN ASIGNAR
-                        </v-subheader>
-                        <v-divider></v-divider>
+                <v-flex md7 class="elevation-2 pa-1 mt-3" >
+                    <v-toolbar id="bar" dark>
+                      <v-toolbar-title>Memorias sin asignar</v-toolbar-title>
+                      <v-spacer></v-spacer>
+                      <v-btn icon>
+                        <v-icon>search</v-icon>
+                      </v-btn>
+                    </v-toolbar>
+                    <v-list>
                         <draggable v-model="tesis" :options="{group:'people'}" style="min-height: 10px">
                             <template v-for="item in tesis">
-                                <v-list-tile :key="item.id" avatar>
-                                    <!-- <v-list-tile-avatar>
-                                        <img :src="item.avatar">
-                                    </v-list-tile-avatar> -->
-                                    <v-list-tile-content>
-                                        <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                                        <v-list-tile-sub-title v-html="item.description"></v-list-tile-sub-title>
-                                    </v-list-tile-content>
-                                </v-list-tile>
+                                <v-card :key="item.id" avatar @click="" class="elevation-0" hover >
+                                    <v-card-title class="py-2">
+                                      <div>
+                                        <h5 class="text-sm-left" v-html="item.title"></h5>
+                                        <div class="text-sm-left">
+                                          <v-chip>
+                                            <v-avatar>
+                                              <img :src="item.teacherGuide.imageUrl" alt="trevor">
+                                            </v-avatar>
+                                            Guia: {{item.teacherGuide.name}}
+                                          </v-chip>
+                                        </div>
+                                      </div>
+                                      
+                                    </v-card-title> 
+                                    <v-card-text class="py-0 pb-2">
+                                      <div class="text-sm-left" v-html="item.description"></div>
+                                    </v-card-text> 
+                                    <v-divider></v-divider>   
+                                </v-card>
+                                
                             </template>
                         </draggable>
                     </v-list>
                 </v-flex>
                 <v-flex md5 class="elevation-1 pa-1 mt-3">
                     <!-- se debe generar una lista por profesor -->
+                    <v-toolbar id="bar" dark>
+                      <v-toolbar-title>Docentes</v-toolbar-title>
+                    </v-toolbar>
                     <v-list two-line>
                     <v-subheader>
                         <v-flex id="selector" xs12  d-flex>
@@ -38,7 +56,7 @@
                              v-model="profesorActual"
                              :items="professors"
                              name="profesor"
-                             label="Seleccione un profesor..."
+                             label="Seleccione un docente..."
                              height="45"
                              single-line
                              return-object
@@ -65,9 +83,25 @@
                         </v-flex>
                     </v-subheader>
                     <v-divider></v-divider>
-                    <!-- Parte donde se ven las memorias ya asignadas -->
-                        
-                    <h4 class="subheading">Memorias asignadas</h4>
+                    <!-- ---------------Parte donde se ven las memorias ya asignadas------------ -->
+                    <!-- caso donde no se ha seleccionado profesor -->
+                    <div v-if="tesisAsignadas.length <= 0">
+                      <v-card class="elevation-0" >
+                        <v-card-text v-if="profesorActual.length <= 0" id="text">
+                          Seleccione un docente para ver sus memorias asignadas
+                        </v-card-text>
+                        <v-card-text v-else id="text">
+                          Este docente no tiene memorias asignadas
+                        </v-card-text>
+                        <v-icon x-large>layers_clear</v-icon>
+                      </v-card>
+                    </div>
+                    <!-- caso cuando se ha seleccionado un profesor -->
+                    <div v-else>
+                      <v-container class="pa-3">
+                        <h4 class="subheading">Memorias asignadas</h4>
+                        <v-divider></v-divider>
+                      </v-container>
                       <template v-for="memoria in tesisAsignadas">
                           <v-list-tile :key="memoria.id">
                               <v-list-tile-content>
@@ -76,13 +110,28 @@
                               </v-list-tile-content>
                           </v-list-tile>
                       </template>
+                    </div>
+                    <!-- ------------------------------------------ -->
                     <v-divider></v-divider>
                         
                     <!-- Parte donde se van a asignar las nuevas memorias -->
-                    <h4 class="subheading">Arrastre aqui para asignar</h4>
-                        <draggable v-model="nuevaAsignacion" :options="{group:'people'}" style="min-height: 10px">
-                            <template v-for="item in nuevaAsignacion">
-                                <v-list-tile :key="item.id">
+                        <div v-if="nuevaAsignacion.length <= 0" id="mensaje">
+                              <v-card class="elevation-0" >
+                                <v-card-text id="text">
+                                  Arrastre aqui para asignar
+                                </v-card-text>
+                                <v-icon x-large>arrow_downward</v-icon>
+                              </v-card>
+                        </div>
+                        <div v-else>
+                          <v-container class="pa-3">
+                            <h4 class="subheading">Por asignar</h4>
+                            <v-divider></v-divider>
+                          </v-container>
+                        </div>
+                        <draggable v-model="nuevaAsignacion" :options="{group:'people'}" style="min-height: 10px" >
+                            <template  v-for="item in nuevaAsignacion">
+                                <v-list-tile :key="item.id" @click="">
                                     <v-list-tile-content>
                                         <v-list-tile-title v-html="item.title"></v-list-tile-title>
                                         <v-list-tile-sub-title v-html="item.description"></v-list-tile-sub-title>
@@ -90,9 +139,9 @@
                                 </v-list-tile>
                             </template>
                         </draggable>
-                        <div class="text-xs-center">
+                        <v-flex v-if="nuevaAsignacion.length > 0" class="text-xs-center">
                           <v-btn outline color="indigo" @click="asignar(nuevaAsignacion)">Asignar</v-btn>
-                        </div>
+                        </v-flex>
                     </v-list>
                     <loader-state></loader-state>
                     <!-- ------------------------------------- -->
@@ -148,6 +197,15 @@ export default {
     watch:{
       profesorActual: async function(){
         this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual); 
+      },
+      nuevaAsignacion: function(){
+        // var x = document.getElementById("mensaje");
+        // if(this.nuevaAsignacion.length > 0){ 
+        //   x.style.display = "none";
+        // }
+        // else{
+        //   x.style.display = "block";
+        // }
       }
     },
     mounted: function(){
@@ -294,5 +352,15 @@ export default {
   .sdt-json-section {
     top: 93px;
   }
+}
+#bar{
+  background: #fe8c00;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #f83600, #fe8c00);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #f83600, #fe8c00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+}
+#text{
+  color: rgb(151, 151, 151);
 }
 </style>
