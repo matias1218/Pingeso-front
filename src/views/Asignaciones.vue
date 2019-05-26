@@ -181,18 +181,35 @@ export default {
         return tesisAsignadas;
       },
       asignar: async function(tesisParaAsignar){ // aqui debe entrar nuevaAsignacion
-        this.$store.commit('cambiarEstadoDialog',true);
-        await this.asignarCorreccion({data1: tesisParaAsignar[0].student.id, data2: this.profesorActual.id});
-        if(this.estadoAsignacion == true){
-          this.$toast.success('Memoria asignada correctamente!', 'OK', this.notificationSystem.options.success);
+        // verificar si la asignacion se hace al profesor guia
+        if(this.verificarGuia(tesisParaAsignar[0].teacherGuide.id,this.profesorActual.id)){
+          this.verificarGuia(tesisParaAsignar[0].teacherGuide.id,this.profesorActual.id);
+          this.$store.commit('cambiarEstadoDialog',true);
+          await this.asignarCorreccion({data1: tesisParaAsignar[0].student.id, data2: this.profesorActual.id});
+          if(this.estadoAsignacion == true){
+            this.$toast.success('Memoria asignada correctamente!', 'OK', this.notificationSystem.options.success);
+          }
+          else{
+            this.$toast.warning('No es posible asignar la memoria', 'Alto', this.notificationSystem.options.warning);
+          }
+          this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
+          await this.obtenerTesis();
+          this.$store.commit('cambiarEstadoDialog',false);
         }
         else{
-          this.$toast.warning('No es posible asignar la memoria', 'Alto', this.notificationSystem.options.warning);
+          console.log("nope")
         }
-        this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
-        await this.obtenerTesis();
-        this.$store.commit('cambiarEstadoDialog',false);
+        
       },
+      verificarGuia: function(profesor1,profesor2){
+        if(profesor1 == profesor2){
+          this.$toast.error('No se puede asignar la memoria al profesor guía', 'Alto', this.notificationSystem.options.error)
+          return false;
+        }
+        else{
+          return true;
+        }
+      }
     },
     watch:{
       profesorActual: async function(){
