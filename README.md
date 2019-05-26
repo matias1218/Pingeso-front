@@ -20,6 +20,9 @@
 * vue-izitoast
 * vuetify
 
+### Arquitectura
+
+![entidades](https://vuex.vuejs.org/vuex.png)
 
 ### Instalacion modulos (en caso necesario)
 ```
