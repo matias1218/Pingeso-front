@@ -6,6 +6,8 @@ import GestionarProfesores from './views/GestionarProfesores.vue'
 import Asignaciones from './views/Asignaciones.vue'
 import VerAsignaciones from  './views/VerAsignaciones.vue'
 import Estadisticas from './views/Estadisticas.vue'
+import Portada from './views/Portada.vue'
+
 
 Vue.use(Router)
 
@@ -50,6 +52,11 @@ export default new Router({
       path: '/estadisticas',
       name: 'estadisticas',
       component: Estadisticas
+    },
+    {
+      path: '/',
+      name: 'Portada',
+      component: Portada
     }
   ]
 })
