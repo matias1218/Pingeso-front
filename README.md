@@ -19,6 +19,7 @@
 * postcss-import
 * vue-izitoast
 * vuetify
+* kendo-gantt-vue-wrapper
 
 ### Arquitectura
 
@@ -29,6 +30,9 @@
 npm i bootstrap-css-only
 npm i postcss-import
 npm install vue-izitoast --save
+npm install --save @progress/kendo-ui
+npm install --save @progress/kendo-theme-default
+npm install --save @progress/kendo-gantt-vue-wrapper
 ```
 
 ## Project setup
