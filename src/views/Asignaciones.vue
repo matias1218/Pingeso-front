@@ -8,6 +8,7 @@
                     <h4 class="subheading white--text">Listado de correcciones sin asignar. Arrastre las memorias del listado 
                         izquierdo hacia la tarjeta de cada profesor seleccionado
                     </h4>
+                    <v-divider dark ></v-divider>
                 </v-flex>
                 <v-flex md7 class="elevation-2 pa-1 mt-3" >
                     <v-toolbar id="bar" dark>

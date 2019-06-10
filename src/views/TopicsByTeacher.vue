@@ -6,7 +6,8 @@
                 de topicos con los profesores a cargo -->
                 <v-flex md12>
                     <h1 class="display-2 font-weight-thin mb-3 white--text">Profesores por tópicos</h1>
-                    <h4 class="subheading white--text">Listado de profesores según especialidad</h4>
+                    <h4 class="subheading white--text mb-2">Listado de profesores según especialidad</h4>
+                    <v-divider dark ></v-divider>
                 </v-flex>
 
                 <!-- Iteración de los topicos  -->
