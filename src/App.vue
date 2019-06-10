@@ -70,7 +70,7 @@ import {mapActions} from 'vuex'
               icon: 'fas fa-id-card-alt', 
             },
             {
-              //href: '/',
+              href: '/estadisticas',
               title: 'Ver estadísticas',
               icon: 'fas fa-chart-line', 
             },

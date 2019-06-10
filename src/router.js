@@ -5,6 +5,7 @@ import TopicsTeacher from './views/TopicsByTeacher.vue'
 import GestionarProfesores from './views/GestionarProfesores.vue'
 import Asignaciones from './views/Asignaciones.vue'
 import VerAsignaciones from  './views/VerAsignaciones.vue'
+import Estadisticas from './views/Estadisticas.vue'
 
 Vue.use(Router)
 
@@ -44,6 +45,11 @@ export default new Router({
       path: '/verAsignaciones',
       name: 'verAsignaciones',
       component: VerAsignaciones
+    },
+    {
+      path: '/estadisticas',
+      name: 'estadisticas',
+      component: Estadisticas
     }
   ]
 })
