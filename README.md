@@ -13,6 +13,7 @@
 * login: "/login"
 * Administrar profesores: "/gestionprofesores"
 * Ver las memorias asignadas a profesores: "/verAsignaciones"
+* ver estadisticas (historial Pseudo-Gantt y gráficos): "/estadisticas"
 
 ### Modulos anexados 
 * Bootstrap CSS only
