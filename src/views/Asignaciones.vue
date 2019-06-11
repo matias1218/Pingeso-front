@@ -178,7 +178,7 @@ export default {
     methods:{
       ...mapActions(['asignarCorreccion','obtenerTesis']),
       obtenerAsignaciones: async function(profesor){
-        const data = await fetch('http://23.20.84.8:9090/theses/commission/'+profesor.id);
+        const data = await fetch('http://34.228.238.196:9090/theses/commission/'+profesor.id);
         const tesisAsignadas = await data.json();
         return tesisAsignadas;
       },

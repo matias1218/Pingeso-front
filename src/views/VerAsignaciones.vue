@@ -1,31 +1,38 @@
 <template>
-    <div id="app">
-        <v-card>
-         <v-card-title>
-            <h3>Tema(s) por profesor/a </h3>
-          </v-card-title>
-          <v-progress-circular
-            v-if="rows.length === 0 "
-            :size="70"
-            :width="7"
-            color="primary"
-            indeterminate
-          ></v-progress-circular>  
+    <v-container grid-list-xs>
+        <v-layout row wrap>
+            <v-flex md12>
+                <h1 class="display-2 font-weight-thin mb-3 white--text">Asignaciones actuales</h1>
+                <h4 class="subheading white--text">Listado de asignaciones por profesor. 
+                </h4>
+                <v-divider dark ></v-divider>
+            </v-flex>
+            <v-flex md12>   
+                <h4 class="headline text-md-left font-weight-light mb-3 white--text">Tema(s) por profesor/a</h4>
+                <v-card>
+                    <v-progress-circular
+                        v-if="rows.length === 0 "
+                        :size="70"
+                        :width="7"
+                        color="primary"
+                        indeterminate
+                    ></v-progress-circular>  
 
-         <div id="tree-table"> 
-         <vue-ads-table-tree
-            v-if="rows.length != 0 "
-            :columns="columns"
-            :rows="rows"
-            :page="page"
-            @filter-change="filterChanged"
-            @page-change="pageChanged"
-        >
-        
-    </vue-ads-table-tree>   
-    </div>
-        </v-card>
-  </div>
+                    <div id="tree-table"> 
+                        <vue-ads-table-tree
+                            v-if="rows.length != 0 "
+                            :columns="columns"
+                            :rows="rows"
+                            :page="page"
+                            @filter-change="filterChanged"
+                            @page-change="pageChanged"
+                        >
+                        </vue-ads-table-tree> 
+                    </div>
+                </v-card>
+            </v-flex>
+        </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -92,7 +99,7 @@ export default {
     },
     methods: {
         obtenerProfesores: async function(topicId){
-        const data = await fetch('http://23.20.84.8:9090/topics/'+ topicId);
+        const data = await fetch('http://34.228.238.196:9090/topics/'+ topicId);
         const profesoresTesis = await data.json();
 
         return profesoresTesis ;

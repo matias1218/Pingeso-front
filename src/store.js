@@ -130,23 +130,23 @@ export default new Vuex.Store({
   actions: {
     obtenerTopicos: async function({commit,state}){
       commit('cambiarEstadoDialog',true);  // en teoria esto deberia hacerse con un mutation
-      const data = await fetch('http://23.20.84.8:9090/topics/all');
+      const data = await fetch('http://34.228.238.196:9090/topics/all');
       const topico = await data.json();
       commit('actualizarTopico',topico);
       commit('cambiarEstadoDialog',false);
     },
     obtenerTesis: async function({commit}){
-      const data = await fetch('http://23.20.84.8:9090/theses/missing/commission');
+      const data = await fetch('http://34.228.238.196:9090/theses/missing/commission');
       const tesis = await data.json();
       commit('actualizarTesis',tesis);
     },
     obtenerProfesores: async function({commit}){
-      const data = await fetch('http://23.20.84.8:9090/professors/all');
+      const data = await fetch('http://34.228.238.196:9090/professors/all');
       const profesores = await data.json();
       commit('actualizarProfesores',profesores);
     },
     asignarCorreccion: async function({commit},data){ // aqui debe entrar nuevaAsignacion
-      const data3 = await fetch('http://23.20.84.8:9090/students/'+data.data1+'/assign/'+data.data2);
+      const data3 = await fetch('http://34.228.238.196:9090/students/'+data.data1+'/assign/'+data.data2);
       const estado = await data3.json();
       commit('actualizarAsignacion',estado);   
     },
