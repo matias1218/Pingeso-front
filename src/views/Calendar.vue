@@ -66,51 +66,45 @@ export default {
       today: null,
       events: [
         {
-          title: 'Vacation',
-          details: 'Going to the beach!',
-          date: '2018-12-30',
+          title: 'Paquete de Visualizaciín de Resultados de Motores de Búqueda ',
+          details: 'Roberto Gonzáles Ibañez - MAuricio MArin Caihuan - Manuel Manríquez L.',
+          date: '2019-06-19',
           open: false
         },
         {
-          title: 'Vacation',
-          details: 'Going to the beach!',
-          date: '2018-12-31',
+          title: 'Redescubrimiento y creación de Metaheurísticas mediante la generación automática de algoritmos',
+          details: 'Víctor Parada Daza - Monica Villanueva Ilufi - Cristían Sepúlveda Sánchez',
+          date: '2019-06-13',
           open: false
         },
         {
-          title: 'Vacation',
-          details: 'Going to the beach!',
-          date: '2019-01-01',
+          title: 'Aplicación Móvil para la captura de imágenes aéreas y generación de ortomosaicos',
+          details: 'Arturo Álvarez Cea - Pablo Román Asenjo - Carolina Toro',
+          date: '2019-06-28',
           open: false
         },
         {
-          title: 'Meeting',
-          details: 'Spending time on how we do not have enough time',
-          date: '2019-01-07',
+          title: 'Desarrollo de un módulo para asistentes destinados a la gestión y despliegue de protocolos de investigación en MO',
+          details: 'Roberto Gonzalez Ibañez -  Arturo Álvarez Cea - Daniel Vega Araya',
+          date: '2019-06-17',
           open: false
         },
         {
-          title: '30th Birthday',
-          details: 'Celebrate responsibly',
-          date: '2019-01-03',
+          title: 'Plataforma para monitorear y evaluar el desarrollo de proyectos de software construidos siguiendo el enfoque  de integración continua',
+          details: 'Alcides Quispe Sanca - Héctor Antillanca Espina - Cristóbal Acosta Jurado',
+          date: '2019-06-11',
           open: false
         },
         {
-          title: 'New Year',
+          title: 'Examen de Título',
           details: 'Eat chocolate until you pass out',
           date: '2019-01-01',
           open: false
         },
         {
-          title: 'Conference',
+          title: 'Examen de Título',
           details: 'Mute myself the whole time and wonder why I am on this call',
           date: '2019-01-21',
-          open: false
-        },
-        {
-          title: 'Hackathon',
-          details: 'Code like there is no tommorrow',
-          date: '2019-02-01',
           open: false
         }
       ]
