@@ -150,5 +150,8 @@ export default new Vuex.Store({
       const estado = await data3.json();
       commit('actualizarAsignacion',estado);   
     },
+    eliminarCorreccion: async function({commit},data){
+      const request = await fetch('http://34.228.238.196:9090/theses/'+data.thesisId+'/removeCorrector/'+data.professorId);
+    }
   }
 })

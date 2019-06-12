@@ -110,6 +110,12 @@
                                   <v-list-tile-title v-html="memoria.title"></v-list-tile-title>
                                   <v-list-tile-sub-title v-html="memoria.description"></v-list-tile-sub-title>
                               </v-list-tile-content>
+                            <v-tooltip top>
+                              <template v-slot:activator="{ on }">
+                                <v-btn flat icon color="red" dark v-on="on" @click="eliminar(memoria)"><v-icon>delete</v-icon></v-btn>
+                              </template>
+                              <span>Eliminar asignación</span>
+                            </v-tooltip>
                           </v-list-tile>
                       </template>
                     </div>
@@ -176,7 +182,7 @@ export default {
         };
     },
     methods:{
-      ...mapActions(['asignarCorreccion','obtenerTesis']),
+      ...mapActions(['asignarCorreccion','obtenerTesis','eliminarCorreccion']),
       obtenerAsignaciones: async function(profesor){
         const data = await fetch('http://34.228.238.196:9090/theses/commission/'+profesor.id);
         const tesisAsignadas = await data.json();
@@ -211,21 +217,16 @@ export default {
         else{
           return true;
         }
+      },
+      eliminar: function(tesisParaEliminar){
+        console.log("ola");
+        this.eliminarCorreccion({thesisId: tesisParaEliminar.id,professorId: this.profesorActual.id});
       }
     },
     watch:{
       profesorActual: async function(){
         this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual); 
       },
-      nuevaAsignacion: function(){
-        // var x = document.getElementById("mensaje");
-        // if(this.nuevaAsignacion.length > 0){ 
-        //   x.style.display = "none";
-        // }
-        // else{
-        //   x.style.display = "block";
-        // }
-      }
     },
     mounted: function(){
       // no puede haber una copia porque las tesis deben ser asignadas a mas de un profesor
