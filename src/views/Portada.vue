@@ -19,7 +19,7 @@
                 <v-flex >
                   <v-card-title primary-title>
                     <div>
-                      <div class="headline" style="margin:1em auto;" >Sistema de asignación de profesores a comisiones correctoras</div>
+                      <div class="headline" style="margin:1em auto;" >Sistema de asignación de Correctores de trabajo de Título o grado</div>
                     </div>
                   </v-card-title>
                 </v-flex>
@@ -29,7 +29,7 @@
 
         <v-card-title >
             <h2  style="margin:1em auto;" 
-            >¿Qué puedes hacer en este Sistema?
+            >Este Sistema permite:
             </h2>
 
         </v-card-title>
@@ -38,8 +38,8 @@
 
           <v-layout row >
 
-          <v-flex xs6>
-          <img src=".././assets/pc_portada.png" style="width:300px;height:400px;" >         
+          <v-flex xs8>
+          <img src=".././assets/pc_portada.png" style="width:450px;height:550px;" >         
 
           </v-flex>
           
@@ -55,7 +55,7 @@
             <v-flex xs10>
               <strong>
                  <h5>
-                Conocer carga horaria de los profesores en comisiones correctoras 
+                Conocer la participación de profesores en comisiones correctoras
                  </h5>
                  </strong>
             </v-flex>
@@ -87,7 +87,7 @@
             <v-flex xs10>
               <strong>
                  <h5>
-                 Asignar a profesores Guía trabajo(s) de titulación y tesis
+                 Administrar profesores, alumnos y Trabajos de título
                  </h5>
                  </strong>
             </v-flex>
@@ -104,7 +104,7 @@
             <v-flex xs10>
               <strong>
                  <h5>
-                Conocer estadísticas y tablas asociadas al proceso de asignación de profesores a comisiones correctoras
+                Conocer asignaciones realizadas por profesor
                  </h5>                
                 </strong>
             </v-flex>
@@ -119,7 +119,7 @@
             <v-flex xs10>
               <strong>
                  <h5>
-                Conocer asignaciones realizadas por profesor
+                Conocer estadísticas y tablas asociadas al proceso de asignación de profesores a comisiones correctoras
                  </h5>
                 </strong>
             </v-flex>
@@ -136,7 +136,7 @@
 
        <v-footer class="pa-3">
       <v-spacer></v-spacer>
-      <div>&copy; {{ new Date().getFullYear() }} — <strong>Javier Arredondo - Matías Paredes - Juan Barrera - Paloma Zamorano</strong></div>
+      <div>&copy; {{ new Date().getFullYear() }} — <strong>Javier Arredondo - Juan Barrera - Matías Paredes - Paloma Zamorano</strong></div>
     </v-footer>
 
 
@@ -171,3 +171,4 @@ export default {
  
 
 </style>
+
