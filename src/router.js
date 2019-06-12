@@ -7,6 +7,8 @@ import Asignaciones from './views/Asignaciones.vue'
 import VerAsignaciones from  './views/VerAsignaciones.vue'
 import Estadisticas from './views/Estadisticas.vue'
 import Portada from './views/Portada.vue'
+import Calendar from './views/Calendar.vue'
+
 
 
 Vue.use(Router)
@@ -57,6 +59,11 @@ export default new Router({
       path: '/',
       name: 'Portada',
       component: Portada
+    },
+    {
+      path: '/calendar',
+      name: 'Calendar',
+      component: Calendar
     }
   ]
 })

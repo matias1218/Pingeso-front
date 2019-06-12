@@ -13,6 +13,19 @@
       <v-toolbar color="warning" id="toolbar" dark flat >
         <v-spacer></v-spacer>
 
+
+
+         <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <span v-on="on">
+           <v-btn flat icon href="/calendar">
+           <i class="fas fa-calendar-alt"></i>
+        </v-btn>
+        </span>
+      </template>
+      <span>Ver calendario</span>
+    </v-tooltip>
+
          <v-tooltip bottom>
       <template v-slot:activator="{ on }">
         <span v-on="on">
