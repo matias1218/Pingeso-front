@@ -3,6 +3,7 @@
         <v-layout row wrap>
             <v-flex md12>
                 <h1 class="display-2 font-weight-thin mb-3 white--text">Asignaciones actuales</h1>
+                <h3 class="display-1 font-weight-thin mb-2 white--text"> Area: {{area}}</h3>
                 <h4 class="subheading white--text">Listado de asignaciones por profesor. 
                 </h4>
                 <v-divider dark ></v-divider>
@@ -49,7 +50,7 @@ export default {
         VueAdsTableTree,
     },
     computed:{
-        ...mapState(['topicoss'])
+        ...mapState(['topicoss','area'])
     },
    async mounted(){
         this.profesoresTesis = await this.obtenerProfesores(this.topicoss);

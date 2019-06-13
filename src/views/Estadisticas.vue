@@ -18,6 +18,7 @@
                    
                     <kendo-gantt-view :type="'week'" :selected="true"></kendo-gantt-view>
                 </kendo-gantt>
+                <loader-state></loader-state>
             </v-flex>
         </v-layout>
     </v-container>
@@ -25,7 +26,11 @@
 
 <script>
 import {mapState, mapMutations, mapActions} from 'vuex'
+import LoaderState from '@/components/Loader.vue'
 export default {
+    components:{
+        LoaderState
+    },
     computed:{
         ...mapState(['tesis','professors','TotalProfessors','notificationSystem','estadoAsignacion','area','estadoEliminacion'])
     },
@@ -51,18 +56,31 @@ export default {
         ...mapActions(['obtenerProfesores'])
     },
     mounted: async function(){
+      this.$store.commit('cambiarEstadoDialog',true);
       await this.obtenerProfesores();
       var datasource = [];
       var comision = [];
       this.TotalProfessors.forEach(element => {
           // primero se agrega el profesor
-            datasource.push({ id:element.id,
+            if(element.stats.mean>0){
+              datasource.push({ id:element.id,
                             orderId: 0,
                             parentId: null,
-                            title: element.name +' '+ element.firstLastName+ ' '+ '(Dias Promedio'+' '+element.stats.mean+')',
+                            title: element.name +' '+ element.firstLastName+ ' '+ '(Dias Promedio:'+' '+element.stats.mean+')',
                             summary: true,
                             expanded: true,
                             percentComplete: 1});
+            }
+            else{
+              datasource.push({ id:element.id,
+                            orderId: 0,
+                            parentId: null,
+                            title: element.name +' '+ element.firstLastName,
+                            summary: true,
+                            expanded: true,
+                            percentComplete: 1});
+            }
+            
 
             element.trackings.forEach(element2 => {
                 datasource.push({ id:element2.id,
@@ -83,12 +101,8 @@ export default {
             // });
       });
       this.datasource = datasource;
-
-      
+      this.$store.commit('cambiarEstadoDialog',false);
     }
-
-    
-
 }
 </script>
 

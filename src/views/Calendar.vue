@@ -1,6 +1,11 @@
 
 <template>
-  <v-layout>
+  <v-layout row wrap>
+    <v-flex md12>
+                    <h1 class="display-2 font-weight-thin mb-3 white--text">Calendario de Evaluaciones</h1>
+                    
+                    <v-divider dark ></v-divider>
+                </v-flex>
     <v-flex>
       <v-sheet height="500">
         <v-calendar
