@@ -10,7 +10,7 @@
                     </h4>
                     <v-divider dark ></v-divider>
                 </v-flex>
-                <v-flex md7 class="elevation-2 pa-1 mt-3" >
+                <v-flex md7 class="elevation-2 pa-1 mt-3">
                     <v-toolbar id="bar" dark>
                       <v-toolbar-title>Memorias sin asignar</v-toolbar-title>
                       <v-spacer></v-spacer>
@@ -19,9 +19,9 @@
                       </v-btn>
                     </v-toolbar>
                     <v-list>
-                        <draggable v-model="tesis" :options="{group:'people'}" style="min-height: 10px">
-                            <template v-for="item in tesis">
-                                <v-card :key="item.id" avatar @click="" class="elevation-0" hover >
+                        <draggable v-model="tesis" :options="{group:'people'}" style="height:600px;">
+                            <template v-for="item in tesis" >
+                                <v-card :key="item.id" avatar @click="" class="elevation-0" hover>
                                     <v-card-title class="py-2">
                                       <div>
                                         <h5 class="text-sm-left" v-html="item.title"></h5>
@@ -35,10 +35,7 @@
                                         </div>
                                       </div>
                                       
-                                    </v-card-title> 
-                                    <v-card-text class="py-0 pb-2">
-                                      <div class="text-sm-left" v-html="item.description"></div>
-                                    </v-card-text> 
+                                    </v-card-title>
                                     <v-divider></v-divider>   
                                 </v-card>
                                 
@@ -193,7 +190,7 @@ export default {
         if(this.verificarGuia(tesisParaAsignar[0].teacherGuide.id,this.profesorActual.id)){
           this.verificarGuia(tesisParaAsignar[0].teacherGuide.id,this.profesorActual.id);
           this.$store.commit('cambiarEstadoDialog',true);
-          await this.asignarCorreccion({data1: tesisParaAsignar[0].student.id, data2: this.profesorActual.id});
+          await this.asignarCorreccion({data1: tesisParaAsignar[0].id, data2: this.profesorActual.id});
           if(this.estadoAsignacion == true){
             this.$toast.success('Memoria asignada correctamente!', 'OK', this.notificationSystem.options.success);
           }
