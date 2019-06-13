@@ -200,15 +200,16 @@ export default {
           this.verificarGuia(tesisParaAsignar[0].teacherGuide.id,this.profesorActual.id);
           this.$store.commit('cambiarEstadoDialog',true);
           await this.asignarCorreccion({data1: tesisParaAsignar[0].id, data2: this.profesorActual.id});
+          
+          this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
+          await this.obtenerTesis();
+          this.$store.commit('cambiarEstadoDialog',false);
           if(this.estadoAsignacion == true){
             this.$toast.success('Memoria asignada correctamente!', 'OK', this.notificationSystem.options.success);
           }
           else{
             this.$toast.warning('No es posible asignar la memoria', 'Alto', this.notificationSystem.options.warning);
           }
-          this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
-          await this.obtenerTesis();
-          this.$store.commit('cambiarEstadoDialog',false);
         }
         else{
           console.log("nope")
@@ -228,15 +229,16 @@ export default {
         
         this.$store.commit('cambiarEstadoDialog',true);
         await this.eliminarCorreccion({thesisId: tesisParaEliminar.id,professorId: this.profesorActual.id});
+        
+        this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
+        await this.obtenerTesis();
+        this.$store.commit('cambiarEstadoDialog',false);
         if(this.estadoEliminacion == true){
             this.$toast.success('Memoria desasignada correctamente!', 'OK', this.notificationSystem.options.success);
         }
         else{
           this.$toast.warning('No es posible desasignar la memoria', 'Alto', this.notificationSystem.options.warning);
         }
-        this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
-        await this.obtenerTesis();
-        this.$store.commit('cambiarEstadoDialog',false);
       }
     },
     watch:{
