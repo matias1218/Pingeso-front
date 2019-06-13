@@ -91,6 +91,11 @@ import {mapActions} from 'vuex'
               href:'/topicsByTeacher',
               title: 'Topicos',
               icon: 'fa fa-th-large'
+            },
+            {
+              href:'/revision',
+              title: 'revision',
+              icon: 'fas fa-user-edit'
             }
 
             ],

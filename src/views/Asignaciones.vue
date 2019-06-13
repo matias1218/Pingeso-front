@@ -28,7 +28,7 @@
                                         <div class="text-sm-left">
                                           <v-chip>
                                             <v-avatar>
-                                              <img :src="item.teacherGuide.imageUrl" alt="trevor">
+                                              <img :src="item.teacherGuide.imageUrl">
                                             </v-avatar>
                                             Guia: {{item.teacherGuide.name}}
                                           </v-chip>
@@ -204,6 +204,7 @@ export default {
           this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
           await this.obtenerTesis();
           this.$store.commit('cambiarEstadoDialog',false);
+          console.log(this.estadoAsignacion);
           if(this.estadoAsignacion == true){
             this.$toast.success('Memoria asignada correctamente!', 'OK', this.notificationSystem.options.success);
           }

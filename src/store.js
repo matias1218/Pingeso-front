@@ -100,9 +100,14 @@ export default new Vuex.Store({
     },
     estadoAsignacion:null,
     estadoEliminacion:null,
-    area:''
+    area:'',
+    comision: [],
+    fullComisiones:[]
   },
   mutations: {
+    actualizarFullCommission(state,estado){
+      state.fullComisiones = estado;
+    },
     cambiarEstadoDialog(state,estado){
       state.dialog = estado;
     },
@@ -129,6 +134,9 @@ export default new Vuex.Store({
     },
     actualizarArea(state,area){
       state.area = area;
+    },
+    actualizarComision(state,comision){
+      state.comision = comision;
     }
   },
   actions: {
@@ -154,6 +162,11 @@ export default new Vuex.Store({
       const estado = await data3.json();
       commit('actualizarAsignacion',estado);   
     },
+    obtenerFullCommission: async function({commit},data){ // aqui debe entrar nuevaAsignacion
+      const data3 = await fetch('http://34.228.238.196:9090/theses/nocorrected');
+      const estado = await data3.json();
+      commit('actualizarFullCommission',estado);   
+    },
     eliminarCorreccion: async function({commit},data){
       var estado;
       var miInit = { method: 'PUT',
@@ -173,6 +186,11 @@ export default new Vuex.Store({
         estado = false;
       });
       commit('actualizarEliminacion',estado);
+    },
+    obtenerComision: async function({commit},data){
+      const data3 = fetch('http://34.228.238.196:9090/theses/commission/'+element.id);
+      const estado = await data3.json();
+      commit('actualizarCommission',estado);  
     }
   }
 })

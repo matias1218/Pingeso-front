@@ -9,17 +9,14 @@
             <v-flex md12>
                 <h4 class="headline text-md-left font-weight-light mb-3 white--text">Resumen histórico</h4>
                 <kendo-gantt id="gantt"
-                            :height="600"
+                            :height="700"
                             :editable="editable"
                             :data-source="datasource"
                             :tooltip="tooltip"
                             >
                     <kendo-gantt-column :field="'title'" :title="'Docentes'" :width="150"></kendo-gantt-column>
-                    <kendo-gantt-column :field="'start'" :title="'Asignación'" :format="'{0:MM/dd/yyyy}'" :width="100" :editable="true" :sortable="true"></kendo-gantt-column>
-                    <kendo-gantt-column :field="'end'" :title="'Devolución'" :format="'{0:MM/dd/yyyy}'" :width="100" :editable="true" :sortable="true"></kendo-gantt-column>
-                    <kendo-gantt-view :type="'day'"></kendo-gantt-view>
+                   
                     <kendo-gantt-view :type="'week'" :selected="true"></kendo-gantt-view>
-                    <kendo-gantt-view :type="'month'"></kendo-gantt-view>
                 </kendo-gantt>
             </v-flex>
         </v-layout>
@@ -27,7 +24,11 @@
 </template>
 
 <script>
+import {mapState, mapMutations, mapActions} from 'vuex'
 export default {
+    computed:{
+        ...mapState(['tesis','professors','TotalProfessors','notificationSystem','estadoAsignacion','area','estadoEliminacion'])
+    },
     
     data(){
         return{
@@ -42,61 +43,49 @@ export default {
                 dragPercentComplete: false,
                 dependencyCreate: false
             },
-            datasource: [{
-                id: 0,
-                orderId: 0,
-                parentId: null,
-                title: "Profesor 1",
-                summary: true,
-                expanded: true,
-                percentComplete: 1,
-                start: new Date("2014/6/17 9:00"),
-                end: new Date("2014/7/01 11:00")
-            },
-            {
-                id: 1,
-                orderId: 1,
-                parentId: 0,
-                title: "Memoria 1",
-                percentComplete: 1,
-                start: new Date("2014/6/17 11:00"),
-                end: new Date("2014/6/20 14:00")
-            },
-                {
-                id: 2,
-                orderId: 2,
-                parentId: 0,
-                title: "Memoria 2",
-                percentComplete: 1,
-                start: new Date("2014/6/19 11:00"),
-                end: new Date("2014/6/22 14:00")
-            },
-            {
-                id: 3,
-                orderId: 3,
-                parentId: null,
-                title: "Profesor 2",
-                summary: true,
-                expanded: true,
-                percentComplete: 1,
-                start: new Date("2014/6/19 11:00"),
-                end: new Date("2014/6/22 14:00")
-            },
-            {
-                id: 4,
-                orderId: 4,
-                parentId: 3,
-                title: "Memoria 4",
-                percentComplete: 1,
-                start: new Date("2014/6/19 11:00"),
-                end: new Date("2014/6/22 14:00")
-            }]
+            datasource: []
             
         }
     },
     methods: {
-        
+        ...mapActions(['obtenerProfesores'])
     },
+    mounted: async function(){
+      await this.obtenerProfesores();
+      var datasource = [];
+      var comision = [];
+      this.TotalProfessors.forEach(element => {
+          // primero se agrega el profesor
+            datasource.push({ id:element.id,
+                            orderId: 0,
+                            parentId: null,
+                            title: element.name +' '+ element.firstLastName+ ' '+ '(Dias Promedio'+' '+element.stats.mean+')',
+                            summary: true,
+                            expanded: true,
+                            percentComplete: 1});
+
+            element.trackings.forEach(element2 => {
+                datasource.push({ id:element2.id,
+                            orderId: 0,
+                            parentId: element.id,
+                            title: element2.thesis,
+                            summary: true,
+                            expanded: true,
+                            percentComplete: 1,
+                            start: element2.creationDate,
+                            end: element2.endDate})
+            });
+            // comision = comision.json();
+            // // despues se agregan las memorias asignadas a su comision
+            // comision.forEach(element2 => {
+            //     // obtengo el tracking de la memoria
+            //     console.log(element2.id)
+            // });
+      });
+      this.datasource = datasource;
+
+      
+    }
 
     
 
