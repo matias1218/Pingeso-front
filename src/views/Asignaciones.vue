@@ -19,7 +19,7 @@
                       </v-btn>
                     </v-toolbar>
                     <v-list>
-                        <draggable v-model="tesis" :options="{group:'people'}" style="height:600px;">
+                        <draggable v-model="tesis" :options="{group:'people'}" style="height:600px;overflow:scroll">
                             <template v-for="item in tesis" >
                                 <v-card :key="item.id" avatar @click="" class="elevation-0" hover>
                                     <v-card-title class="py-2">
@@ -107,12 +107,20 @@
                                   <v-list-tile-title v-html="memoria.title"></v-list-tile-title>
                                   <v-list-tile-sub-title v-html="memoria.description"></v-list-tile-sub-title>
                               </v-list-tile-content>
-                            <v-tooltip top>
-                              <template v-slot:activator="{ on }">
-                                <v-btn flat icon color="red" dark v-on="on" @click="eliminar(memoria)"><v-icon>delete</v-icon></v-btn>
-                              </template>
-                              <span>Eliminar asignación</span>
-                            </v-tooltip>
+                              <v-dialog v-model="dialog" persistent max-width="290">
+                                <template v-slot:activator="{ on }">
+                                  <v-btn flat icon color="red" dark v-on="on"><v-icon>delete</v-icon></v-btn>
+                                </template>
+                                <v-card>
+                                  <v-card-title class="headline">Desasignar memoria a docente</v-card-title>
+                                  <v-card-text>¿Está seguro que desea desasignar la memoria al docente actual?.</v-card-text>
+                                  <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="green darken-1" flat @click="dialog = false">Cancelar</v-btn>
+                                    <v-btn color="green darken-1" flat @click="{eliminar(memoria),dialog = false}">Aceptar</v-btn>
+                                  </v-card-actions>
+                                </v-card>
+                              </v-dialog>
                           </v-list-tile>
                       </template>
                     </div>
@@ -167,10 +175,11 @@ export default {
         LoaderState
     },
     computed:{
-        ...mapState(['tesis','professors','TotalProfessors','notificationSystem','estadoAsignacion','area'])
+        ...mapState(['tesis','professors','TotalProfessors','notificationSystem','estadoAsignacion','area','estadoEliminacion'])
     },
     data() {
         return {
+            dialog:false,
             text:'',
             color:'',
             profesorActual: [],
@@ -215,9 +224,19 @@ export default {
           return true;
         }
       },
-      eliminar: function(tesisParaEliminar){
-        console.log("ola");
-        this.eliminarCorreccion({thesisId: tesisParaEliminar.id,professorId: this.profesorActual.id});
+      eliminar: async function(tesisParaEliminar){
+        
+        this.$store.commit('cambiarEstadoDialog',true);
+        await this.eliminarCorreccion({thesisId: tesisParaEliminar.id,professorId: this.profesorActual.id});
+        if(this.estadoEliminacion == true){
+            this.$toast.success('Memoria desasignada correctamente!', 'OK', this.notificationSystem.options.success);
+        }
+        else{
+          this.$toast.warning('No es posible desasignar la memoria', 'Alto', this.notificationSystem.options.warning);
+        }
+        this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
+        await this.obtenerTesis();
+        this.$store.commit('cambiarEstadoDialog',false);
       }
     },
     watch:{
@@ -374,8 +393,6 @@ export default {
   background: #fe8c00;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #f83600, #fe8c00);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #f83600, #fe8c00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
 }
 #text{
   color: rgb(151, 151, 151);

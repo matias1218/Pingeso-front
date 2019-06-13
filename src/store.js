@@ -99,6 +99,7 @@ export default new Vuex.Store({
       }
     },
     estadoAsignacion:null,
+    estadoEliminacion:null,
     area:''
   },
   mutations: {
@@ -122,6 +123,9 @@ export default new Vuex.Store({
     },
     actualizarAsignacion(state,estadoAsignacion){
       state.estadoAsignacion = estadoAsignacion;
+    },
+    actualizarEliminacion(state,estadoEliminacion){
+      state.estadoEliminacion = estadoEliminacion;
     },
     actualizarArea(state,area){
       state.area = area;
@@ -151,7 +155,24 @@ export default new Vuex.Store({
       commit('actualizarAsignacion',estado);   
     },
     eliminarCorreccion: async function({commit},data){
-      const request = await fetch('http://34.228.238.196:9090/theses/'+data.thesisId+'/removeCorrector/'+data.professorId);
+      var estado;
+      var miInit = { method: 'PUT',
+               mode: 'cors',
+               cache: 'default' };
+      await fetch('http://34.228.238.196:9090/theses/'+data.thesisId+'/removeCorrector/'+data.professorId,miInit).then(function(response) {
+        if(response.ok) {
+          console.log("eliminacion satisfactoria");
+          estado = true;
+        } else {
+          console.log('Respuesta de red OK.');
+          estado = false;
+        }
+      })
+      .catch(function(error) {
+        console.log('Hubo un problema con la petición Fetch:');
+        estado = false;
+      });
+      commit('actualizarEliminacion',estado);
     }
   }
 })
