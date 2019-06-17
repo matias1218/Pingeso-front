@@ -8,8 +8,9 @@
             aspect-ratio="2.75">    
         </v-img>
         <v-card-title primary-title>
-            <h1 class="display-1">{{topicName}}</h1>   
-        </v-card-title>
+            <h1 class="display-1">{{topicName}}</h1> 
+            <!-- <h1 justify-center class="subheading">(Restantes: {{count}}) </h1>  -->
+        </v-card-title> 
         <hr>
         <v-card-text>
             <h4>Profesores: {{teacherName}}</h4>
@@ -31,7 +32,7 @@
 <script>
 import {mapState,mapMutations, mapActions} from 'vuex'
 export default {
-    props:['teacherName','description','topicName','src','professor', 'idTopic'],
+    props:['teacherName','description','topicName','src','professor', 'idTopic','count'],
     computed:{
         profesor:{
             get(){

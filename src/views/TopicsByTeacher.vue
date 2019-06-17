@@ -18,6 +18,7 @@
                     :topicName="topic.name"
                     :description="topic.description"
                     :teacherName="addProfesores(topic.professors)"
+                    :count="topic.nocorrected"
                     :src="topic.urlImage"/>
                 </template>
                 <!--  -->

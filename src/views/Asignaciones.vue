@@ -11,17 +11,59 @@
                     <v-divider dark ></v-divider>
                 </v-flex>
                 <v-flex md7 class="elevation-2 pa-1 mt-3">
+                    <v-flex xs12>
                     <v-toolbar id="bar" dark>
                       <v-toolbar-title>Memorias sin asignar</v-toolbar-title>
                       <v-spacer></v-spacer>
-                      <v-btn icon>
-                        <v-icon>search</v-icon>
+                      
+                      <v-btn v-if="display" icon>
+                        <v-icon @click="showToolbar">keyboard_arrow_up</v-icon>
+                      </v-btn>
+                      <v-btn v-else icon>
+                        <v-icon @click="showToolbar">keyboard_arrow_down</v-icon>
                       </v-btn>
                     </v-toolbar>
+                    </v-flex>
+                    <!-- selector para filtrar memorias por topico -->
+                    <v-flex xs12>
+                    <v-toolbar v-show="display" card color="#D6D1CE" >
+                        <v-layout row wrap>
+                          <v-flex style="margin-top:23px" md6 d-flex>
+                              <v-select
+                                v-model="topicosSelection"
+                                :items="topicosSelector"
+                                name="Topico"
+                                label="Filtrar por tópico"
+                                return-object
+                                >
+                                <template slot="selection" slot-scope="data">
+                                  <v-flex >
+                                    {{ data.item.name }}
+                                  </v-flex>
+                                </template>
+                                <template slot="item" slot-scope="data">
+                                  <v-list-tile-content>
+                                    <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
+                                  </v-list-tile-content>
+                                </template>
+                                </v-select>
+                          </v-flex>
+                          <v-spacer></v-spacer>
+                          <v-flex  md5 d-flex style="margin-top:23px">
+                             <v-text-field
+                              v-model="profesorGuia" 
+                              label="Filtrar por profesor Guía"
+                              placeholder="Escriba un nombre"
+                            ></v-text-field>
+                          </v-flex>
+                        </v-layout>
+                      
+                    </v-toolbar>
+                    </v-flex>
                     <v-list>
-                        <draggable v-model="tesis" :options="{group:'people'}" style="height:600px;overflow:scroll">
-                            <template v-for="item in tesis" >
-                                <v-card :key="item.id" avatar @click="" class="elevation-0" hover>
+                        <draggable v-model="filteredTheses" :options="{group:'people'}" style="height:600px;overflow:scroll">
+                            <template v-for="item in filteredTheses" >
+                                <v-card :key="item.id" avatar @click="" class="elevation-0" >
                                     <v-card-title class="py-2">
                                       <div>
                                         <h5 class="text-sm-left" v-html="item.title"></h5>
@@ -34,11 +76,9 @@
                                           </v-chip>
                                         </div>
                                       </div>
-                                      
                                     </v-card-title>
                                     <v-divider></v-divider>   
                                 </v-card>
-                                
                             </template>
                         </draggable>
                     </v-list>
@@ -179,12 +219,23 @@ export default {
     },
     data() {
         return {
+            profesorGuia:'',
+            display: false,
+            topicosSelector:[{name:"Todos"},
+                     {name:"Biología y Medicina"},
+                     {name:"Informática Educativa"},
+                     {name:"Aplicaciones y Sistemas Escalables para la Web"},
+                     {name:"Sistemas Complejos"},
+                     {name:"Redes y Seguridad"},
+                     {name:"Interacción Humano-Computador"}],
+            topicosSelection:'Todos',
             dialog:false,
             text:'',
             color:'',
             profesorActual: [],
             nuevaAsignacion:[],
             tesisAsignadas:[],
+            filteredTheses:[]        
         };
     },
     methods:{
@@ -204,12 +255,11 @@ export default {
           this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
           await this.obtenerTesis();
           this.$store.commit('cambiarEstadoDialog',false);
-          console.log(this.estadoAsignacion);
-          if(this.estadoAsignacion == true){
-            this.$toast.success('Memoria asignada correctamente!', 'OK', this.notificationSystem.options.success);
+          if(this.estadoAsignacion.response == true){
+            this.$toast.success(this.estadoAsignacion.message, 'OK', this.notificationSystem.options.success);
           }
           else{
-            this.$toast.warning('No es posible asignar la memoria', 'Alto', this.notificationSystem.options.warning);
+            this.$toast.warning(this.estadoAsignacion.message, 'Alto', this.notificationSystem.options.warning);
           }
         }
         else{
@@ -240,22 +290,53 @@ export default {
         else{
           this.$toast.warning('No es posible desasignar la memoria', 'Alto', this.notificationSystem.options.warning);
         }
+      },
+      showToolbar: function(){
+        if(this.display == false){
+          this.display = true;
+        }
+        else{
+          this.display = false;
+        }
+        //
       }
     },
     watch:{
       profesorActual: async function(){
         this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual); 
       },
+      topicosSelection: function(){
+        // defecto
+        if(this.topicosSelection.name == 'Todos'){
+          this.filteredTheses = this.tesis
+        }
+        // seleccion
+        else{
+          this.filteredTheses = this.tesis.filter(tesis => tesis.topic == this.topicosSelection.name);
+        }
+        //console.log(fruits.filter(fruits => fruits.name == 'apples'));
+      },
+      profesorGuia: function(){
+          this.filteredTheses = this.tesis.filter(tesis => {
+            return tesis.teacherGuide.name.toLowerCase().includes(this.profesorGuia.toLowerCase());
+          })
+      }
+      
+
     },
-    mounted: function(){
+    mounted: async function(){
       // no puede haber una copia porque las tesis deben ser asignadas a mas de un profesor
       //this.copiaTesis = this.tesis;
       // obtener los profesores totales
+      this.filteredTheses = await this.tesis;
     }
 }
 </script>
 
 <style>
+#filterToolbar{
+  display: none;
+}
 #selector{
   margin-top: 17px;
 }
