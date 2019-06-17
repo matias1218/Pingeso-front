@@ -320,7 +320,7 @@ export default {
           this.filteredTheses = this.tesis.filter(tesis => {
             return tesis.teacherGuide.name.toLowerCase().includes(this.profesorGuia.toLowerCase());
           })
-      }
+      },
       
 
     },

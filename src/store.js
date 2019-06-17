@@ -102,11 +102,12 @@ export default new Vuex.Store({
     estadoEliminacion:null,
     area:'',
     comision: [],
-    fullComisiones:[]
+    noCorregido:[],
+    comisionesAsignadas:[]
   },
   mutations: {
-    actualizarFullCommission(state,estado){
-      state.fullComisiones = estado;
+    actualizarNoCorregido(state,estado){
+      state.noCorregido = estado;
     },
     cambiarEstadoDialog(state,estado){
       state.dialog = estado;
@@ -137,6 +138,9 @@ export default new Vuex.Store({
     },
     actualizarComision(state,comision){
       state.comision = comision;
+    },
+    actualizarComisionesAsignadas(state,comision){
+      state.comisionesAsignadas = comision;
     }
   },
   actions: {
@@ -162,10 +166,10 @@ export default new Vuex.Store({
       const estado = await data3.json();
       commit('actualizarAsignacion',estado);   
     },
-    obtenerFullCommission: async function({commit},data){ // aqui debe entrar nuevaAsignacion
+    obtenerNoCorregidos: async function({commit},data){ 
       const data3 = await fetch('http://34.228.238.196:9090/theses/nocorrected');
       const estado = await data3.json();
-      commit('actualizarFullCommission',estado);   
+      commit('actualizarNoCorregido',estado);   
     },
     eliminarCorreccion: async function({commit},data){
       var estado;
@@ -191,6 +195,16 @@ export default new Vuex.Store({
       const data3 = fetch('http://34.228.238.196:9090/theses/commission/'+element.id);
       const estado = await data3.json();
       commit('actualizarCommission',estado);  
+    },
+    obtenerTesisConComision: async function({commit}){
+      const data3 = await fetch('http://34.228.238.196:9090/theses/full/commission');
+      const estado = await data3.json();
+      commit('actualizarComisionesAsignadas',estado);
+    },
+    declararRevision: async function({commit},data){
+      const request = await fetch('http://34.228.238.196:9090/theses/tocorrection/'+data);
+      const estado = await request.json();
+      commit('actualizarAsignacion',estado);
     }
   }
 })
