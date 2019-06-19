@@ -77,11 +77,7 @@ import {mapActions} from 'vuex'
               title: 'Gestionar Profesores',
               icon: 'fas fa-chalkboard-teacher', 
             },
-            {
-              href: '/asignaciones',
-              title: 'Asignación de correcciones',
-              icon: 'fas fa-id-card-alt', 
-            },
+            
             {
               href: '/estadisticas',
               title: 'Ver estadísticas',
@@ -94,7 +90,7 @@ import {mapActions} from 'vuex'
             },
             {
               href:'/revision',
-              title: 'revision',
+              title: 'Revisión',
               icon: 'fas fa-user-edit'
             }
 

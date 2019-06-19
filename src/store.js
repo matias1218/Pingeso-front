@@ -205,6 +205,11 @@ export default new Vuex.Store({
       const request = await fetch('http://34.228.238.196:9090/theses/tocorrection/'+data);
       const estado = await request.json();
       commit('actualizarAsignacion',estado);
+    },
+    declararDevolucion: async function({commit},data){
+      const request = await fetch('http://34.228.238.196:9090/theses/'+data.data1+'/correction/'+data.data2);
+      const estado = await request.json();
+      commit('actualizarAsignacion',estado);
     }
   }
 })
