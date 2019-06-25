@@ -19,7 +19,7 @@
                 <v-flex >
                   <v-card-title primary-title>
                     <div>
-                      <div class="headline" style="margin:1em auto;" >Sistema de asignación de Correctores de trabajo de Título o grado</div>
+                      <div class="headline" style="margin:1em auto;" >Sistema de asignación de correctores de trabajo de título o grado</div>
                     </div>
                   </v-card-title>
                 </v-flex>
@@ -29,7 +29,7 @@
 
         <v-card-title >
             <h2  style="margin:1em auto;" 
-            >Este Sistema permite:
+            >Este sistema permite:
             </h2>
 
         </v-card-title>

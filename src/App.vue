@@ -73,9 +73,26 @@ import {mapActions} from 'vuex'
               icon: 'fa fa-download'       
             },
             {
-              href: '/gestionprofesores',
-              title: 'Gestionar Profesores',
-              icon: 'fas fa-chalkboard-teacher', 
+              
+              title: 'Gestionar ',
+              icon: 'fas fa-users-cog',
+              child: [
+                    { href: '/gestionprofesores',
+                      title: 'Gestionar Profesores',
+                      icon: 'fas fa-chalkboard-teacher'
+                    },
+                    { href: '/gestionalumnos',
+                      title: 'Gestionar Alumnos',
+                      icon: 'fas fa-address-book'
+                    },
+                    { href: '/',
+                      title: 'Gestionar Memorias',
+                      icon: 'fas fa-file-alt'
+                    }
+
+
+
+              ] 
             },
             
             {
