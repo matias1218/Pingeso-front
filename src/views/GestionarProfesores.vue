@@ -49,7 +49,7 @@
               xs12
               md4
             >
-              <v-autocomplete
+            <v-autocomplete
               ref="carga"
               v-model="carga"
               :rules="[() => !!carga || 'Carga horaria requerida']"
@@ -59,6 +59,31 @@
             ></v-autocomplete>
               
             </v-flex>
+             <v-flex
+              xs12
+              md4
+            >
+              <v-text-field
+                v-model="mail"
+                :rules="mailRules"
+                label="Mail"
+                required
+              ></v-text-field>
+
+            </v-flex>
+
+             <v-flex
+              xs12
+              md4
+            >
+              <v-text-field
+                v-model="grade"
+               label="Grado Académico"
+                required
+              ></v-text-field>
+
+            </v-flex>
+
           </v-layout>
         </v-container>
         <v-btn round color="info">Agregar</v-btn>
@@ -87,6 +112,8 @@
             <td class="text-xs-right">{{ props.item.ap }}</td>
             <td class="text-xs-right">{{ props.item.carga }}</td>
             <td class="text-xs-right">{{ props.item.espe }}</td>
+            <td class="text-xs-right">{{ props.item.mail }}</td>
+            <td class="text-xs-right">{{ props.item.grade }}</td>
             <td >
               <v-icon
                 small
@@ -149,7 +176,9 @@ export default {
         { text: 'Apellidos', value: 'ap',align: 'center' },
         { text: 'Jornada', value: 'carga', align: 'center' },
         { text: 'Tópico', value: 'espe', align: 'center' },
-        { text: 'Acciones', value: 'action', align: 'center' }
+        { text: 'Mail', value: 'mail', align: 'center' },
+        { text: 'Grado académico', value: 'grade', align: 'center' },
+         { text: 'Acciones', value: 'action', align: 'center' }
       ],
       desserts: [
         {
@@ -157,30 +186,40 @@ export default {
           ap: 'ap1',
           carga: 'jc',
           espe: 'e1',
+          mail: 'hola@usach.cl',
+          grade: 'Ingeniería Civil'
         },
         {
           name: 'Nombre 2',
           ap: 'ap2',
           carga: 'por hora',
-          espe: 'e2'
+          espe: 'e2',
+          mail: 'hola@usach.cl',
+          grade: 'Ingeniería Civil'
         },
         {
           name: 'Nombre 3',
           ap: 'ep3',
           carga: 'jc',
-          espe:'e3'
+          espe:'e3',
+          mail: 'hola@usach.cl',
+          grade: 'Ingeniería Civil'
         },
         {
           name: 'Nombre 4',
           ap: 'ep4',
           carga: 'por hora',
-          espe: 'e4'
+          espe: 'e4',
+          mail: 'hola@usach.cl',
+          grade: 'Ingeniería Civil'
         },
         {
           name: 'Nombre 5',
           ap: 'ep5',
           carga: 'jc',
-          espe: 'e5'
+          espe: 'e5',
+          mail: 'hola@usach.cl',
+          grade: 'Ingeniería Civil'
         }
       ]
           }
@@ -192,10 +231,11 @@ export default {
   
 </script>
 <style>
+
 #card1{
- margin:1em auto;
- size: 60%;
- margin-right: 100px;
+    width:130%; 
+    margin-left:15%; 
+    margin-right:15%;
 
  }
  
