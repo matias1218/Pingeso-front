@@ -16,13 +16,16 @@
       <v-stepper-content step="1">
         <v-card
           class="mb-5"
-          height="300px"
+          height="350px"
         >
         
-        <form>
-    <v-text-field
+    <v-form
+    ref="form"
+    v-model="valid"
+    lazy-validation
+  >
+      <v-text-field
       v-model="name"
-      :error-messages="nameErrors"
       :rules="nameRules"
       :counter="10"
       label="Nombre"
@@ -33,8 +36,7 @@
 
     <v-text-field
       v-model="firstLastName"
-      :error-messages="nameErrors"
-      :rules="nameRules"
+      :rules="namesRules"
       :counter="10"
       label="Primer apellido"
       required
@@ -44,8 +46,7 @@
 
     <v-text-field
       v-model="secondLastName"
-      :error-messages="nameErrors"
-      :rules="nameRules"
+      :rules="namesRules"
       :counter="10"
       label="Segundo apellido"
       required
@@ -53,19 +54,24 @@
       @blur="$v.secondLastName.$touch()"
     ></v-text-field>
 
+
     <v-text-field
       v-model="email"
-      :error-messages="emailErrors"
       :rules="emailRules"
       label="Mail"
       required
       @input="$v.email.$touch()"
       @blur="$v.email.$touch()"
     ></v-text-field>
+ 
+     <v-checkbox
+      v-model="checkbox"
+      :rules="[v => !!v || '¡Debe estar seguro para continuar!']"
+      label="¿Está seguro que desea registrar a este alumno?"
+      required
+    ></v-checkbox>
 
-
-
-  </form>
+  </v-form>
         
         
         
@@ -75,9 +81,9 @@
         </v-card>
 
         <v-btn
+          :disabled="!valid"
           color="primary"
-          @click="e1 = 2"
-        
+          @click="validate"
         >
           Siguente
         </v-btn>
@@ -117,8 +123,12 @@
         </v-btn>
 
         <v-btn flat>Cancelar</v-btn>
+
+        
+        
       </v-stepper-content>
     </v-stepper-items>
+    
   </v-stepper>
 </template>
 
@@ -132,25 +142,35 @@ export default {
     data () {
       return {
         e1: 0,
-        valid: false,
-        firstname: '',
-        lastname: '',
+        valid: true,
+        name:'',
+        firstLastName: '',
+        secondLastName: '',
         nameRules: [
           v => !!v || 'Es requerido',
           v => v.length <= 10 || 'Debe poseer como máximo 10 carácteres'
         ],
+        namesRules: [
+          v => !!v || 'Es requerido',
+          v => v.length <= 10 || 'Debe poseer como máximo 10 carácteres'
+        ]
+        ,
         email: '',
         emailRules: [
           v => !!v || 'Mail es requerido',
-          v => /.+@usach.cl.+/.test(v) || 'Ingrese mail institucional'
-        ]
+          v => /.+@.+/.test(v) || 'Ingrese mail institucional'
+        ],
+        checkbox: false
       }
     },
     methods: {
       validate () {
         if (this.$refs.form.validate()) {
           this.snackbar = true
+          this.$refs.form.reset()
+          this.e1 = 2
         }
+        
       }
       
     }  
