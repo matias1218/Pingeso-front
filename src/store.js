@@ -3,8 +3,11 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store =  new Vuex.Store({
   state: {
+    isInit: false,
+    isSignIn: false,
+    user:null,
     topicos: [],
     cosita: 'wea',
     dialog: false,
@@ -106,6 +109,15 @@ export default new Vuex.Store({
     comisionesAsignadas:[]
   },
   mutations: {
+    actualizarInit(state,estado){
+      state.isInit = estado;
+    },
+    actualizarisSignIn(state,estado){
+      state.isSignIn = estado;
+    },
+    actualizarUser(state,estado){
+      state.user = estado;
+    },
     actualizarNoCorregido(state,estado){
       state.noCorregido = estado;
     },
@@ -213,3 +225,4 @@ export default new Vuex.Store({
     }
   }
 })
+export default store

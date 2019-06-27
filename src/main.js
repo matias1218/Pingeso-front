@@ -23,6 +23,15 @@ import '@fortawesome/fontawesome-free/css/all.css' // Ensure you are using css-l
 import Vuetify from 'vuetify'
 import VueResource from 'vue-resource';
 
+import GAuth from 'vue-google-oauth2'
+const gauthOption = {
+  clientId: '321796684930-h19g04r8q4aoh805btuba5d0gl64m7h4.apps.googleusercontent.com',
+  scope: 'profile email',
+  prompt: 'select_account',
+  hosted_domain: 'usach.cl'
+}
+Vue.use(GAuth, gauthOption)
+
 kendo.culture("es-CL");
 Vue.use(GanttInstaller);
 Vue.use(VueResource);

@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-     <main>
+     <!-- <main>
        <v-container fluid fill-height class="loginOverlay" >
           <v-layout flex align-center justify-center>
             <v-flex xs11 sm6 elevation-6 >
@@ -41,7 +41,14 @@
             </v-flex>
           </v-layout>
        </v-container>
-     </main>
+     </main> -->
+     <v-container grid-list-xs>
+       <v-layout row wrap>
+         <v-flex xs12>
+           <v-btn color="success" @click="login">Acceder</v-btn>
+         </v-flex>
+       </v-layout>
+     </v-container>
    
  </div>
 </template>
@@ -49,6 +56,7 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
+import {mapState,mapActions} from 'vuex'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 Vue.use(Vuetify)
@@ -57,6 +65,9 @@ export default {
   name: 'home',
   components: {
     HelloWorld
+  },
+  computed:{
+        ...mapState(['isInit','isSignIn','user'])
   },
   data () {
       return {
@@ -75,14 +86,36 @@ export default {
           }
   },
   methods: {
-     submit () {
+        submit () {
             if (this.$refs.form.validate() ) {
               this.$refs.form.$el.submit()
             }
         },
-     clear () {
+        clear () {
             this.$refs.form.reset()
-          }
+        },
+        login(){
+          this.$gAuth.signIn()
+          .then(GoogleUser => {
+            this.$store.commit('actualizarUser',GoogleUser.w3);
+            // this.user = GoogleUser.w3;
+            // On success do something, refer to https://developers.google.com/api-client-library/javascript/reference/referencedocs#googleusergetid
+            // console.log('user', GoogleUser)
+            // console.log(GoogleUser.getId())
+            // console.log(GoogleUser.getBasicProfile())
+            // console.log(GoogleUser.getAuthResponse())
+            // GoogleUser.getId() : Get the user's unique ID string.
+            // GoogleUser.getBasicProfile() : Get the user's basic profile information.
+            // GoogleUser.getAuthResponse() : Get the response object from the user's auth session. access_token and so on
+            this.$store.commit('actualizarisSignIn',this.$gAuth.isAuthorized);
+            this.$router.push('/'); 
+            // this.isSignIn = this.$gAuth.isAuthorized;
+            // console.log(this.isSignIn);
+          })
+          .catch(error  => {
+            //on fail do something
+          })
+        },
   }
 }
   

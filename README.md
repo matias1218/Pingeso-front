@@ -21,6 +21,7 @@
 * vue-izitoast
 * vuetify
 * kendo-gantt-vue-wrapper
+* vue-google-oauth2
 
 ### Arquitectura
 
@@ -34,6 +35,7 @@ npm install vue-izitoast --save
 npm install --save @progress/kendo-ui
 npm install --save @progress/kendo-theme-default
 npm install --save @progress/kendo-gantt-vue-wrapper
+npm install vue-google-oauth2
 ```
 
 ## Project setup
