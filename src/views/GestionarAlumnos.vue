@@ -57,7 +57,7 @@
     ></v-text-field>
 
     <v-select
-      v-model="select"
+      v-model="yearOfEntry"
       :items="items"
       :rules="[v => !!v || 'El año de ingreso es requerido']"
       label="Año de ingreso"
@@ -91,9 +91,15 @@
           height="390px"
         >
         
-    <v-form
-   
-  >
+
+
+
+   <v-form
+      ref="form1"
+      v-model="valid1"
+      lazy-validation
+    >
+      
       <v-text-field
       v-model="title"
       :rules="titleRules"
@@ -109,7 +115,7 @@
     ></v-text-field>
 
     <v-select
-      v-model="select"
+      v-model="selectopic"
       :items="topics"
       :rules="[v => !!v || 'El tópico al que pertenece el trabajo de titulación es requerido']"
       label="Tópico asociado al trabajo de titulación"
@@ -130,7 +136,8 @@
         </v-card>
         <v-btn
           color="primary"
-          @click="e1 = 3"
+          :disabled="!valid1"
+          @click="validate2"
         >
           Siguiente
         </v-btn>
@@ -142,12 +149,17 @@
       
 
 
+
+
+
   <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
+     
 
       <v-flex  xs4>
-   
+      
       <v-card>
+         
         <v-list three-line>
           <template v-for="(item, index) in list">
             <v-subheader
@@ -190,21 +202,27 @@
          <v-card>
 
 
-         
+          <v-form
+            ref="form2"
+           v-model="valid2"
+          lazy-validation
+          >
        
          <v-select
-           v-model="select"
+           v-model="selectprof"
            :items="professors"
            :rules="[v => !!v || 'Seleccione al profesor asociado al trabajo de titulación']"
            label="Seleccione profesor"
            required
           ></v-select>
 
+            </v-form>
+
           </v-card>
                 </v-flex>
  
-
-
+     
+    
 
   </v-layout>
   </v-container>
@@ -213,8 +231,9 @@
 
 
         <v-btn
-          color="primary"
-          @click="e1 = 1"
+         color="primary"
+          :disabled="!valid2"
+          @click="FinalvalidateSubmit"
         >
           Siguiente
         </v-btn>
@@ -241,6 +260,10 @@ export default {
         e1: 0,
         valid: true,
         valid1:true,
+        valid2:true,
+        yearOfEntry:null,
+        selectopic: null,
+        selectprof:null,
         name:'',
         firstLastName: '',
         secondLastName: '',
@@ -284,10 +307,8 @@ export default {
        descriptionRules: [
           v => !!v || 'Es requerido'
         ],
-        select: null,
-
-
-       list: [
+  
+  list: [
           { header: 'Alumno:' },
           {
             title: 'Titulo:',
@@ -299,8 +320,16 @@ export default {
         'prof 2',
         'prof 3',
         'prof 4'
-      ]
+      ],
+      alumn : {
+            name:'',
+            firstLastName: '',
+            secondLastName: '',
+            email: '',
+            yearOfEntry: null,
+            these:null
 
+      }      
 
 
       }
@@ -309,11 +338,75 @@ export default {
       validate () {
         if (this.$refs.form.validate()) {
           this.snackbar = true
-          this.$refs.form.reset()
+           this.alumn = {
+            name: this.name,
+            firstLastName: this.firstLastName,
+            secondLastName: this.secondLastName,
+            email: this.email,
+            yearOfEntry: this.yearOfEntry,
+            these:{
+              title: this.title,
+              description: this.description ,
+              type: this.selectopic
+            },
+            professor:this.selectprof
+          }
           this.e1 = 2
+         
         }
-        console.log(this.e1);
+        console.log(this.alumn);
+      },
+      validate2 () {
+        if (this.$refs.form1.validate()) {
+          this.snackbar = true
+           this.alumn = {
+            name: this.name,
+            firstLastName: this.firstLastName,
+            secondLastName: this.secondLastName,
+            email: this.email,
+            yearOfEntry: this.yearOfEntry,
+            these:{
+              title: this.title,
+              description: this.description ,
+              type: this.selectopic
+            },
+            professor:this.selectprof
+          }
+          
+          this.e1 = 3
+         
+        }
+        console.log(this.alumn);
+      },
+
+       FinalvalidateSubmit () {
+        if (this.$refs.form2.validate()) {
+          this.snackbar = true
+           this.alumn = {
+            name: this.name,
+            firstLastName: this.firstLastName,
+            secondLastName: this.secondLastName,
+            email: this.email,
+            yearOfEntry: this.yearOfEntry,
+            these:{
+              title: this.title,
+              description: this.description ,
+              type: this.selectopic
+            },
+            professor:this.selectprof
+          }
+
+          console.log(this.alumn);
+          this.e1 = 1
+          this.$refs.form1.reset()
+          this.$refs.form.reset()
+          this.$refs.form2.reset()
+
+         
+        }
+        
       }
+      
       
     }  
   }
@@ -329,3 +422,4 @@ export default {
  
 
 </style>
+
