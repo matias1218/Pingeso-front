@@ -111,7 +111,9 @@ export default {
                 },
                 { type: "month",
                   monthHeaderTemplate: "#=kendo.toString(start, 'MMMM, yyyy')#",
-                  slotSize: 140
+                  range: {
+                    start: new Date("2019/03/01")
+                  },
                 }
             ],
             
@@ -236,7 +238,7 @@ export default {
         }
     },
     mounted: async function(){
-      this.$store.commit('cambiarEstadoDialog',true);
+      this.$store.commit('cambiarEstadoDialog',{data1:true,data2:"Obteniendo estadísticas.."});
       await this.obtenerProfesores();
       var datasource = [];
       var comision = [];
@@ -280,7 +282,7 @@ export default {
       });
       this.localdatasource = datasource;
       await this.obtenerTopicos();
-      this.$store.commit('cambiarEstadoDialog',false);
+      this.$store.commit('cambiarEstadoDialog',{data1:false,data2:""});
       this.crearGrafico();
     
       

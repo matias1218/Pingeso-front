@@ -10,7 +10,7 @@
         dark
       >
         <v-card-text >
-          Por favor espere
+          {{textoDialog}}
           <v-progress-linear
             indeterminate
             color="white"
@@ -26,7 +26,7 @@
 import {mapState} from 'vuex'
 export default {
     computed:{
-        ...mapState(['dialog']),
+        ...mapState(['dialog','textoDialog']),
         dialogo: {
             get () {
                 return this.dialog
@@ -35,7 +35,7 @@ export default {
     },
     data () {
       return {
-        //dialogo: 
+        texto:'' 
       }
     }
   }

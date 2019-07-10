@@ -38,7 +38,6 @@
                 <v-btn v-else flat icon @click="login">
                   <v-icon>account_circle</v-icon>
                 </v-btn> -->
-                
                 <div v-if="isSignIn">
                   <v-menu  v-model="popup" :close-on-content-click="false" :nudge-width="200" :nudge-bottom="40" :nudge-left="330" offset-x transition="scale-transition" origin="top right">
                     <template  v-slot:activator="{ on }">
@@ -125,7 +124,7 @@
 <script>
 import { SidebarMenu } from 'vue-sidebar-menu'
 import {mapState,mapActions} from 'vuex'
-
+import LoaderState from '@/components/Loader.vue'
  export default {
    name: 'app',
    components: {

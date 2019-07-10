@@ -11,6 +11,7 @@ const store =  new Vuex.Store({
     topicos: [],
     cosita: 'wea',
     dialog: false,
+    textoDialog: '',
     tesis: [],
     professors: [],
     TotalProfessors:[],
@@ -122,7 +123,8 @@ const store =  new Vuex.Store({
       state.noCorregido = estado;
     },
     cambiarEstadoDialog(state,estado){
-      state.dialog = estado;
+      state.dialog = estado.data1;
+      state.textoDialog = estado.data2;
     },
     actualizarTopico(state,topico){
       state.topicos = topico;
@@ -157,11 +159,11 @@ const store =  new Vuex.Store({
   },
   actions: {
     obtenerTopicos: async function({commit,state}){
-      commit('cambiarEstadoDialog',true);  // en teoria esto deberia hacerse con un mutation
+      commit('cambiarEstadoDialog',{data1:true,data2:"Obteniendo tópicos.."});  // en teoria esto deberia hacerse con un mutation
       const data = await fetch('http://34.228.238.196:9090/topics/all');
       const topico = await data.json();
       commit('actualizarTopico',topico);
-      commit('cambiarEstadoDialog',false);
+      commit('cambiarEstadoDialog',{data1:false,data2:""});
     },
     obtenerTesis: async function({commit}){
       const data = await fetch('http://34.228.238.196:9090/theses/missing/commission');

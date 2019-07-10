@@ -46,9 +46,11 @@
        <v-layout row wrap>
          <v-flex xs12>
            <v-btn color="success" @click="login">Acceder</v-btn>
+           <loader-state></loader-state>
          </v-flex>
        </v-layout>
      </v-container>
+     
    
  </div>
 </template>
@@ -56,15 +58,16 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
+import LoaderState from '@/components/Loader.vue'
 import {mapState,mapActions} from 'vuex'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 Vue.use(Vuetify)
-
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    HelloWorld,
+    LoaderState
   },
   computed:{
         ...mapState(['isInit','isSignIn','user'])
@@ -116,6 +119,24 @@ export default {
             //on fail do something
           })
         },
+  },
+  mounted: function(){
+    if(this.isInit == false){
+      this.$store.commit('cambiarEstadoDialog',{data1:true,data2:"Verificando autenticación"});
+    }
+    else{
+      //
+    }
+  },
+  watch:{
+    isInit: function(){
+      if(this.isInit == false){
+          this.$store.commit('cambiarEstadoDialog',{data1:true,data2:"Redireccionando"});
+      }
+      else{
+          this.$store.commit('cambiarEstadoDialog',{data1:false,data2:""});
+      }
+    }
   }
 }
   
