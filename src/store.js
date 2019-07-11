@@ -244,6 +244,17 @@ const store =  new Vuex.Store({
       const request = await fetch('http://34.228.238.196:9090/theses/'+data.data1+'/correction/'+data.data2);
       const estado = await request.json();
       commit('actualizarAsignacion',estado);
+    },
+    editarMemoria: async function({commit},data){
+      await fetch('http://34.228.238.196:9090/theses/1', {
+        method: 'PUT', // or 'PUT'
+        body: JSON.stringify(data), // data can be `string` or {object}!
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      }).then(res => res.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => console.log('Success:', response));
     }
   }
 })
