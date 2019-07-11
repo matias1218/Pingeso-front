@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout row wrap justify-center>
-
+      
       <v-card id="card1">
       <v-card-title>
           Gestionar Profesores    
@@ -129,13 +129,6 @@
             <td >
               <v-icon
                 small
-                class="mr-2"
-                @click="editItem(props.item)"
-              >
-                edit
-              </v-icon>
-              <v-icon
-                small
                 @click="deleteItem(props.item)"
               >
                 delete
@@ -183,8 +176,14 @@ export default {
   data () {
       return {
      //Elementos form
+     editedItem: {
+        firstname: '',
+        firstLastName: '',
+        email: ''
+      },
     cargas: ['Completa', 'Por hora'],
     valid: true,
+    editedIndex: -1,
     id:0,
     firstname: '',
     lastname: '',
@@ -224,11 +223,7 @@ export default {
           }
   },
   methods: {
-    editItem (item) {
-        this.editedIndex = this.professors.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-      },
+   
      deleteItem (item) {
         const index = this.professors.indexOf(item)
         confirm('¿seguro que desea eliminar a este profesor/a?') && this.professors.splice(index, 1) 
@@ -248,9 +243,8 @@ export default {
        if (this.$refs.form.validate()) {
           this.snackbar = true  
           confirm('¿seguro que desea agregar a este profesor/a?') && this.$http.post('http://34.228.238.196:9090/professors',profesor).then(response=>{
-		       	// get body data
-              console.log(response.body)
-              console.log(profesor)
+		       	
+               
               this.professors.push(profesor)
               this.$refs.form.reset()
 		    }, response=>{

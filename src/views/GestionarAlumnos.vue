@@ -270,6 +270,7 @@ export default {
           })
     
     console.log(this.professors)
+    console.log(data);
       
      
     },
@@ -403,16 +404,48 @@ export default {
             },
             professor:this.selectprof
           }
-
           this.e1 = 1
-          this.$refs.form1.reset()
-          this.$refs.form.reset()
-          this.$refs.form2.reset()
-
+          
+          this.agregarAlumno()
          
         }
         
-      }
+      },
+       agregarAlumno: async function(){
+        const alumno = {
+                name: this.name,
+                firstLastName: this.firstLastName,
+                secondLastName: this.secondLastName,
+                email: this.email,
+                yearOfEntry: this.yearOfEntry,
+                codeProgram : 1363
+        }
+        const these = {
+            title: this.title,
+            description: this.description ,
+            studentId:2,
+            guideId:70,
+            topicId:2
+        }
+  
+        confirm('¿seguro que desea agregar a este alumno/a?') && this.$http.post('http://34.228.238.196:9090/students/create',alumno).then(response=>{
+		       	
+             this.$refs.form1.reset()
+             this.$refs.form.reset()
+             this.$refs.form2.reset()
+		    }, response=>{
+		    	
+        });
+        this.$http.post('http://34.228.238.196:9090/theses/create',these).then(response=>{
+		     this.$refs.form1.reset()
+             this.$refs.form.reset()
+             this.$refs.form2.reset()
+		    }, response=>{
+		    	
+        });
+       
+        }
+      
       
       
     }  
