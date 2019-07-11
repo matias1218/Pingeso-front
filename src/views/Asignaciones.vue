@@ -157,7 +157,7 @@
                                   <v-card-actions>
                                     <v-spacer></v-spacer>
                                     <v-btn color="green darken-1" flat @click="dialog = false">Cancelar</v-btn>
-                                    <v-btn color="green darken-1" flat @click="{eliminar(memoria),dialog = false}">Aceptar</v-btn>
+                                    <v-btn color="green darken-1" flat @click="{eliminar(memoria.id),dialog = false}">Aceptar</v-btn>
                                   </v-card-actions>
                                 </v-card>
                               </v-dialog>
@@ -249,12 +249,12 @@ export default {
         // verificar si la asignacion se hace al profesor guia
         if(this.verificarGuia(tesisParaAsignar[0].teacherGuide.id,this.profesorActual.id)){
           this.verificarGuia(tesisParaAsignar[0].teacherGuide.id,this.profesorActual.id);
-          this.$store.commit('cambiarEstadoDialog',true);
+          this.$store.commit('cambiarEstadoDialog',{data1:true,data2:"Asignando.."});
           await this.asignarCorreccion({data1: tesisParaAsignar[0].id, data2: this.profesorActual.id});
-          
+          console.log("wea")
           this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
           await this.obtenerTesis();
-          this.$store.commit('cambiarEstadoDialog',false);
+          this.$store.commit('cambiarEstadoDialog',{data1:false,data2:""});
           if(this.estadoAsignacion.response == true){
             this.$toast.success(this.estadoAsignacion.message, 'OK', this.notificationSystem.options.success);
           }
@@ -278,12 +278,12 @@ export default {
       },
       eliminar: async function(tesisParaEliminar){
         
-        this.$store.commit('cambiarEstadoDialog',true);
-        await this.eliminarCorreccion({thesisId: tesisParaEliminar.id,professorId: this.profesorActual.id});
+        this.$store.commit('cambiarEstadoDialog',{data1:true,data2:"Eliminando.."});
+        await this.eliminarCorreccion({thesisId: tesisParaEliminar,professorId: this.profesorActual.id});
         
         this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
         await this.obtenerTesis();
-        this.$store.commit('cambiarEstadoDialog',false);
+        this.$store.commit('cambiarEstadoDialog',{data1:false,data2:""});
         if(this.estadoEliminacion == true){
             this.$toast.success('Memoria desasignada correctamente!', 'OK', this.notificationSystem.options.success);
         }

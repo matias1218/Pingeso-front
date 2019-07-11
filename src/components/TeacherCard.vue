@@ -53,13 +53,13 @@ export default {
     methods:{
         ...mapActions(['obtenerTesis','obtenerProfesores']),
         onClick: async function(profe){
-            this.$store.commit('cambiarEstadoDialog',true);
+            this.$store.commit('cambiarEstadoDialog',{data1:true,data2:"Obteniendo datos.."});
             await this.obtenerTesis();
             await this.obtenerProfesores();
             this.$store.commit('getProfessorsId',this.professor);
             this.$store.commit('actualizarArea',this.topicName);
             this.$router.push('/asignaciones');
-            this.$store.commit('cambiarEstadoDialog',false);
+            this.$store.commit('cambiarEstadoDialog',{data1:false,data2:""});
             
             
         },

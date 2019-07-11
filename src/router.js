@@ -10,6 +10,7 @@ import Portada from './views/Portada.vue'
 import Calendar from './views/Calendar.vue'
 import Revision from './views/Revision.vue'
 import Alumnos from './views/GestionarAlumnos.vue'
+import Memorias from './views/GestionarMemorias.vue'
 import store from './store'
 
 
@@ -103,6 +104,14 @@ let router = new Router({
       path:'/gestionalumnos',
       name: 'Gestionalumnos',
       component: Alumnos,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path:'/gestionMemorias',
+      name: 'Gestionmemorias',
+      component: Memorias,
       meta: {
         requiresAuth: true
       }

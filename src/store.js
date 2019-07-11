@@ -176,8 +176,28 @@ const store =  new Vuex.Store({
       commit('actualizarProfesores',profesores);
     },
     asignarCorreccion: async function({commit},data){ // aqui debe entrar nuevaAsignacion
-      const data3 = await fetch('http://34.228.238.196:9090/students/'+data.data1+'/assign/'+data.data2);
-      const estado = await data3.json();
+      //const data3 = await fetch('http://34.228.238.196:9090/students/'+data.data1+'/assign/'+data.data2);
+      //console.log(data3.json());
+      //const estado = await data3.json();
+      var estado;
+      var miInit = { method: 'GET',
+               mode: 'cors',
+               cache: 'default' };
+      await fetch('http://34.228.238.196:9090/students/'+data.data1+'/assign/'+data.data2,miInit).then(function(response) {
+        if(response.ok) {
+          console.log("Asignacion exitosa");
+          console.log(response);
+          estado = true;
+        } else {
+          console.log('Respuesta de red OK.');
+          console.log(response);
+          estado = false;
+        }
+      })
+      .catch(function(error) {
+        console.log('Hubo un problema con la petición Fetch asignacion');
+        estado = false;
+      });
       commit('actualizarAsignacion',estado);   
     },
     obtenerNoCorregidos: async function({commit},data){ 
