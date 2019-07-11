@@ -252,9 +252,28 @@
 // @ is an alias to /src
 import Vue from 'vue'
 import Vuetify from 'vuetify'
+import {mapState,mapActions} from 'vuex'
 Vue.use(Vuetify)
 
 export default {
+    async mounted(){
+      const data = await fetch('http://34.228.238.196:9090/topics/all');
+      const data1 = await fetch('http://34.228.238.196:9090/professors/all');
+      const topico = await data.json();
+      const profesores = await data1.json();
+
+      profesores.map((item) => {
+           this.professors.push(item.name + ' ' + item.firstLastName + ' ' + item.secondLastName); 
+          }),
+      topico.map((item) => {
+           this.topics.push(item.name); 
+          })
+    
+    console.log(this.professors)
+    console.log(data);
+      
+     
+    },
     data () {
       return {
         e1: 0,
@@ -293,14 +312,7 @@ export default {
         title:'',
         description: '',
         checkbox1: false,
-        topics: [
-       'topico1',  
-       'topico2',  
-       'topico3',  
-       'topico4',
-       'topico5',
-       'topico6'
-      ],
+        topics: [],
        titleRules: [
           v => !!v || 'Es requerido'
         ],
@@ -309,18 +321,13 @@ export default {
         ],
   
   list: [
-          { header: 'Alumno:' },
+          { header: 'Alumno:'  },
           {
             title: 'Titulo:',
-            subtitle: "<span class='text--primary'>Descripción:</span> Descripción "
+            subtitle: "<span class='text--primary'>Descripción:</span> " 
           }
         ],
-      professors: [
-        'prof 1',
-        'prof 2',
-        'prof 3',
-        'prof 4'
-      ],
+      professors: [],
       alumn : {
             name:'',
             firstLastName: '',
@@ -350,11 +357,13 @@ export default {
               type: this.selectopic
             },
             professor:this.selectprof
-          }
+          },
+        
+         
           this.e1 = 2
          
         }
-        console.log(this.alumn);
+      
       },
       validate2 () {
         if (this.$refs.form1.validate()) {
@@ -395,17 +404,48 @@ export default {
             },
             professor:this.selectprof
           }
-
-          console.log(this.alumn);
           this.e1 = 1
-          this.$refs.form1.reset()
-          this.$refs.form.reset()
-          this.$refs.form2.reset()
-
+          
+          this.agregarAlumno()
          
         }
         
-      }
+      },
+       agregarAlumno: async function(){
+        const alumno = {
+                name: this.name,
+                firstLastName: this.firstLastName,
+                secondLastName: this.secondLastName,
+                email: this.email,
+                yearOfEntry: this.yearOfEntry,
+                codeProgram : 1363
+        }
+        const these = {
+            title: this.title,
+            description: this.description ,
+            studentId:2,
+            guideId:70,
+            topicId:2
+        }
+  
+        confirm('¿seguro que desea agregar a este alumno/a?') && this.$http.post('http://34.228.238.196:9090/students/create',alumno).then(response=>{
+		       	
+             this.$refs.form1.reset()
+             this.$refs.form.reset()
+             this.$refs.form2.reset()
+		    }, response=>{
+		    	
+        });
+        this.$http.post('http://34.228.238.196:9090/theses/create',these).then(response=>{
+		     this.$refs.form1.reset()
+             this.$refs.form.reset()
+             this.$refs.form2.reset()
+		    }, response=>{
+		    	
+        });
+       
+        }
+      
       
       
     }  
