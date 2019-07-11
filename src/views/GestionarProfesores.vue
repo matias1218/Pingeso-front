@@ -6,7 +6,8 @@
       <v-card-title>
           Gestionar Profesores    
         </v-card-title>
-        <v-form v-model="valid">
+        <v-form v-model="valid"
+         ref="form">
         <v-container>
           <v-layout>
             <v-flex
@@ -79,6 +80,7 @@
               <v-text-field
                 v-model="grade"
                label="Grado Académico"
+               :rules="[() => !!grade || 'Grado académico requerido']"
                 required
               ></v-text-field>
 
@@ -86,7 +88,7 @@
 
           </v-layout>
         </v-container>
-        <v-btn round color="info">Agregar</v-btn>
+        <v-btn round color="info" @click="agregarProfesor">Agregar</v-btn>
       </v-form>
       
       <v-card>
@@ -101,12 +103,22 @@
             hide-details
           ></v-text-field>
         </v-card-title>
+         <v-progress-circular
+                        v-if="professors.length === 0 "
+                        :size="70"
+                        :width="7"
+                        color="primary"
+                        indeterminate
+                    ></v-progress-circular>  
         <v-data-table
+          v-if="professors.length !== 0 "
           :headers="headers"
-          :items="desserts"
+          :items="professors"
           :search="search"
           
         >
+       
+
           <template v-slot:items="props">
             <td>{{ props.item.name }}</td>
             <td class="text-xs-right">{{ props.item.ap }}</td>
@@ -150,13 +162,42 @@ Vue.use(Vuetify)
 
 export default {
   name: 'gestionprofesores',
+  async mounted(){
+      const data1 = await fetch('http://34.228.238.196:9090/professors/all');
+      const profesores = await data1.json();
+
+      profesores.map((item) => {
+           this.professors.push({
+               id: item.id,
+               name: item.name ,
+               ap: item.firstLastName + ' ' + item.secondLastName,
+               carga: 'Completa',
+               espe: 'e1',
+               mail: item.email,
+               grade: 'Ingeniería Civil'
+            }); 
+          }),
+   
+    console.log(this.professors)
+  }, 
   data () {
       return {
      //Elementos form
-     cargas: ['Completa', 'Por hora'],
-     valid: false,
+    cargas: ['Completa', 'Por hora'],
+    valid: true,
+    id:0,
     firstname: '',
     lastname: '',
+    ap:'',
+    carga: null,
+    espe:'',
+    mail:'',
+    grade:'',
+    professors: [],
+    mailRules: [
+          v => !!v || 'Mail es requerido',
+          v => /.+@.+/.test(v) || 'Ingrese mail institucional'
+        ],
     nameRules: [
       v => !!v || 'Es requerido',
     ],
@@ -179,53 +220,45 @@ export default {
         { text: 'Mail', value: 'mail', align: 'center' },
         { text: 'Grado académico', value: 'grade', align: 'center' },
          { text: 'Acciones', value: 'action', align: 'center' }
-      ],
-      desserts: [
-        {
-          name: 'Nombre 1',
-          ap: 'ap1',
-          carga: 'jc',
-          espe: 'e1',
-          mail: 'hola@usach.cl',
-          grade: 'Ingeniería Civil'
-        },
-        {
-          name: 'Nombre 2',
-          ap: 'ap2',
-          carga: 'por hora',
-          espe: 'e2',
-          mail: 'hola@usach.cl',
-          grade: 'Ingeniería Civil'
-        },
-        {
-          name: 'Nombre 3',
-          ap: 'ep3',
-          carga: 'jc',
-          espe:'e3',
-          mail: 'hola@usach.cl',
-          grade: 'Ingeniería Civil'
-        },
-        {
-          name: 'Nombre 4',
-          ap: 'ep4',
-          carga: 'por hora',
-          espe: 'e4',
-          mail: 'hola@usach.cl',
-          grade: 'Ingeniería Civil'
-        },
-        {
-          name: 'Nombre 5',
-          ap: 'ep5',
-          carga: 'jc',
-          espe: 'e5',
-          mail: 'hola@usach.cl',
-          grade: 'Ingeniería Civil'
-        }
       ]
           }
   },
   methods: {
-  
+    editItem (item) {
+        this.editedIndex = this.professors.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.dialog = true
+      },
+     deleteItem (item) {
+        const index = this.professors.indexOf(item)
+        confirm('¿seguro que desea eliminar a este profesor/a?') && this.professors.splice(index, 1) 
+        && this.$http.delete('http://34.228.238.196:9090/professors/'+ item.id).then(response=>{
+		    }, response=>{
+		    	
+		    });
+         
+      },
+   agregarProfesor: async function(){
+        const profesor = {
+                name: this.firstname,
+                firstLastName: this.lastname,
+                secondLastName: ' ',
+                email: this.mail
+        }
+       if (this.$refs.form.validate()) {
+          this.snackbar = true  
+          confirm('¿seguro que desea agregar a este profesor/a?') && this.$http.post('http://34.228.238.196:9090/professors',profesor).then(response=>{
+		       	// get body data
+              console.log(response.body)
+              console.log(profesor)
+              this.professors.push(profesor)
+              this.$refs.form.reset()
+		    }, response=>{
+		    	
+        });
+       }
+        }
+
   }
 }
   
