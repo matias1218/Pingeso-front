@@ -84,7 +84,7 @@
                                 </v-select>
                             </v-flex>
                         </v-layout>
-                    </v-container>
+                </v-container>
                 <!-- <v-flex xs12 sm6 md4>
                   <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
                 </v-flex>
@@ -93,7 +93,7 @@
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field> -->
-                </v-flex>
+                
               </v-layout>
             </v-container>
           </v-card-text>
@@ -158,6 +158,7 @@ import iziToast from 'izitoast';
     },
     data () {
       return {
+        dialog:false,
         search: '',
         topicosSelection: '',
         profesoresSelection:'',
@@ -260,7 +261,7 @@ import iziToast from 'izitoast';
     mounted: async function(){
         this.$store.commit('cambiarEstadoDialog',{data1:true,data2:"Obteniendo Memorias.."});
         await this.obtenerTesis();
-        this.$store.commit('cambiarEstadoDialog',{data1:true,data2:"Obteniendo Profesores.."});
+        
         await this.obtenerProfesores();
         this.$store.commit('cambiarEstadoDialog',{data1:false,data2:""});
     },

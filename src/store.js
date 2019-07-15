@@ -107,7 +107,9 @@ const store =  new Vuex.Store({
     area:'',
     comision: [],
     noCorregido:[],
-    comisionesAsignadas:[]
+    comisionesAsignadas:[],
+    totalAlumnos: [],
+    totalTesis: []
   },
   mutations: {
     actualizarInit(state,estado){
@@ -155,6 +157,12 @@ const store =  new Vuex.Store({
     },
     actualizarComisionesAsignadas(state,comision){
       state.comisionesAsignadas = comision;
+    },
+    actualizarTotalAlumnos(state,alumnos){
+      state.totalAlumnos = alumnos;
+    },
+    actualizarTotalTesis(state,tesis){
+      state.totalTesis = tesis;
     }
   },
   actions: {
@@ -255,6 +263,16 @@ const store =  new Vuex.Store({
       }).then(res => res.json())
       .catch(error => console.error('Error:', error))
       .then(response => console.log('Success:', response));
+    },
+    obtenerAlumnos: async function({commit},data){
+      const request = await fetch('http://34.228.238.196:9090/students/all');
+      const estado = await request.json();
+      commit('actualizarTotalAlumnos',estado);
+    },
+    obtenerTesisAll: async function({commit},data){
+      const request = await fetch('http://34.228.238.196:9090/theses/all');
+      const estado = await request.json();
+      commit('actualizarTotalTesis',estado);
     }
   }
 })

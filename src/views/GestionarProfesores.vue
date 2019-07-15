@@ -1,5 +1,12 @@
 <template>
   <v-container>
+    <v-layout row wrap>
+      
+    
+    <v-flex md12>
+        <h1 class="display-2 font-weight-thin mb-4 white--text">Gestión de profesores</h1>
+        <v-divider dark ></v-divider>
+    </v-flex>
     <v-layout row wrap justify-center>
       
       <v-card id="card1">
@@ -143,6 +150,7 @@
         </v-data-table>
       </v-card>
       </v-card>
+    </v-layout>
     </v-layout>
   </v-container>
 </template>

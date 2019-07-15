@@ -251,10 +251,11 @@ export default {
           this.verificarGuia(tesisParaAsignar[0].teacherGuide.id,this.profesorActual.id);
           this.$store.commit('cambiarEstadoDialog',{data1:true,data2:"Asignando.."});
           await this.asignarCorreccion({data1: tesisParaAsignar[0].id, data2: this.profesorActual.id});
-          console.log("wea")
           this.tesisAsignadas = await this.obtenerAsignaciones(this.profesorActual);
           await this.obtenerTesis();
           this.$store.commit('cambiarEstadoDialog',{data1:false,data2:""});
+          this.$toast.success("Profesor asignado correctamente", 'OK', this.notificationSystem.options.success);
+
           if(this.estadoAsignacion.response == true){
             this.$toast.success(this.estadoAsignacion.message, 'OK', this.notificationSystem.options.success);
           }

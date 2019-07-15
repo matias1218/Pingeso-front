@@ -1,6 +1,7 @@
 <template>
     <v-container grid-list-xs>
         <v-layout row wrap>
+          <loader-state></loader-state>
             <!-- lista de no entregados para correccion -->
             <v-flex md12 >
                 <h1 class="display-2 font-weight-thin mb-4 white--text">Estado de Memorias</h1>
@@ -46,6 +47,7 @@
                         <td align-center justify-center row fill-height>
                             <v-icon
                             medium
+                            large color="teal darken-2"
                             @click="editItem(props.item)"
                             >
                             arrow_forward
@@ -67,12 +69,11 @@
                         <v-card-text>
                           <v-container grid-list-md>
                             <v-layout wrap>
-                              <v-card-title class="headline">Confirmar recibo de memoria?</v-card-title>
+                              <v-card-title class="headline">¿Confirmar recibo de memoria?</v-card-title>
                               <v-card-text>¿Esta seguro que desea confirmar el recibo de la memoria seleccionada?.</v-card-text>
                             </v-layout>
                           </v-container>
                         </v-card-text>
-
                         <v-card-actions>
                           <v-spacer></v-spacer>
                           <v-btn color="blue darken-1" flat @click="dialog = false">Cancelar</v-btn>
@@ -115,6 +116,7 @@
                         <td class="text-xs-right">{{ props.item.protein }}</td> -->
                         <td align-center justify-center row fill-height>
                             <v-icon
+                            large color="teal darken-2"
                             medium
                             @click="editItemProfessors(props.item)"
                             >
@@ -167,6 +169,7 @@
                         
                     </v-data-table>
                 </div>
+                 
             </v-flex>
         </v-layout>
     </v-container>
@@ -174,8 +177,12 @@
 
 <script>
 import {mapState, mapMutations, mapActions} from 'vuex'
+import LoaderState from '@/components/Loader.vue'
 import iziToast from 'izitoast';
   export default {
+    components:{
+      LoaderState
+    },
     data: () => ({
       devueltas:[],
       profesorQueDevuelveID:'',
@@ -340,10 +347,12 @@ import iziToast from 'izitoast';
       }
     },
     mounted: async function(){
+        this.$store.commit('cambiarEstadoDialog',{data1:true,data2:"Cargando datos.."});
         await this.obtenerNoCorregidos();
         await this.obtenerTesisConComision();
         await this.obtenerEntregados();
         await this.obtenerDevueltas();
+        this.$store.commit('cambiarEstadoDialog',{data1:false,data2:""});
     },
   }
 </script>
