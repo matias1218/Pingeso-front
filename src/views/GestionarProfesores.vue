@@ -98,6 +98,44 @@
         <v-btn round color="info" @click="agregarProfesor">Agregar</v-btn>
       </v-form>
       
+
+
+
+
+      <v-dialog v-model="dialog" max-width="500px">
+        <v-card>
+          <v-card-title>
+            <span class="headline">Editar Profesor/a</span>
+          </v-card-title>
+
+          <v-card-text>
+            <v-container grid-list-md>
+              <v-layout wrap>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="editedItem.name" label="Nombre"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="editedItem.ap" label="Apellidos"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="editedItem.mail" label="Email"></v-text-field>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" flat @click="close">Cancelar</v-btn>
+            <v-btn color="blue darken-1" flat @click="save">Guardar</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+
+
+
+
       <v-card>
         <v-card-title>
           Listado Profesores
@@ -135,11 +173,20 @@
             <td class="text-xs-right">{{ props.item.grade }}</td>
             <td >
               <v-icon
+            small
+            class="mr-2"
+            @click="editItem(props.item)"
+          >
+            edit
+          </v-icon>
+
+              <v-icon
                 small
                 @click="deleteItem(props.item)"
               >
                 delete
               </v-icon>
+              
             </td>
           </template>
           <template v-slot:no-results>
@@ -185,10 +232,12 @@ export default {
       return {
      //Elementos form
      editedItem: {
-        firstname: '',
-        firstLastName: '',
-        email: ''
+        id:0,
+        name: '',
+        ap: '',
+        mail: ''
       },
+    dialog: false,
     cargas: ['Completa', 'Por hora'],
     valid: true,
     editedIndex: -1,
@@ -230,8 +279,54 @@ export default {
       ]
           }
   },
+   computed: {
+      formTitle () {
+        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      }
+  },
   methods: {
-   
+     editItem (item) {
+        this.editedIndex = this.professors.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.editedItem.id = item.id
+        this.dialog = true
+      },close () {
+        this.dialog = false
+        setTimeout(() => {
+          this.editedItem = Object.assign({}, this.professors)
+          this.editedIndex = -1
+        }, 300)
+        console.log(this.editedItem)
+      },
+
+      save () {
+        if (this.editedIndex > -1) {
+          Object.assign(this.professors[this.editedIndex], this.editedItem)
+          const profesor = {
+                name: this.editedItem.name,
+                firstLastName: this.editedItem.ap,
+                secondLastName: ' ',
+                email: this.editedItem.mail
+          }
+          this.$http.put('http://34.228.238.196:9090/professors/'+ this.editedItem.id, profesor).then(response=>{
+		    }, response=>{
+		    }); 
+        } else {
+          this.professors.push(this.editedItem)
+          const profesor = {
+                name: this.editedItem.name,
+                firstLastName: this.editedItem.ap,
+                secondLastName: ' ',
+                email: this.editedItem.mail
+          }
+          this.$http.put('http://34.228.238.196:9090/professors/'+ this.editedItem.id,profesor).then(response=>{
+		    }, response=>{
+          console.log(this.editedItem.id)
+		    });
+        }
+        this.close()
+      },
+
      deleteItem (item) {
         const index = this.professors.indexOf(item)
         confirm('¿seguro que desea eliminar a este profesor/a?') && this.professors.splice(index, 1) 
