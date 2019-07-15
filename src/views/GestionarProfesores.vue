@@ -21,6 +21,7 @@
               xs12
               md4
             >
+
               <v-text-field
                 v-model="firstname"
                 :rules="nameRules"
@@ -45,12 +46,25 @@
               xs12
               md4
             >
-              <v-text-field
-                v-model="topic"
+            <v-select
+                v-model="topicosSelection"
+                :items="topicos"
                 :rules="topicRules"
+                name="Topico"
                 label="Tópico"
-                required
-              ></v-text-field>
+                return-object
+                >
+                <template slot="selection" slot-scope="data">
+                    <v-flex >
+                    {{ data.item.name }}
+                    </v-flex>
+                </template>
+                <template slot="item" slot-scope="data">
+                    <v-list-tile-content>
+                    <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
+                    </v-list-tile-content>
+                </template>
+            </v-select>
 
             </v-flex>
             <v-flex
@@ -91,6 +105,8 @@
                 required
               ></v-text-field>
 
+
+
             </v-flex>
 
           </v-layout>
@@ -111,6 +127,9 @@
           <v-card-text>
             <v-container grid-list-md>
               <v-layout wrap>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="editedItem.imageUrl" label="Url Foto"></v-text-field>
+                </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="editedItem.name" label="Nombre"></v-text-field>
                 </v-flex>
@@ -165,7 +184,8 @@
        
 
           <template v-slot:items="props">
-            <td>{{ props.item.name }}</td>
+            <td>  <img :src="(props.item.imageUrl)" ></td>
+            <td class="text-xs-right">{{ props.item.name }}</td>
             <td class="text-xs-right">{{ props.item.ap }}</td>
             <td class="text-xs-right">{{ props.item.carga }}</td>
             <td class="text-xs-right">{{ props.item.espe }}</td>
@@ -206,18 +226,22 @@
 // @ is an alias to /src
 import Vue from 'vue'
 import Vuetify from 'vuetify'
+import {mapState,mapActions} from 'vuex'
+
 Vue.use(Vuetify)
 
 export default {
   name: 'gestionprofesores',
   async mounted(){
+      await this.obtenerTopicos();
       const data1 = await fetch('http://34.228.238.196:9090/professors/all');
       const profesores = await data1.json();
 
       profesores.map((item) => {
            this.professors.push({
                id: item.id,
-               name: item.name ,
+               name: item.name  ,
+               imageUrl: item.imageUrl,
                ap: item.firstLastName + ' ' + item.secondLastName,
                carga: 'Completa',
                espe: 'e1',
@@ -233,15 +257,19 @@ export default {
      //Elementos form
      editedItem: {
         id:0,
+        imageUrl: '',
         name: '',
         ap: '',
         mail: ''
       },
+    imageUrl:'',
     dialog: false,
     cargas: ['Completa', 'Por hora'],
+    topicosSelection:null,
     valid: true,
     editedIndex: -1,
     id:0,
+    mytopics:[],
     firstname: '',
     lastname: '',
     ap:'',
@@ -265,11 +293,12 @@ export default {
           search: '',
       headers: [
         {
-          text: 'Nombre',
+          text: 'Foto',
           align: 'center',
           sortable: false,
-          value: 'name'
+          value: 'imageUrl'
         },
+        { text: 'Nombre', value: 'name',align: 'center' },
         { text: 'Apellidos', value: 'ap',align: 'center' },
         { text: 'Jornada', value: 'carga', align: 'center' },
         { text: 'Tópico', value: 'espe', align: 'center' },
@@ -280,11 +309,13 @@ export default {
           }
   },
    computed: {
+     ...mapState(['topicos']),
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       }
   },
   methods: {
+    ...mapActions(['obtenerTopicos']),
      editItem (item) {
         this.editedIndex = this.professors.indexOf(item)
         this.editedItem = Object.assign({}, item)
@@ -296,7 +327,6 @@ export default {
           this.editedItem = Object.assign({}, this.professors)
           this.editedIndex = -1
         }, 300)
-        console.log(this.editedItem)
       },
 
       save () {
@@ -306,10 +336,12 @@ export default {
                 name: this.editedItem.name,
                 firstLastName: this.editedItem.ap,
                 secondLastName: ' ',
-                email: this.editedItem.mail
+                email: this.editedItem.mail,
+                imageUrl: this.editedItem.imageUrl
           }
           this.$http.put('http://34.228.238.196:9090/professors/'+ this.editedItem.id, profesor).then(response=>{
 		    }, response=>{
+          console.log(this.editedItem.imageUrl)
 		    }); 
         } else {
           this.professors.push(this.editedItem)
@@ -317,7 +349,8 @@ export default {
                 name: this.editedItem.name,
                 firstLastName: this.editedItem.ap,
                 secondLastName: ' ',
-                email: this.editedItem.mail
+                email: this.editedItem.mail,
+                imageUrl: this.editedItem.imageUrl
           }
           this.$http.put('http://34.228.238.196:9090/professors/'+ this.editedItem.id,profesor).then(response=>{
 		    }, response=>{
@@ -329,26 +362,42 @@ export default {
 
      deleteItem (item) {
         const index = this.professors.indexOf(item)
+        console.log(item.id)
         confirm('¿seguro que desea eliminar a este profesor/a?') && this.professors.splice(index, 1) 
         && this.$http.delete('http://34.228.238.196:9090/professors/'+ item.id).then(response=>{
 		    }, response=>{
-		    	
+		    	console.log(item.id)
 		    });
          
       },
    agregarProfesor: async function(){
+     const mytopics=[{
+        id: this.topicosSelection.id,
+        name: this.topicosSelection.name,
+        description: this.topicosSelection.description,
+        urlImage: this.topicosSelection.urlImage 
+      }]
         const profesor = {
                 name: this.firstname,
                 firstLastName: this.lastname,
                 secondLastName: ' ',
-                email: this.mail
+                email: this.mail,
+                imageUrl:'',
+                topics: mytopics
         }
        if (this.$refs.form.validate()) {
           this.snackbar = true  
           confirm('¿seguro que desea agregar a este profesor/a?') && this.$http.post('http://34.228.238.196:9090/professors',profesor).then(response=>{
-		       	
-               
-              this.professors.push(profesor)
+		       	  const profs = {
+               name: this.firstname,
+               ap: this.lastname,
+               carga: 'Completa',
+               espe: 'e1',
+               mail: this.mail,
+               grade: 'Ingeniería Civil'
+              } 
+              this.mytopics = []
+              this.professors.push(profs)
               this.$refs.form.reset()
 		    }, response=>{
 		    	
