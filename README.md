@@ -45,14 +45,14 @@ npm install --save @progress/kendo-gantt-vue-wrapper
 ![entidades](https://vuex.vuejs.org/vuex.png)
 
 
-## Descarga de dependencias
+### Descarga de dependencias
 ```
-npm install
+$ npm install
 ```
 
 ###  Compilaciones y recargas reactivas para desarrollo
 ```
-npm run serve
+$ npm run serve
 ```
 
 
